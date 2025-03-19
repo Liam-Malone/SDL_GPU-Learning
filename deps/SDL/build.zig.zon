@@ -1,0 +1,25 @@
+// © 2024 Carl Åstholm
+// SPDX-License-Identifier: MIT
+
+.{
+    .name = "sdl",
+    .version = "0.1.5+SDL-3.2.4",
+    .minimum_zig_version = "0.12.1",
+    .dependencies = .{
+        .sdl_linux_deps = .{
+            .url = "git+https://github.com/castholm/SDL_linux_deps.git#a8a96da850ff3c3d5c337c7dac95babc1e4aedf9",
+            .hash = "122086d80e01bd753df35351c1203e08a0a18f4a4ae3b4a10e91b000ab4c15e51ea0",
+            .lazy = true,
+        },
+    },
+    .paths = .{
+        "include/",
+        "src/",
+        "build.zig",
+        "build.zig.zon",
+
+        "LICENSES/",
+        "LICENSE.txt",
+        "REUSE.toml",
+    },
+}

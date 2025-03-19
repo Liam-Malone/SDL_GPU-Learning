@@ -1,0 +1,19 @@
+.{
+    .name = .GPU,
+    .version = "0.0.0",
+    .fingerprint = 0x2b2eba78ab010270,
+    .dependencies = .{
+        .sdl = .{
+            .path = "deps/SDL",
+            .lazy = false,
+        },
+    },
+    .paths = .{
+        "src",
+        "deps",
+        "LICENSE",
+        "README.md",
+        "flake.nix",
+        "flake.lock",
+    },
+}
