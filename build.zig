@@ -12,7 +12,7 @@ pub fn build(b: *std.Build) !void {
             false;
 
     const exe = b.addExecutable(.{
-        .name = "GPU",
+        .name = "SDL_GPU",
         .root_module = b.createModule(.{
             .root_source_file = b.path("src/main.zig"),
             .target = target,
@@ -29,6 +29,7 @@ pub fn build(b: *std.Build) !void {
     });
     const sdl_lib = sdl_dep.artifact("SDL3");
     exe.root_module.linkLibrary(sdl_lib);
+    exe.root_module.linkSystemLibrary("vulkan", .{});
 
     b.installArtifact(exe);
 

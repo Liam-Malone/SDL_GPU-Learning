@@ -1,64 +1,66 @@
-pub const __builtin_bswap16 = @import("std").zig.c_builtins.__builtin_bswap16;
-pub const __builtin_bswap32 = @import("std").zig.c_builtins.__builtin_bswap32;
-pub const __builtin_bswap64 = @import("std").zig.c_builtins.__builtin_bswap64;
-pub const __builtin_signbit = @import("std").zig.c_builtins.__builtin_signbit;
-pub const __builtin_signbitf = @import("std").zig.c_builtins.__builtin_signbitf;
-pub const __builtin_popcount = @import("std").zig.c_builtins.__builtin_popcount;
-pub const __builtin_ctz = @import("std").zig.c_builtins.__builtin_ctz;
-pub const __builtin_clz = @import("std").zig.c_builtins.__builtin_clz;
-pub const __builtin_sqrt = @import("std").zig.c_builtins.__builtin_sqrt;
-pub const __builtin_sqrtf = @import("std").zig.c_builtins.__builtin_sqrtf;
-pub const __builtin_sin = @import("std").zig.c_builtins.__builtin_sin;
-pub const __builtin_sinf = @import("std").zig.c_builtins.__builtin_sinf;
-pub const __builtin_cos = @import("std").zig.c_builtins.__builtin_cos;
-pub const __builtin_cosf = @import("std").zig.c_builtins.__builtin_cosf;
-pub const __builtin_exp = @import("std").zig.c_builtins.__builtin_exp;
-pub const __builtin_expf = @import("std").zig.c_builtins.__builtin_expf;
-pub const __builtin_exp2 = @import("std").zig.c_builtins.__builtin_exp2;
-pub const __builtin_exp2f = @import("std").zig.c_builtins.__builtin_exp2f;
-pub const __builtin_log = @import("std").zig.c_builtins.__builtin_log;
-pub const __builtin_logf = @import("std").zig.c_builtins.__builtin_logf;
-pub const __builtin_log2 = @import("std").zig.c_builtins.__builtin_log2;
-pub const __builtin_log2f = @import("std").zig.c_builtins.__builtin_log2f;
-pub const __builtin_log10 = @import("std").zig.c_builtins.__builtin_log10;
-pub const __builtin_log10f = @import("std").zig.c_builtins.__builtin_log10f;
-pub const __builtin_abs = @import("std").zig.c_builtins.__builtin_abs;
-pub const __builtin_labs = @import("std").zig.c_builtins.__builtin_labs;
-pub const __builtin_llabs = @import("std").zig.c_builtins.__builtin_llabs;
-pub const __builtin_fabs = @import("std").zig.c_builtins.__builtin_fabs;
-pub const __builtin_fabsf = @import("std").zig.c_builtins.__builtin_fabsf;
-pub const __builtin_floor = @import("std").zig.c_builtins.__builtin_floor;
-pub const __builtin_floorf = @import("std").zig.c_builtins.__builtin_floorf;
-pub const __builtin_ceil = @import("std").zig.c_builtins.__builtin_ceil;
-pub const __builtin_ceilf = @import("std").zig.c_builtins.__builtin_ceilf;
-pub const __builtin_trunc = @import("std").zig.c_builtins.__builtin_trunc;
-pub const __builtin_truncf = @import("std").zig.c_builtins.__builtin_truncf;
-pub const __builtin_round = @import("std").zig.c_builtins.__builtin_round;
-pub const __builtin_roundf = @import("std").zig.c_builtins.__builtin_roundf;
-pub const __builtin_strlen = @import("std").zig.c_builtins.__builtin_strlen;
-pub const __builtin_strcmp = @import("std").zig.c_builtins.__builtin_strcmp;
-pub const __builtin_object_size = @import("std").zig.c_builtins.__builtin_object_size;
-pub const __builtin___memset_chk = @import("std").zig.c_builtins.__builtin___memset_chk;
-pub const __builtin_memset = @import("std").zig.c_builtins.__builtin_memset;
-pub const __builtin___memcpy_chk = @import("std").zig.c_builtins.__builtin___memcpy_chk;
-pub const __builtin_memcpy = @import("std").zig.c_builtins.__builtin_memcpy;
-pub const __builtin_expect = @import("std").zig.c_builtins.__builtin_expect;
-pub const __builtin_nanf = @import("std").zig.c_builtins.__builtin_nanf;
-pub const __builtin_huge_valf = @import("std").zig.c_builtins.__builtin_huge_valf;
-pub const __builtin_inff = @import("std").zig.c_builtins.__builtin_inff;
-pub const __builtin_isnan = @import("std").zig.c_builtins.__builtin_isnan;
-pub const __builtin_isinf = @import("std").zig.c_builtins.__builtin_isinf;
-pub const __builtin_isinf_sign = @import("std").zig.c_builtins.__builtin_isinf_sign;
-pub const __has_builtin = @import("std").zig.c_builtins.__has_builtin;
-pub const __builtin_assume = @import("std").zig.c_builtins.__builtin_assume;
-pub const __builtin_unreachable = @import("std").zig.c_builtins.__builtin_unreachable;
-pub const __builtin_constant_p = @import("std").zig.c_builtins.__builtin_constant_p;
-pub const __builtin_mul_overflow = @import("std").zig.c_builtins.__builtin_mul_overflow;
+const std = @import("std");
+
+pub const __builtin_bswap16 = std.zig.c_builtins.__builtin_bswap16;
+pub const __builtin_bswap32 = std.zig.c_builtins.__builtin_bswap32;
+pub const __builtin_bswap64 = std.zig.c_builtins.__builtin_bswap64;
+pub const __builtin_signbit = std.zig.c_builtins.__builtin_signbit;
+pub const __builtin_signbitf = std.zig.c_builtins.__builtin_signbitf;
+pub const __builtin_popcount = std.zig.c_builtins.__builtin_popcount;
+pub const __builtin_ctz = std.zig.c_builtins.__builtin_ctz;
+pub const __builtin_clz = std.zig.c_builtins.__builtin_clz;
+pub const __builtin_sqrt = std.zig.c_builtins.__builtin_sqrt;
+pub const __builtin_sqrtf = std.zig.c_builtins.__builtin_sqrtf;
+pub const __builtin_sin = std.zig.c_builtins.__builtin_sin;
+pub const __builtin_sinf = std.zig.c_builtins.__builtin_sinf;
+pub const __builtin_cos = std.zig.c_builtins.__builtin_cos;
+pub const __builtin_cosf = std.zig.c_builtins.__builtin_cosf;
+pub const __builtin_exp = std.zig.c_builtins.__builtin_exp;
+pub const __builtin_expf = std.zig.c_builtins.__builtin_expf;
+pub const __builtin_exp2 = std.zig.c_builtins.__builtin_exp2;
+pub const __builtin_exp2f = std.zig.c_builtins.__builtin_exp2f;
+pub const __builtin_log = std.zig.c_builtins.__builtin_log;
+pub const __builtin_logf = std.zig.c_builtins.__builtin_logf;
+pub const __builtin_log2 = std.zig.c_builtins.__builtin_log2;
+pub const __builtin_log2f = std.zig.c_builtins.__builtin_log2f;
+pub const __builtin_log10 = std.zig.c_builtins.__builtin_log10;
+pub const __builtin_log10f = std.zig.c_builtins.__builtin_log10f;
+pub const __builtin_abs = std.zig.c_builtins.__builtin_abs;
+pub const __builtin_labs = std.zig.c_builtins.__builtin_labs;
+pub const __builtin_llabs = std.zig.c_builtins.__builtin_llabs;
+pub const __builtin_fabs = std.zig.c_builtins.__builtin_fabs;
+pub const __builtin_fabsf = std.zig.c_builtins.__builtin_fabsf;
+pub const __builtin_floor = std.zig.c_builtins.__builtin_floor;
+pub const __builtin_floorf = std.zig.c_builtins.__builtin_floorf;
+pub const __builtin_ceil = std.zig.c_builtins.__builtin_ceil;
+pub const __builtin_ceilf = std.zig.c_builtins.__builtin_ceilf;
+pub const __builtin_trunc = std.zig.c_builtins.__builtin_trunc;
+pub const __builtin_truncf = std.zig.c_builtins.__builtin_truncf;
+pub const __builtin_round = std.zig.c_builtins.__builtin_round;
+pub const __builtin_roundf = std.zig.c_builtins.__builtin_roundf;
+pub const __builtin_strlen = std.zig.c_builtins.__builtin_strlen;
+pub const __builtin_strcmp = std.zig.c_builtins.__builtin_strcmp;
+pub const __builtin_object_size = std.zig.c_builtins.__builtin_object_size;
+pub const __builtin___memset_chk = std.zig.c_builtins.__builtin___memset_chk;
+pub const __builtin_memset = std.zig.c_builtins.__builtin_memset;
+pub const __builtin___memcpy_chk = std.zig.c_builtins.__builtin___memcpy_chk;
+pub const __builtin_memcpy = std.zig.c_builtins.__builtin_memcpy;
+pub const __builtin_expect = std.zig.c_builtins.__builtin_expect;
+pub const __builtin_nanf = std.zig.c_builtins.__builtin_nanf;
+pub const __builtin_huge_valf = std.zig.c_builtins.__builtin_huge_valf;
+pub const __builtin_inff = std.zig.c_builtins.__builtin_inff;
+pub const __builtin_isnan = std.zig.c_builtins.__builtin_isnan;
+pub const __builtin_isinf = std.zig.c_builtins.__builtin_isinf;
+pub const __builtin_isinf_sign = std.zig.c_builtins.__builtin_isinf_sign;
+pub const __has_builtin = std.zig.c_builtins.__has_builtin;
+pub const __builtin_assume = std.zig.c_builtins.__builtin_assume;
+pub const __builtin_unreachable = std.zig.c_builtins.__builtin_unreachable;
+pub const __builtin_constant_p = std.zig.c_builtins.__builtin_constant_p;
+pub const __builtin_mul_overflow = std.zig.c_builtins.__builtin_mul_overflow;
 pub const struct___va_list_tag_1 = extern struct {
-    gp_offset: c_uint = @import("std").mem.zeroes(c_uint),
-    fp_offset: c_uint = @import("std").mem.zeroes(c_uint),
-    overflow_arg_area: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
-    reg_save_area: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
+    gp_offset: c_uint = std.mem.zeroes(c_uint),
+    fp_offset: c_uint = std.mem.zeroes(c_uint),
+    overflow_arg_area: ?*anyopaque = std.mem.zeroes(?*anyopaque),
+    reg_save_area: ?*anyopaque = std.mem.zeroes(?*anyopaque),
 };
 pub const __builtin_va_list = [1]struct___va_list_tag_1;
 pub const __gnuc_va_list = __builtin_va_list;
@@ -98,7 +100,7 @@ pub const __off_t = c_long;
 pub const __off64_t = c_long;
 pub const __pid_t = c_int;
 pub const __fsid_t = extern struct {
-    __val: [2]c_int = @import("std").mem.zeroes([2]c_int),
+    __val: [2]c_int = std.mem.zeroes([2]c_int),
 };
 pub const __clock_t = c_long;
 pub const __rlim_t = c_ulong;
@@ -163,11 +165,11 @@ pub extern fn strcoll(__s1: [*c]const u8, __s2: [*c]const u8) c_int;
 pub extern fn strxfrm(__dest: [*c]u8, __src: [*c]const u8, __n: c_ulong) c_ulong;
 pub const struct___locale_data_2 = opaque {};
 pub const struct___locale_struct = extern struct {
-    __locales: [13]?*struct___locale_data_2 = @import("std").mem.zeroes([13]?*struct___locale_data_2),
-    __ctype_b: [*c]const c_ushort = @import("std").mem.zeroes([*c]const c_ushort),
-    __ctype_tolower: [*c]const c_int = @import("std").mem.zeroes([*c]const c_int),
-    __ctype_toupper: [*c]const c_int = @import("std").mem.zeroes([*c]const c_int),
-    __names: [13][*c]const u8 = @import("std").mem.zeroes([13][*c]const u8),
+    __locales: [13]?*struct___locale_data_2 = std.mem.zeroes([13]?*struct___locale_data_2),
+    __ctype_b: [*c]const c_ushort = std.mem.zeroes([*c]const c_ushort),
+    __ctype_tolower: [*c]const c_int = std.mem.zeroes([*c]const c_int),
+    __ctype_toupper: [*c]const c_int = std.mem.zeroes([*c]const c_int),
+    __names: [13][*c]const u8 = std.mem.zeroes([13][*c]const u8),
 };
 pub const __locale_t = [*c]struct___locale_struct;
 pub const locale_t = __locale_t;
@@ -226,8 +228,8 @@ const union_unnamed_3 = extern union {
     __wchb: [4]u8,
 };
 pub const __mbstate_t = extern struct {
-    __count: c_int = @import("std").mem.zeroes(c_int),
-    __value: union_unnamed_3 = @import("std").mem.zeroes(union_unnamed_3),
+    __count: c_int = std.mem.zeroes(c_int),
+    __value: union_unnamed_3 = std.mem.zeroes(union_unnamed_3),
 };
 pub const mbstate_t = __mbstate_t;
 pub const struct__IO_FILE = opaque {};
@@ -311,8 +313,8 @@ pub extern fn ungetwc(__wc: wint_t, __stream: ?*__FILE) wint_t;
 pub extern fn wcsftime(noalias __s: [*c]wchar_t, __maxsize: usize, noalias __format: [*c]const wchar_t, noalias __tp: ?*const struct_tm) usize;
 pub const __gwchar_t = c_int;
 pub const imaxdiv_t = extern struct {
-    quot: c_long = @import("std").mem.zeroes(c_long),
-    rem: c_long = @import("std").mem.zeroes(c_long),
+    quot: c_long = std.mem.zeroes(c_long),
+    rem: c_long = std.mem.zeroes(c_long),
 };
 pub extern fn imaxabs(__n: intmax_t) intmax_t;
 pub extern fn imaxdiv(__numer: intmax_t, __denom: intmax_t) imaxdiv_t;
@@ -351,8 +353,8 @@ pub const SDL_Time = Sint64;
 
 // deps/SDL/include/SDL3/SDL_stdinc.h:203:42: warning: ignoring StaticAssert declaration
 pub const struct_SDL_alignment_test = extern struct {
-    a: Uint8 = @import("std").mem.zeroes(Uint8),
-    b: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
+    a: Uint8 = std.mem.zeroes(Uint8),
+    b: ?*anyopaque = std.mem.zeroes(?*anyopaque),
 };
 pub const SDL_alignment_test = struct_SDL_alignment_test;
 // deps/SDL/include/SDL3/SDL_stdinc.h:203:42: warning: ignoring StaticAssert declaration
@@ -586,13 +588,13 @@ pub const SDL_ASSERTION_ALWAYS_IGNORE: c_int = 4;
 pub const enum_SDL_AssertState = c_uint;
 pub const SDL_AssertState = enum_SDL_AssertState;
 pub const struct_SDL_AssertData = extern struct {
-    always_ignore: bool = @import("std").mem.zeroes(bool),
-    trigger_count: c_uint = @import("std").mem.zeroes(c_uint),
-    condition: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    filename: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    linenum: c_int = @import("std").mem.zeroes(c_int),
-    function: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    next: [*c]const struct_SDL_AssertData = @import("std").mem.zeroes([*c]const struct_SDL_AssertData),
+    always_ignore: bool = std.mem.zeroes(bool),
+    trigger_count: c_uint = std.mem.zeroes(c_uint),
+    condition: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    filename: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    linenum: c_int = std.mem.zeroes(c_int),
+    function: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    next: [*c]const struct_SDL_AssertData = std.mem.zeroes([*c]const struct_SDL_AssertData),
 };
 pub const SDL_AssertData = struct_SDL_AssertData;
 pub extern fn SDL_ReportAssertion(data: [*c]SDL_AssertData, func: [*c]const u8, file: [*c]const u8, line: c_int) SDL_AssertState;
@@ -615,14 +617,14 @@ pub const SDL_ASYNCIO_CANCELED: c_int = 2;
 pub const enum_SDL_AsyncIOResult = c_uint;
 pub const SDL_AsyncIOResult = enum_SDL_AsyncIOResult;
 pub const struct_SDL_AsyncIOOutcome = extern struct {
-    asyncio: ?*SDL_AsyncIO = @import("std").mem.zeroes(?*SDL_AsyncIO),
-    type: SDL_AsyncIOTaskType = @import("std").mem.zeroes(SDL_AsyncIOTaskType),
-    result: SDL_AsyncIOResult = @import("std").mem.zeroes(SDL_AsyncIOResult),
-    buffer: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
-    offset: Uint64 = @import("std").mem.zeroes(Uint64),
-    bytes_requested: Uint64 = @import("std").mem.zeroes(Uint64),
-    bytes_transferred: Uint64 = @import("std").mem.zeroes(Uint64),
-    userdata: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
+    asyncio: ?*SDL_AsyncIO = std.mem.zeroes(?*SDL_AsyncIO),
+    type: SDL_AsyncIOTaskType = std.mem.zeroes(SDL_AsyncIOTaskType),
+    result: SDL_AsyncIOResult = std.mem.zeroes(SDL_AsyncIOResult),
+    buffer: ?*anyopaque = std.mem.zeroes(?*anyopaque),
+    offset: Uint64 = std.mem.zeroes(Uint64),
+    bytes_requested: Uint64 = std.mem.zeroes(Uint64),
+    bytes_transferred: Uint64 = std.mem.zeroes(Uint64),
+    userdata: ?*anyopaque = std.mem.zeroes(?*anyopaque),
 };
 pub const SDL_AsyncIOOutcome = struct_SDL_AsyncIOOutcome;
 pub const struct_SDL_AsyncIOQueue = opaque {};
@@ -645,7 +647,7 @@ pub extern fn SDL_UnlockSpinlock(lock: [*c]SDL_SpinLock) void;
 pub extern fn SDL_MemoryBarrierReleaseFunction() void;
 pub extern fn SDL_MemoryBarrierAcquireFunction() void;
 pub const struct_SDL_AtomicInt = extern struct {
-    value: c_int = @import("std").mem.zeroes(c_int),
+    value: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_AtomicInt = struct_SDL_AtomicInt;
 pub extern fn SDL_CompareAndSwapAtomicInt(a: [*c]SDL_AtomicInt, oldval: c_int, newval: c_int) bool;
@@ -653,7 +655,7 @@ pub extern fn SDL_SetAtomicInt(a: [*c]SDL_AtomicInt, v: c_int) c_int;
 pub extern fn SDL_GetAtomicInt(a: [*c]SDL_AtomicInt) c_int;
 pub extern fn SDL_AddAtomicInt(a: [*c]SDL_AtomicInt, v: c_int) c_int;
 pub const struct_SDL_AtomicU32 = extern struct {
-    value: Uint32 = @import("std").mem.zeroes(Uint32),
+    value: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_AtomicU32 = struct_SDL_AtomicU32;
 pub extern fn SDL_CompareAndSwapAtomicU32(a: [*c]SDL_AtomicU32, oldval: Uint32, newval: Uint32) bool;
@@ -813,9 +815,9 @@ pub const SDL_INIT_STATUS_UNINITIALIZING: c_int = 3;
 pub const enum_SDL_InitStatus = c_uint;
 pub const SDL_InitStatus = enum_SDL_InitStatus;
 pub const struct_SDL_InitState = extern struct {
-    status: SDL_AtomicInt = @import("std").mem.zeroes(SDL_AtomicInt),
-    thread: SDL_ThreadID = @import("std").mem.zeroes(SDL_ThreadID),
-    reserved: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
+    status: SDL_AtomicInt = std.mem.zeroes(SDL_AtomicInt),
+    thread: SDL_ThreadID = std.mem.zeroes(SDL_ThreadID),
+    reserved: ?*anyopaque = std.mem.zeroes(?*anyopaque),
 };
 pub const SDL_InitState = struct_SDL_InitState;
 pub extern fn SDL_ShouldInit(state: [*c]SDL_InitState) bool;
@@ -835,13 +837,13 @@ pub const SDL_IO_SEEK_END: c_int = 2;
 pub const enum_SDL_IOWhence = c_uint;
 pub const SDL_IOWhence = enum_SDL_IOWhence;
 pub const struct_SDL_IOStreamInterface = extern struct {
-    version: Uint32 = @import("std").mem.zeroes(Uint32),
-    size: ?*const fn (?*anyopaque) callconv(.c) Sint64 = @import("std").mem.zeroes(?*const fn (?*anyopaque) callconv(.c) Sint64),
-    seek: ?*const fn (?*anyopaque, Sint64, SDL_IOWhence) callconv(.c) Sint64 = @import("std").mem.zeroes(?*const fn (?*anyopaque, Sint64, SDL_IOWhence) callconv(.c) Sint64),
-    read: ?*const fn (?*anyopaque, ?*anyopaque, usize, [*c]SDL_IOStatus) callconv(.c) usize = @import("std").mem.zeroes(?*const fn (?*anyopaque, ?*anyopaque, usize, [*c]SDL_IOStatus) callconv(.c) usize),
-    write: ?*const fn (?*anyopaque, ?*const anyopaque, usize, [*c]SDL_IOStatus) callconv(.c) usize = @import("std").mem.zeroes(?*const fn (?*anyopaque, ?*const anyopaque, usize, [*c]SDL_IOStatus) callconv(.c) usize),
-    flush: ?*const fn (?*anyopaque, [*c]SDL_IOStatus) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]SDL_IOStatus) callconv(.c) bool),
-    close: ?*const fn (?*anyopaque) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque) callconv(.c) bool),
+    version: Uint32 = std.mem.zeroes(Uint32),
+    size: ?*const fn (?*anyopaque) callconv(.c) Sint64 = std.mem.zeroes(?*const fn (?*anyopaque) callconv(.c) Sint64),
+    seek: ?*const fn (?*anyopaque, Sint64, SDL_IOWhence) callconv(.c) Sint64 = std.mem.zeroes(?*const fn (?*anyopaque, Sint64, SDL_IOWhence) callconv(.c) Sint64),
+    read: ?*const fn (?*anyopaque, ?*anyopaque, usize, [*c]SDL_IOStatus) callconv(.c) usize = std.mem.zeroes(?*const fn (?*anyopaque, ?*anyopaque, usize, [*c]SDL_IOStatus) callconv(.c) usize),
+    write: ?*const fn (?*anyopaque, ?*const anyopaque, usize, [*c]SDL_IOStatus) callconv(.c) usize = std.mem.zeroes(?*const fn (?*anyopaque, ?*const anyopaque, usize, [*c]SDL_IOStatus) callconv(.c) usize),
+    flush: ?*const fn (?*anyopaque, [*c]SDL_IOStatus) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]SDL_IOStatus) callconv(.c) bool),
+    close: ?*const fn (?*anyopaque) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque) callconv(.c) bool),
 };
 pub const SDL_IOStreamInterface = struct_SDL_IOStreamInterface;
 // deps/SDL/include/SDL3/SDL_stdinc.h:203:42: warning: ignoring StaticAssert declaration
@@ -911,9 +913,9 @@ pub const enum_SDL_AudioFormat = c_uint;
 pub const SDL_AudioFormat = enum_SDL_AudioFormat;
 pub const SDL_AudioDeviceID = Uint32;
 pub const struct_SDL_AudioSpec = extern struct {
-    format: SDL_AudioFormat = @import("std").mem.zeroes(SDL_AudioFormat),
-    channels: c_int = @import("std").mem.zeroes(c_int),
-    freq: c_int = @import("std").mem.zeroes(c_int),
+    format: SDL_AudioFormat = std.mem.zeroes(SDL_AudioFormat),
+    channels: c_int = std.mem.zeroes(c_int),
+    freq: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_AudioSpec = struct_SDL_AudioSpec;
 pub const struct_SDL_AudioStream = opaque {};
@@ -1136,7 +1138,83 @@ pub const SDL_PIXELFORMAT_RGBX32: c_int = 374740996;
 pub const SDL_PIXELFORMAT_XRGB32: c_int = 375789572;
 pub const SDL_PIXELFORMAT_BGRX32: c_int = 370546692;
 pub const SDL_PIXELFORMAT_XBGR32: c_int = 371595268;
-pub const enum_SDL_PixelFormat = c_uint;
+
+// @edit: convert to Zig enum
+//pub const enum_SDL_PixelFormat = c_uint;
+pub const enum_SDL_PixelFormat = enum(c_uint) {
+    unknown = SDL_PIXELFORMAT_UNKNOWN,
+    index1lsb = SDL_PIXELFORMAT_INDEX1LSB,
+    index1msb = SDL_PIXELFORMAT_INDEX1MSB,
+    index2lsb = SDL_PIXELFORMAT_INDEX2LSB,
+    index2msb = SDL_PIXELFORMAT_INDEX2MSB,
+    index4lsb = SDL_PIXELFORMAT_INDEX4LSB,
+    index4msb = SDL_PIXELFORMAT_INDEX4MSB,
+    index8 = SDL_PIXELFORMAT_INDEX8,
+    rgb332 = SDL_PIXELFORMAT_RGB332,
+    xrgb4444 = SDL_PIXELFORMAT_XRGB4444,
+    xbgr4444 = SDL_PIXELFORMAT_XBGR4444,
+    xrgb1555 = SDL_PIXELFORMAT_XRGB1555,
+    xbgr1555 = SDL_PIXELFORMAT_XBGR1555,
+    argb4444 = SDL_PIXELFORMAT_ARGB4444,
+    rgba4444 = SDL_PIXELFORMAT_RGBA4444,
+    abgr4444 = SDL_PIXELFORMAT_ABGR4444,
+    bgra4444 = SDL_PIXELFORMAT_BGRA4444,
+    argb1555 = SDL_PIXELFORMAT_ARGB1555,
+    rgba5551 = SDL_PIXELFORMAT_RGBA5551,
+    abgr1555 = SDL_PIXELFORMAT_ABGR1555,
+    bgra5551 = SDL_PIXELFORMAT_BGRA5551,
+    rgb565 = SDL_PIXELFORMAT_RGB565,
+    bgr565 = SDL_PIXELFORMAT_BGR565,
+    rgb24 = SDL_PIXELFORMAT_RGB24,
+    bgr24 = SDL_PIXELFORMAT_BGR24,
+    xrgb8888 = SDL_PIXELFORMAT_XRGB8888,
+    rgbx8888 = SDL_PIXELFORMAT_RGBX8888,
+    xbgr8888 = SDL_PIXELFORMAT_XBGR8888,
+    bgrx8888 = SDL_PIXELFORMAT_BGRX8888,
+    argb8888 = SDL_PIXELFORMAT_ARGB8888,
+    rgba8888 = SDL_PIXELFORMAT_RGBA8888,
+    abgr8888 = SDL_PIXELFORMAT_ABGR8888,
+    bgra8888 = SDL_PIXELFORMAT_BGRA8888,
+    xrgb2101010 = SDL_PIXELFORMAT_XRGB2101010,
+    xbgr2101010 = SDL_PIXELFORMAT_XBGR2101010,
+    argb2101010 = SDL_PIXELFORMAT_ARGB2101010,
+    abgr2101010 = SDL_PIXELFORMAT_ABGR2101010,
+    // rgb48 = SDL_PIXELFORMAT_RGB48,
+    // bgr48 = SDL_PIXELFORMAT_BGR48,
+    // rgba64 = SDL_PIXELFORMAT_RGBA64,
+    // argb64 = SDL_PIXELFORMAT_ARGB64,
+    // bgra64 = SDL_PIXELFORMAT_BGRA64,
+    // abgr64 = SDL_PIXELFORMAT_ABGR64,
+    // rgb48_float = SDL_PIXELFORMAT_RGB48_FLOAT,
+    // bgr48_float = SDL_PIXELFORMAT_BGR48_FLOAT,
+    // rgba64_float = SDL_PIXELFORMAT_RGBA64_FLOAT,
+    // argb64_float = SDL_PIXELFORMAT_ARGB64_FLOAT,
+    // bgra64_float = SDL_PIXELFORMAT_BGRA64_FLOAT,
+    // abgr64_float = SDL_PIXELFORMAT_ABGR64_FLOAT,
+    // rgb96_float = SDL_PIXELFORMAT_RGB96_FLOAT,
+    // bgr96_float = SDL_PIXELFORMAT_BGR96_FLOAT,
+    // rgba128_float = SDL_PIXELFORMAT_RGBA128_FLOAT,
+    // argb128_float = SDL_PIXELFORMAT_ARGB128_FLOAT,
+    // bgra128_float = SDL_PIXELFORMAT_BGRA128_FLOAT,
+    // abgr128_float = SDL_PIXELFORMAT_ABGR128_FLOAT,
+    yv12 = SDL_PIXELFORMAT_YV12,
+    iyuv = SDL_PIXELFORMAT_IYUV,
+    yuy2 = SDL_PIXELFORMAT_YUY2,
+    uyvy = SDL_PIXELFORMAT_UYVY,
+    yvyu = SDL_PIXELFORMAT_YVYU,
+    nv12 = SDL_PIXELFORMAT_NV12,
+    nv21 = SDL_PIXELFORMAT_NV21,
+    p010 = SDL_PIXELFORMAT_P010,
+    external_oes = SDL_PIXELFORMAT_EXTERNAL_OES,
+    // rgba32 = SDL_PIXELFORMAT_RGBA32,
+    // argb32 = SDL_PIXELFORMAT_ARGB32,
+    // bgra32 = SDL_PIXELFORMAT_BGRA32,
+    // abgr32 = SDL_PIXELFORMAT_ABGR32,
+    // rgbx32 = SDL_PIXELFORMAT_RGBX32,
+    // xrgb32 = SDL_PIXELFORMAT_XRGB32,
+    // bgrx32 = SDL_PIXELFORMAT_BGRX32,
+    // xbgr32 = SDL_PIXELFORMAT_XBGR32,
+};
 pub const SDL_PixelFormat = enum_SDL_PixelFormat;
 pub const SDL_COLOR_TYPE_UNKNOWN: c_int = 0;
 pub const SDL_COLOR_TYPE_RGB: c_int = 1;
@@ -1224,43 +1302,43 @@ pub const SDL_COLORSPACE_YUV_DEFAULT: c_int = 570426566;
 pub const enum_SDL_Colorspace = c_uint;
 pub const SDL_Colorspace = enum_SDL_Colorspace;
 pub const struct_SDL_Color = extern struct {
-    r: Uint8 = @import("std").mem.zeroes(Uint8),
-    g: Uint8 = @import("std").mem.zeroes(Uint8),
-    b: Uint8 = @import("std").mem.zeroes(Uint8),
-    a: Uint8 = @import("std").mem.zeroes(Uint8),
+    r: Uint8 = std.mem.zeroes(Uint8),
+    g: Uint8 = std.mem.zeroes(Uint8),
+    b: Uint8 = std.mem.zeroes(Uint8),
+    a: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_Color = struct_SDL_Color;
 pub const struct_SDL_FColor = extern struct {
-    r: f32 = @import("std").mem.zeroes(f32),
-    g: f32 = @import("std").mem.zeroes(f32),
-    b: f32 = @import("std").mem.zeroes(f32),
-    a: f32 = @import("std").mem.zeroes(f32),
+    r: f32 = std.mem.zeroes(f32),
+    g: f32 = std.mem.zeroes(f32),
+    b: f32 = std.mem.zeroes(f32),
+    a: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_FColor = struct_SDL_FColor;
 pub const struct_SDL_Palette = extern struct {
-    ncolors: c_int = @import("std").mem.zeroes(c_int),
-    colors: [*c]SDL_Color = @import("std").mem.zeroes([*c]SDL_Color),
-    version: Uint32 = @import("std").mem.zeroes(Uint32),
-    refcount: c_int = @import("std").mem.zeroes(c_int),
+    ncolors: c_int = std.mem.zeroes(c_int),
+    colors: [*c]SDL_Color = std.mem.zeroes([*c]SDL_Color),
+    version: Uint32 = std.mem.zeroes(Uint32),
+    refcount: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_Palette = struct_SDL_Palette;
 pub const struct_SDL_PixelFormatDetails = extern struct {
-    format: SDL_PixelFormat = @import("std").mem.zeroes(SDL_PixelFormat),
-    bits_per_pixel: Uint8 = @import("std").mem.zeroes(Uint8),
-    bytes_per_pixel: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding: [2]Uint8 = @import("std").mem.zeroes([2]Uint8),
-    Rmask: Uint32 = @import("std").mem.zeroes(Uint32),
-    Gmask: Uint32 = @import("std").mem.zeroes(Uint32),
-    Bmask: Uint32 = @import("std").mem.zeroes(Uint32),
-    Amask: Uint32 = @import("std").mem.zeroes(Uint32),
-    Rbits: Uint8 = @import("std").mem.zeroes(Uint8),
-    Gbits: Uint8 = @import("std").mem.zeroes(Uint8),
-    Bbits: Uint8 = @import("std").mem.zeroes(Uint8),
-    Abits: Uint8 = @import("std").mem.zeroes(Uint8),
-    Rshift: Uint8 = @import("std").mem.zeroes(Uint8),
-    Gshift: Uint8 = @import("std").mem.zeroes(Uint8),
-    Bshift: Uint8 = @import("std").mem.zeroes(Uint8),
-    Ashift: Uint8 = @import("std").mem.zeroes(Uint8),
+    format: SDL_PixelFormat = std.mem.zeroes(SDL_PixelFormat),
+    bits_per_pixel: Uint8 = std.mem.zeroes(Uint8),
+    bytes_per_pixel: Uint8 = std.mem.zeroes(Uint8),
+    padding: [2]Uint8 = std.mem.zeroes([2]Uint8),
+    Rmask: Uint32 = std.mem.zeroes(Uint32),
+    Gmask: Uint32 = std.mem.zeroes(Uint32),
+    Bmask: Uint32 = std.mem.zeroes(Uint32),
+    Amask: Uint32 = std.mem.zeroes(Uint32),
+    Rbits: Uint8 = std.mem.zeroes(Uint8),
+    Gbits: Uint8 = std.mem.zeroes(Uint8),
+    Bbits: Uint8 = std.mem.zeroes(Uint8),
+    Abits: Uint8 = std.mem.zeroes(Uint8),
+    Rshift: Uint8 = std.mem.zeroes(Uint8),
+    Gshift: Uint8 = std.mem.zeroes(Uint8),
+    Bshift: Uint8 = std.mem.zeroes(Uint8),
+    Ashift: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_PixelFormatDetails = struct_SDL_PixelFormatDetails;
 pub extern fn SDL_GetPixelFormatName(format: SDL_PixelFormat) [*c]const u8;
@@ -1275,27 +1353,27 @@ pub extern fn SDL_MapRGBA(format: [*c]const SDL_PixelFormatDetails, palette: [*c
 pub extern fn SDL_GetRGB(pixel: Uint32, format: [*c]const SDL_PixelFormatDetails, palette: [*c]const SDL_Palette, r: [*c]Uint8, g: [*c]Uint8, b: [*c]Uint8) void;
 pub extern fn SDL_GetRGBA(pixel: Uint32, format: [*c]const SDL_PixelFormatDetails, palette: [*c]const SDL_Palette, r: [*c]Uint8, g: [*c]Uint8, b: [*c]Uint8, a: [*c]Uint8) void;
 pub const struct_SDL_Point = extern struct {
-    x: c_int = @import("std").mem.zeroes(c_int),
-    y: c_int = @import("std").mem.zeroes(c_int),
+    x: c_int = std.mem.zeroes(c_int),
+    y: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_Point = struct_SDL_Point;
 pub const struct_SDL_FPoint = extern struct {
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_FPoint = struct_SDL_FPoint;
 pub const struct_SDL_Rect = extern struct {
-    x: c_int = @import("std").mem.zeroes(c_int),
-    y: c_int = @import("std").mem.zeroes(c_int),
-    w: c_int = @import("std").mem.zeroes(c_int),
-    h: c_int = @import("std").mem.zeroes(c_int),
+    x: c_int = std.mem.zeroes(c_int),
+    y: c_int = std.mem.zeroes(c_int),
+    w: c_int = std.mem.zeroes(c_int),
+    h: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_Rect = struct_SDL_Rect;
 pub const struct_SDL_FRect = extern struct {
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    w: f32 = @import("std").mem.zeroes(f32),
-    h: f32 = @import("std").mem.zeroes(f32),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    w: f32 = std.mem.zeroes(f32),
+    h: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_FRect = struct_SDL_FRect;
 pub inline fn SDL_RectToFRect(arg_rect: [*c]const SDL_Rect, arg_frect: [*c]SDL_FRect) void {
@@ -1376,14 +1454,14 @@ pub const SDL_FLIP_VERTICAL: c_int = 2;
 pub const enum_SDL_FlipMode = c_uint;
 pub const SDL_FlipMode = enum_SDL_FlipMode;
 pub const struct_SDL_Surface = extern struct {
-    flags: SDL_SurfaceFlags = @import("std").mem.zeroes(SDL_SurfaceFlags),
-    format: SDL_PixelFormat = @import("std").mem.zeroes(SDL_PixelFormat),
-    w: c_int = @import("std").mem.zeroes(c_int),
-    h: c_int = @import("std").mem.zeroes(c_int),
-    pitch: c_int = @import("std").mem.zeroes(c_int),
-    pixels: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
-    refcount: c_int = @import("std").mem.zeroes(c_int),
-    reserved: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
+    flags: SDL_SurfaceFlags = std.mem.zeroes(SDL_SurfaceFlags),
+    format: SDL_PixelFormat = std.mem.zeroes(SDL_PixelFormat),
+    w: c_int = std.mem.zeroes(c_int),
+    h: c_int = std.mem.zeroes(c_int),
+    pitch: c_int = std.mem.zeroes(c_int),
+    pixels: ?*anyopaque = std.mem.zeroes(?*anyopaque),
+    refcount: c_int = std.mem.zeroes(c_int),
+    reserved: ?*anyopaque = std.mem.zeroes(?*anyopaque),
 };
 pub const SDL_Surface = struct_SDL_Surface;
 pub extern fn SDL_CreateSurface(width: c_int, height: c_int, format: SDL_PixelFormat) [*c]SDL_Surface;
@@ -1448,12 +1526,12 @@ pub const SDL_CameraID = Uint32;
 pub const struct_SDL_Camera = opaque {};
 pub const SDL_Camera = struct_SDL_Camera;
 pub const struct_SDL_CameraSpec = extern struct {
-    format: SDL_PixelFormat = @import("std").mem.zeroes(SDL_PixelFormat),
-    colorspace: SDL_Colorspace = @import("std").mem.zeroes(SDL_Colorspace),
-    width: c_int = @import("std").mem.zeroes(c_int),
-    height: c_int = @import("std").mem.zeroes(c_int),
-    framerate_numerator: c_int = @import("std").mem.zeroes(c_int),
-    framerate_denominator: c_int = @import("std").mem.zeroes(c_int),
+    format: SDL_PixelFormat = std.mem.zeroes(SDL_PixelFormat),
+    colorspace: SDL_Colorspace = std.mem.zeroes(SDL_Colorspace),
+    width: c_int = std.mem.zeroes(c_int),
+    height: c_int = std.mem.zeroes(c_int),
+    framerate_numerator: c_int = std.mem.zeroes(c_int),
+    framerate_denominator: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_CameraSpec = struct_SDL_CameraSpec;
 pub const SDL_CAMERA_POSITION_UNKNOWN: c_int = 0;
@@ -1517,15 +1595,15 @@ pub const SDL_SystemTheme = enum_SDL_SystemTheme;
 pub const struct_SDL_DisplayModeData = opaque {};
 pub const SDL_DisplayModeData = struct_SDL_DisplayModeData;
 pub const struct_SDL_DisplayMode = extern struct {
-    displayID: SDL_DisplayID = @import("std").mem.zeroes(SDL_DisplayID),
-    format: SDL_PixelFormat = @import("std").mem.zeroes(SDL_PixelFormat),
-    w: c_int = @import("std").mem.zeroes(c_int),
-    h: c_int = @import("std").mem.zeroes(c_int),
-    pixel_density: f32 = @import("std").mem.zeroes(f32),
-    refresh_rate: f32 = @import("std").mem.zeroes(f32),
-    refresh_rate_numerator: c_int = @import("std").mem.zeroes(c_int),
-    refresh_rate_denominator: c_int = @import("std").mem.zeroes(c_int),
-    internal: ?*SDL_DisplayModeData = @import("std").mem.zeroes(?*SDL_DisplayModeData),
+    displayID: SDL_DisplayID = std.mem.zeroes(SDL_DisplayID),
+    format: SDL_PixelFormat = std.mem.zeroes(SDL_PixelFormat),
+    w: c_int = std.mem.zeroes(c_int),
+    h: c_int = std.mem.zeroes(c_int),
+    pixel_density: f32 = std.mem.zeroes(f32),
+    refresh_rate: f32 = std.mem.zeroes(f32),
+    refresh_rate_numerator: c_int = std.mem.zeroes(c_int),
+    refresh_rate_denominator: c_int = std.mem.zeroes(c_int),
+    internal: ?*SDL_DisplayModeData = std.mem.zeroes(?*SDL_DisplayModeData),
 };
 pub const SDL_DisplayMode = struct_SDL_DisplayMode;
 pub const SDL_ORIENTATION_UNKNOWN: c_int = 0;
@@ -1537,7 +1615,47 @@ pub const enum_SDL_DisplayOrientation = c_uint;
 pub const SDL_DisplayOrientation = enum_SDL_DisplayOrientation;
 pub const struct_SDL_Window = opaque {};
 pub const SDL_Window = struct_SDL_Window;
-pub const SDL_WindowFlags = Uint64;
+// @edit: SDL_WindowFlags to packed struct
+// pub const SDL_WindowFlags = Uint64;
+pub const SDL_WindowFlags = packed struct(u64) {
+    fullscreen: bool = false, // SDL_WINDOW_FULLSCREEN (0x0000000000000001)
+    opengl: bool = false, // SDL_WINDOW_OPENGL (0x0000000000000002)
+    occluded: bool = false, // SDL_WINDOW_OCCLUDED (0x0000000000000004)
+    hidden: bool = false, // SDL_WINDOW_HIDDEN (0x0000000000000008)
+    borderless: bool = false, // SDL_WINDOW_BORDERLESS (0x0000000000000010)
+    resizable: bool = false, // SDL_WINDOW_RESIZABLE (0x0000000000000020)
+    minimized: bool = false, // SDL_WINDOW_MINIMIZED (0x0000000000000040)
+    maximized: bool = false, // SDL_WINDOW_MAXIMIZED (0x0000000000000080)
+    mouse_grabbed: bool = false, // SDL_WINDOW_MOUSE_GRABBED (0x0000000000000100)
+    input_focus: bool = false, // SDL_WINDOW_INPUT_FOCUS (0x0000000000000200)
+    mouse_focus: bool = false, // SDL_WINDOW_MOUSE_FOCUS (0x0000000000000400)
+    external: bool = false, // SDL_WINDOW_EXTERNAL (0x0000000000000800)
+    modal: bool = false, // SDL_WINDOW_MODAL (0x0000000000001000)
+    high_pixel_density: bool = false, // SDL_WINDOW_HIGH_PIXEL_DENSITY (0x0000000000002000)
+    mouse_capture: bool = false, // SDL_WINDOW_MOUSE_CAPTURE (0x0000000000004000)
+    mouse_relative_mode: bool = false, // SDL_WINDOW_MOUSE_RELATIVE_MODE (0x0000000000008000)
+    always_on_top: bool = false, // SDL_WINDOW_ALWAYS_ON_TOP (0x0000000000010000)
+    utility: bool = false, // SDL_WINDOW_UTILITY (0x0000000000020000)
+    tooltip: bool = false, // SDL_WINDOW_TOOLTIP (0x0000000000040000)
+    popup_menu: bool = false, // SDL_WINDOW_POPUP_MENU (0x0000000000080000)
+    keyboard_grabbed: bool = false, // SDL_WINDOW_KEYBOARD_GRABBED (0x0000000000100000)
+    vulkan: bool = false, // SDL_WINDOW_VULKAN (0x0000000010000000)
+    metal: bool = false, // SDL_WINDOW_METAL (0x0000000020000000)
+    transparent: bool = false, // SDL_WINDOW_TRANSPARENT (0x0000000040000000)
+    not_focusable: bool = false, // SDL_WINDOW_NOT_FOCUSABLE (0x0000000080000000)
+    _reserved: u39 = 0, // Padding to fill 64 bits
+
+    // Convert the packed struct to a u64 for SDL3
+    pub fn toInt(self: SDL_WindowFlags) u64 {
+        return @bitCast(self);
+    }
+
+    // Create from a u64 (e.g., from SDL3)
+    pub fn fromInt(flags: u64) SDL_WindowFlags {
+        return @bitCast(flags);
+    }
+};
+
 pub const SDL_FLASH_CANCEL: c_int = 0;
 pub const SDL_FLASH_BRIEFLY: c_int = 1;
 pub const SDL_FLASH_UNTIL_FOCUSED: c_int = 2;
@@ -1709,8 +1827,8 @@ pub extern fn SDL_GL_GetSwapInterval(interval: [*c]c_int) bool;
 pub extern fn SDL_GL_SwapWindow(window: ?*SDL_Window) bool;
 pub extern fn SDL_GL_DestroyContext(context: SDL_GLContext) bool;
 pub const struct_SDL_DialogFileFilter = extern struct {
-    name: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    pattern: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
+    name: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    pattern: [*c]const u8 = std.mem.zeroes([*c]const u8),
 };
 pub const SDL_DialogFileFilter = struct_SDL_DialogFileFilter;
 pub const SDL_DialogFileCallback = ?*const fn (?*anyopaque, [*c]const [*c]const u8, c_int) callconv(.c) void;
@@ -1724,7 +1842,7 @@ pub const enum_SDL_FileDialogType = c_uint;
 pub const SDL_FileDialogType = enum_SDL_FileDialogType;
 pub extern fn SDL_ShowFileDialogWithProperties(@"type": SDL_FileDialogType, callback: SDL_DialogFileCallback, userdata: ?*anyopaque, props: SDL_PropertiesID) void;
 pub const struct_SDL_GUID = extern struct {
-    data: [16]Uint8 = @import("std").mem.zeroes([16]Uint8),
+    data: [16]Uint8 = std.mem.zeroes([16]Uint8),
 };
 pub const SDL_GUID = struct_SDL_GUID;
 pub extern fn SDL_GUIDToString(guid: SDL_GUID, pszGUID: [*c]u8, cbGUID: c_int) void;
@@ -1803,42 +1921,42 @@ pub extern fn SDL_OpenJoystick(instance_id: SDL_JoystickID) ?*SDL_Joystick;
 pub extern fn SDL_GetJoystickFromID(instance_id: SDL_JoystickID) ?*SDL_Joystick;
 pub extern fn SDL_GetJoystickFromPlayerIndex(player_index: c_int) ?*SDL_Joystick;
 pub const struct_SDL_VirtualJoystickTouchpadDesc = extern struct {
-    nfingers: Uint16 = @import("std").mem.zeroes(Uint16),
-    padding: [3]Uint16 = @import("std").mem.zeroes([3]Uint16),
+    nfingers: Uint16 = std.mem.zeroes(Uint16),
+    padding: [3]Uint16 = std.mem.zeroes([3]Uint16),
 };
 pub const SDL_VirtualJoystickTouchpadDesc = struct_SDL_VirtualJoystickTouchpadDesc;
 pub const struct_SDL_VirtualJoystickSensorDesc = extern struct {
-    type: SDL_SensorType = @import("std").mem.zeroes(SDL_SensorType),
-    rate: f32 = @import("std").mem.zeroes(f32),
+    type: SDL_SensorType = std.mem.zeroes(SDL_SensorType),
+    rate: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_VirtualJoystickSensorDesc = struct_SDL_VirtualJoystickSensorDesc;
 pub const struct_SDL_VirtualJoystickDesc = extern struct {
-    version: Uint32 = @import("std").mem.zeroes(Uint32),
-    type: Uint16 = @import("std").mem.zeroes(Uint16),
-    padding: Uint16 = @import("std").mem.zeroes(Uint16),
-    vendor_id: Uint16 = @import("std").mem.zeroes(Uint16),
-    product_id: Uint16 = @import("std").mem.zeroes(Uint16),
-    naxes: Uint16 = @import("std").mem.zeroes(Uint16),
-    nbuttons: Uint16 = @import("std").mem.zeroes(Uint16),
-    nballs: Uint16 = @import("std").mem.zeroes(Uint16),
-    nhats: Uint16 = @import("std").mem.zeroes(Uint16),
-    ntouchpads: Uint16 = @import("std").mem.zeroes(Uint16),
-    nsensors: Uint16 = @import("std").mem.zeroes(Uint16),
-    padding2: [2]Uint16 = @import("std").mem.zeroes([2]Uint16),
-    button_mask: Uint32 = @import("std").mem.zeroes(Uint32),
-    axis_mask: Uint32 = @import("std").mem.zeroes(Uint32),
-    name: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    touchpads: [*c]const SDL_VirtualJoystickTouchpadDesc = @import("std").mem.zeroes([*c]const SDL_VirtualJoystickTouchpadDesc),
-    sensors: [*c]const SDL_VirtualJoystickSensorDesc = @import("std").mem.zeroes([*c]const SDL_VirtualJoystickSensorDesc),
-    userdata: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
-    Update: ?*const fn (?*anyopaque) callconv(.c) void = @import("std").mem.zeroes(?*const fn (?*anyopaque) callconv(.c) void),
-    SetPlayerIndex: ?*const fn (?*anyopaque, c_int) callconv(.c) void = @import("std").mem.zeroes(?*const fn (?*anyopaque, c_int) callconv(.c) void),
-    Rumble: ?*const fn (?*anyopaque, Uint16, Uint16) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, Uint16, Uint16) callconv(.c) bool),
-    RumbleTriggers: ?*const fn (?*anyopaque, Uint16, Uint16) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, Uint16, Uint16) callconv(.c) bool),
-    SetLED: ?*const fn (?*anyopaque, Uint8, Uint8, Uint8) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, Uint8, Uint8, Uint8) callconv(.c) bool),
-    SendEffect: ?*const fn (?*anyopaque, ?*const anyopaque, c_int) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, ?*const anyopaque, c_int) callconv(.c) bool),
-    SetSensorsEnabled: ?*const fn (?*anyopaque, bool) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, bool) callconv(.c) bool),
-    Cleanup: ?*const fn (?*anyopaque) callconv(.c) void = @import("std").mem.zeroes(?*const fn (?*anyopaque) callconv(.c) void),
+    version: Uint32 = std.mem.zeroes(Uint32),
+    type: Uint16 = std.mem.zeroes(Uint16),
+    padding: Uint16 = std.mem.zeroes(Uint16),
+    vendor_id: Uint16 = std.mem.zeroes(Uint16),
+    product_id: Uint16 = std.mem.zeroes(Uint16),
+    naxes: Uint16 = std.mem.zeroes(Uint16),
+    nbuttons: Uint16 = std.mem.zeroes(Uint16),
+    nballs: Uint16 = std.mem.zeroes(Uint16),
+    nhats: Uint16 = std.mem.zeroes(Uint16),
+    ntouchpads: Uint16 = std.mem.zeroes(Uint16),
+    nsensors: Uint16 = std.mem.zeroes(Uint16),
+    padding2: [2]Uint16 = std.mem.zeroes([2]Uint16),
+    button_mask: Uint32 = std.mem.zeroes(Uint32),
+    axis_mask: Uint32 = std.mem.zeroes(Uint32),
+    name: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    touchpads: [*c]const SDL_VirtualJoystickTouchpadDesc = std.mem.zeroes([*c]const SDL_VirtualJoystickTouchpadDesc),
+    sensors: [*c]const SDL_VirtualJoystickSensorDesc = std.mem.zeroes([*c]const SDL_VirtualJoystickSensorDesc),
+    userdata: ?*anyopaque = std.mem.zeroes(?*anyopaque),
+    Update: ?*const fn (?*anyopaque) callconv(.c) void = std.mem.zeroes(?*const fn (?*anyopaque) callconv(.c) void),
+    SetPlayerIndex: ?*const fn (?*anyopaque, c_int) callconv(.c) void = std.mem.zeroes(?*const fn (?*anyopaque, c_int) callconv(.c) void),
+    Rumble: ?*const fn (?*anyopaque, Uint16, Uint16) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, Uint16, Uint16) callconv(.c) bool),
+    RumbleTriggers: ?*const fn (?*anyopaque, Uint16, Uint16) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, Uint16, Uint16) callconv(.c) bool),
+    SetLED: ?*const fn (?*anyopaque, Uint8, Uint8, Uint8) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, Uint8, Uint8, Uint8) callconv(.c) bool),
+    SendEffect: ?*const fn (?*anyopaque, ?*const anyopaque, c_int) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, ?*const anyopaque, c_int) callconv(.c) bool),
+    SetSensorsEnabled: ?*const fn (?*anyopaque, bool) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, bool) callconv(.c) bool),
+    Cleanup: ?*const fn (?*anyopaque) callconv(.c) void = std.mem.zeroes(?*const fn (?*anyopaque) callconv(.c) void),
 };
 pub const SDL_VirtualJoystickDesc = struct_SDL_VirtualJoystickDesc;
 // deps/SDL/include/SDL3/SDL_stdinc.h:203:42: warning: ignoring StaticAssert declaration
@@ -1959,13 +2077,13 @@ pub const SDL_GAMEPAD_BINDTYPE_HAT: c_int = 3;
 pub const enum_SDL_GamepadBindingType = c_uint;
 pub const SDL_GamepadBindingType = enum_SDL_GamepadBindingType;
 const struct_unnamed_6 = extern struct {
-    axis: c_int = @import("std").mem.zeroes(c_int),
-    axis_min: c_int = @import("std").mem.zeroes(c_int),
-    axis_max: c_int = @import("std").mem.zeroes(c_int),
+    axis: c_int = std.mem.zeroes(c_int),
+    axis_min: c_int = std.mem.zeroes(c_int),
+    axis_max: c_int = std.mem.zeroes(c_int),
 };
 const struct_unnamed_7 = extern struct {
-    hat: c_int = @import("std").mem.zeroes(c_int),
-    hat_mask: c_int = @import("std").mem.zeroes(c_int),
+    hat: c_int = std.mem.zeroes(c_int),
+    hat_mask: c_int = std.mem.zeroes(c_int),
 };
 const union_unnamed_5 = extern union {
     button: c_int,
@@ -1973,19 +2091,19 @@ const union_unnamed_5 = extern union {
     hat: struct_unnamed_7,
 };
 const struct_unnamed_9 = extern struct {
-    axis: SDL_GamepadAxis = @import("std").mem.zeroes(SDL_GamepadAxis),
-    axis_min: c_int = @import("std").mem.zeroes(c_int),
-    axis_max: c_int = @import("std").mem.zeroes(c_int),
+    axis: SDL_GamepadAxis = std.mem.zeroes(SDL_GamepadAxis),
+    axis_min: c_int = std.mem.zeroes(c_int),
+    axis_max: c_int = std.mem.zeroes(c_int),
 };
 const union_unnamed_8 = extern union {
     button: SDL_GamepadButton,
     axis: struct_unnamed_9,
 };
 pub const struct_SDL_GamepadBinding = extern struct {
-    input_type: SDL_GamepadBindingType = @import("std").mem.zeroes(SDL_GamepadBindingType),
-    input: union_unnamed_5 = @import("std").mem.zeroes(union_unnamed_5),
-    output_type: SDL_GamepadBindingType = @import("std").mem.zeroes(SDL_GamepadBindingType),
-    output: union_unnamed_8 = @import("std").mem.zeroes(union_unnamed_8),
+    input_type: SDL_GamepadBindingType = std.mem.zeroes(SDL_GamepadBindingType),
+    input: union_unnamed_5 = std.mem.zeroes(union_unnamed_5),
+    output_type: SDL_GamepadBindingType = std.mem.zeroes(SDL_GamepadBindingType),
+    output: union_unnamed_8 = std.mem.zeroes(union_unnamed_8),
 };
 pub const SDL_GamepadBinding = struct_SDL_GamepadBinding;
 pub extern fn SDL_AddGamepadMapping(mapping: [*c]const u8) c_int;
@@ -2567,25 +2685,41 @@ pub const enum_SDL_Scancode = enum(c_uint) {
 
 pub const SDL_Scancode = enum_SDL_Scancode;
 pub const SDL_Keycode = Uint32;
-// @edit: SDL_keymod to bitmap
+// @edit: SDL_keymod to bitfield
 // pub const SDL_Keymod = Uint16;
 pub const SDL_Keymod = packed struct(u16) {
     lshift: bool = false,
     rshift: bool = false,
-    level5: bool = false, // maybe wrong
-    scroll: bool = false, // maybe wrong
-    lgui: bool = false,
-    rgui: bool = false,
+    __reserved_bit_02: bool = false,
+    __reserved_bit_03: bool = false,
+    __reserved_bit_04: bool = false,
+    __reserved_bit_05: bool = false,
     lctrl: bool = false,
     rctrl: bool = false,
     lalt: bool = false,
     ralt: bool = false,
-    __reserved_bit_10: bool = false, // maybe wrong
-    mode: bool = false, // maybe wrong
-    num: bool = false, // maybe wrong
-    caps: bool = false, // maybe wrong
-    __reserved_bit_14: bool = false,
-    __reserved_bit_15: bool = false,
+    lgui: bool = false,
+    rgui: bool = false,
+    num: bool = false,
+    caps: bool = false,
+    mode: bool = false,
+    scroll: bool = false,
+
+    pub fn ctrl(mod: *const SDL_Keymod) bool {
+        return (mod.lctrl or mod.rctrl);
+    }
+
+    pub fn shift(mod: *const SDL_Keymod) bool {
+        return (mod.lshift or mod.rshift);
+    }
+
+    pub fn alt(mod: *const SDL_Keymod) bool {
+        return (mod.lalt or mod.ralt);
+    }
+
+    pub fn gui(mod: *const SDL_Keymod) bool {
+        return (mod.lgui or mod.rgui);
+    }
 
     pub const NONE = @as(c_uint, 0x0000);
     pub const LSHIFT = @as(c_uint, 0x0001);
@@ -2601,11 +2735,8 @@ pub const SDL_Keymod = packed struct(u16) {
     pub const CAPS = @as(c_uint, 0x2000);
     pub const MODE = @as(c_uint, 0x4000);
     pub const SCROLL = @as(c_uint, 0x8000);
-
-    pub fn is_ctrl(mod: *const SDL_Keymod) bool {
-        return (mod.lctrl or mod.rctrl);
-    }
 };
+
 pub const SDL_KeyboardID = Uint32;
 pub extern fn SDL_HasKeyboard() bool;
 pub extern fn SDL_GetKeyboards(count: [*c]c_int) [*c]SDL_KeyboardID;
@@ -2710,10 +2841,10 @@ pub const SDL_TOUCH_DEVICE_INDIRECT_RELATIVE: c_int = 2;
 pub const enum_SDL_TouchDeviceType = c_int;
 pub const SDL_TouchDeviceType = enum_SDL_TouchDeviceType;
 pub const struct_SDL_Finger = extern struct {
-    id: SDL_FingerID = @import("std").mem.zeroes(SDL_FingerID),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    pressure: f32 = @import("std").mem.zeroes(f32),
+    id: SDL_FingerID = std.mem.zeroes(SDL_FingerID),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    pressure: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_Finger = struct_SDL_Finger;
 pub extern fn SDL_GetTouchDevices(count: [*c]c_int) [*c]SDL_TouchID;
@@ -2975,387 +3106,387 @@ pub const enum_SDL_EventType = enum(c_uint) {
 
 pub const SDL_EventType = enum_SDL_EventType;
 pub const struct_SDL_CommonEvent = extern struct {
-    type: Uint32 = @import("std").mem.zeroes(Uint32),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
+    type: Uint32 = std.mem.zeroes(Uint32),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
 };
 pub const SDL_CommonEvent = struct_SDL_CommonEvent;
 pub const struct_SDL_DisplayEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    displayID: SDL_DisplayID = @import("std").mem.zeroes(SDL_DisplayID),
-    data1: Sint32 = @import("std").mem.zeroes(Sint32),
-    data2: Sint32 = @import("std").mem.zeroes(Sint32),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    displayID: SDL_DisplayID = std.mem.zeroes(SDL_DisplayID),
+    data1: Sint32 = std.mem.zeroes(Sint32),
+    data2: Sint32 = std.mem.zeroes(Sint32),
 };
 pub const SDL_DisplayEvent = struct_SDL_DisplayEvent;
 pub const struct_SDL_WindowEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    data1: Sint32 = @import("std").mem.zeroes(Sint32),
-    data2: Sint32 = @import("std").mem.zeroes(Sint32),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    data1: Sint32 = std.mem.zeroes(Sint32),
+    data2: Sint32 = std.mem.zeroes(Sint32),
 };
 pub const SDL_WindowEvent = struct_SDL_WindowEvent;
 pub const struct_SDL_KeyboardDeviceEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_KeyboardID = @import("std").mem.zeroes(SDL_KeyboardID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_KeyboardID = std.mem.zeroes(SDL_KeyboardID),
 };
 pub const SDL_KeyboardDeviceEvent = struct_SDL_KeyboardDeviceEvent;
 pub const struct_SDL_KeyboardEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_KeyboardID = @import("std").mem.zeroes(SDL_KeyboardID),
-    scancode: SDL_Scancode = @import("std").mem.zeroes(SDL_Scancode),
-    key: SDL_Keycode = @import("std").mem.zeroes(SDL_Keycode),
-    mod: SDL_Keymod = @import("std").mem.zeroes(SDL_Keymod),
-    raw: Uint16 = @import("std").mem.zeroes(Uint16),
-    down: bool = @import("std").mem.zeroes(bool),
-    repeat: bool = @import("std").mem.zeroes(bool),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_KeyboardID = std.mem.zeroes(SDL_KeyboardID),
+    scancode: SDL_Scancode = std.mem.zeroes(SDL_Scancode),
+    key: SDL_Keycode = std.mem.zeroes(SDL_Keycode),
+    mod: SDL_Keymod = std.mem.zeroes(SDL_Keymod),
+    raw: Uint16 = std.mem.zeroes(Uint16),
+    down: bool = std.mem.zeroes(bool),
+    repeat: bool = std.mem.zeroes(bool),
 };
 pub const SDL_KeyboardEvent = struct_SDL_KeyboardEvent;
 pub const struct_SDL_TextEditingEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    text: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    start: Sint32 = @import("std").mem.zeroes(Sint32),
-    length: Sint32 = @import("std").mem.zeroes(Sint32),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    text: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    start: Sint32 = std.mem.zeroes(Sint32),
+    length: Sint32 = std.mem.zeroes(Sint32),
 };
 pub const SDL_TextEditingEvent = struct_SDL_TextEditingEvent;
 pub const struct_SDL_TextEditingCandidatesEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    candidates: [*c]const [*c]const u8 = @import("std").mem.zeroes([*c]const [*c]const u8),
-    num_candidates: Sint32 = @import("std").mem.zeroes(Sint32),
-    selected_candidate: Sint32 = @import("std").mem.zeroes(Sint32),
-    horizontal: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    candidates: [*c]const [*c]const u8 = std.mem.zeroes([*c]const [*c]const u8),
+    num_candidates: Sint32 = std.mem.zeroes(Sint32),
+    selected_candidate: Sint32 = std.mem.zeroes(Sint32),
+    horizontal: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_TextEditingCandidatesEvent = struct_SDL_TextEditingCandidatesEvent;
 pub const struct_SDL_TextInputEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    text: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    text: [*c]const u8 = std.mem.zeroes([*c]const u8),
 };
 pub const SDL_TextInputEvent = struct_SDL_TextInputEvent;
 pub const struct_SDL_MouseDeviceEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_MouseID = @import("std").mem.zeroes(SDL_MouseID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_MouseID = std.mem.zeroes(SDL_MouseID),
 };
 pub const SDL_MouseDeviceEvent = struct_SDL_MouseDeviceEvent;
 pub const struct_SDL_MouseMotionEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_MouseID = @import("std").mem.zeroes(SDL_MouseID),
-    state: SDL_MouseButtonFlags = @import("std").mem.zeroes(SDL_MouseButtonFlags),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    xrel: f32 = @import("std").mem.zeroes(f32),
-    yrel: f32 = @import("std").mem.zeroes(f32),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_MouseID = std.mem.zeroes(SDL_MouseID),
+    state: SDL_MouseButtonFlags = std.mem.zeroes(SDL_MouseButtonFlags),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    xrel: f32 = std.mem.zeroes(f32),
+    yrel: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_MouseMotionEvent = struct_SDL_MouseMotionEvent;
 pub const struct_SDL_MouseButtonEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_MouseID = @import("std").mem.zeroes(SDL_MouseID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_MouseID = std.mem.zeroes(SDL_MouseID),
     // @edit: switch from Uint8 to MouseButton enum
-    button: MouseButton = @import("std").mem.zeroes(MouseButton),
-    down: bool = @import("std").mem.zeroes(bool),
-    clicks: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding: Uint8 = @import("std").mem.zeroes(Uint8),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
+    button: MouseButton = std.mem.zeroes(MouseButton),
+    down: bool = std.mem.zeroes(bool),
+    clicks: Uint8 = std.mem.zeroes(Uint8),
+    padding: Uint8 = std.mem.zeroes(Uint8),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_MouseButtonEvent = struct_SDL_MouseButtonEvent;
 pub const struct_SDL_MouseWheelEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_MouseID = @import("std").mem.zeroes(SDL_MouseID),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    direction: SDL_MouseWheelDirection = @import("std").mem.zeroes(SDL_MouseWheelDirection),
-    mouse_x: f32 = @import("std").mem.zeroes(f32),
-    mouse_y: f32 = @import("std").mem.zeroes(f32),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_MouseID = std.mem.zeroes(SDL_MouseID),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    direction: SDL_MouseWheelDirection = std.mem.zeroes(SDL_MouseWheelDirection),
+    mouse_x: f32 = std.mem.zeroes(f32),
+    mouse_y: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_MouseWheelEvent = struct_SDL_MouseWheelEvent;
 pub const struct_SDL_JoyAxisEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    axis: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
-    value: Sint16 = @import("std").mem.zeroes(Sint16),
-    padding4: Uint16 = @import("std").mem.zeroes(Uint16),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    axis: Uint8 = std.mem.zeroes(Uint8),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
+    value: Sint16 = std.mem.zeroes(Sint16),
+    padding4: Uint16 = std.mem.zeroes(Uint16),
 };
 pub const SDL_JoyAxisEvent = struct_SDL_JoyAxisEvent;
 pub const struct_SDL_JoyBallEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    ball: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
-    xrel: Sint16 = @import("std").mem.zeroes(Sint16),
-    yrel: Sint16 = @import("std").mem.zeroes(Sint16),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    ball: Uint8 = std.mem.zeroes(Uint8),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
+    xrel: Sint16 = std.mem.zeroes(Sint16),
+    yrel: Sint16 = std.mem.zeroes(Sint16),
 };
 pub const SDL_JoyBallEvent = struct_SDL_JoyBallEvent;
 pub const struct_SDL_JoyHatEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    hat: Uint8 = @import("std").mem.zeroes(Uint8),
-    value: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    hat: Uint8 = std.mem.zeroes(Uint8),
+    value: Uint8 = std.mem.zeroes(Uint8),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_JoyHatEvent = struct_SDL_JoyHatEvent;
 pub const struct_SDL_JoyButtonEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    button: Uint8 = @import("std").mem.zeroes(Uint8),
-    down: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    button: Uint8 = std.mem.zeroes(Uint8),
+    down: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_JoyButtonEvent = struct_SDL_JoyButtonEvent;
 pub const struct_SDL_JoyDeviceEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
 };
 pub const SDL_JoyDeviceEvent = struct_SDL_JoyDeviceEvent;
 pub const struct_SDL_JoyBatteryEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    state: SDL_PowerState = @import("std").mem.zeroes(SDL_PowerState),
-    percent: c_int = @import("std").mem.zeroes(c_int),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    state: SDL_PowerState = std.mem.zeroes(SDL_PowerState),
+    percent: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_JoyBatteryEvent = struct_SDL_JoyBatteryEvent;
 pub const struct_SDL_GamepadAxisEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    axis: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
-    value: Sint16 = @import("std").mem.zeroes(Sint16),
-    padding4: Uint16 = @import("std").mem.zeroes(Uint16),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    axis: Uint8 = std.mem.zeroes(Uint8),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
+    value: Sint16 = std.mem.zeroes(Sint16),
+    padding4: Uint16 = std.mem.zeroes(Uint16),
 };
 pub const SDL_GamepadAxisEvent = struct_SDL_GamepadAxisEvent;
 pub const struct_SDL_GamepadButtonEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    button: Uint8 = @import("std").mem.zeroes(Uint8),
-    down: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    button: Uint8 = std.mem.zeroes(Uint8),
+    down: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GamepadButtonEvent = struct_SDL_GamepadButtonEvent;
 pub const struct_SDL_GamepadDeviceEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
 };
 pub const SDL_GamepadDeviceEvent = struct_SDL_GamepadDeviceEvent;
 pub const struct_SDL_GamepadTouchpadEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    touchpad: Sint32 = @import("std").mem.zeroes(Sint32),
-    finger: Sint32 = @import("std").mem.zeroes(Sint32),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    pressure: f32 = @import("std").mem.zeroes(f32),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    touchpad: Sint32 = std.mem.zeroes(Sint32),
+    finger: Sint32 = std.mem.zeroes(Sint32),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    pressure: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_GamepadTouchpadEvent = struct_SDL_GamepadTouchpadEvent;
 pub const struct_SDL_GamepadSensorEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_JoystickID = @import("std").mem.zeroes(SDL_JoystickID),
-    sensor: Sint32 = @import("std").mem.zeroes(Sint32),
-    data: [3]f32 = @import("std").mem.zeroes([3]f32),
-    sensor_timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_JoystickID = std.mem.zeroes(SDL_JoystickID),
+    sensor: Sint32 = std.mem.zeroes(Sint32),
+    data: [3]f32 = std.mem.zeroes([3]f32),
+    sensor_timestamp: Uint64 = std.mem.zeroes(Uint64),
 };
 pub const SDL_GamepadSensorEvent = struct_SDL_GamepadSensorEvent;
 pub const struct_SDL_AudioDeviceEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_AudioDeviceID = @import("std").mem.zeroes(SDL_AudioDeviceID),
-    recording: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_AudioDeviceID = std.mem.zeroes(SDL_AudioDeviceID),
+    recording: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_AudioDeviceEvent = struct_SDL_AudioDeviceEvent;
 pub const struct_SDL_CameraDeviceEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_CameraID = @import("std").mem.zeroes(SDL_CameraID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_CameraID = std.mem.zeroes(SDL_CameraID),
 };
 pub const SDL_CameraDeviceEvent = struct_SDL_CameraDeviceEvent;
 pub const struct_SDL_RenderEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
 };
 pub const SDL_RenderEvent = struct_SDL_RenderEvent;
 pub const struct_SDL_TouchFingerEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    touchID: SDL_TouchID = @import("std").mem.zeroes(SDL_TouchID),
-    fingerID: SDL_FingerID = @import("std").mem.zeroes(SDL_FingerID),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    dx: f32 = @import("std").mem.zeroes(f32),
-    dy: f32 = @import("std").mem.zeroes(f32),
-    pressure: f32 = @import("std").mem.zeroes(f32),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    touchID: SDL_TouchID = std.mem.zeroes(SDL_TouchID),
+    fingerID: SDL_FingerID = std.mem.zeroes(SDL_FingerID),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    dx: f32 = std.mem.zeroes(f32),
+    dy: f32 = std.mem.zeroes(f32),
+    pressure: f32 = std.mem.zeroes(f32),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
 };
 pub const SDL_TouchFingerEvent = struct_SDL_TouchFingerEvent;
 pub const struct_SDL_PenProximityEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_PenID = @import("std").mem.zeroes(SDL_PenID),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_PenID = std.mem.zeroes(SDL_PenID),
 };
 pub const SDL_PenProximityEvent = struct_SDL_PenProximityEvent;
 pub const struct_SDL_PenMotionEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_PenID = @import("std").mem.zeroes(SDL_PenID),
-    pen_state: SDL_PenInputFlags = @import("std").mem.zeroes(SDL_PenInputFlags),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_PenID = std.mem.zeroes(SDL_PenID),
+    pen_state: SDL_PenInputFlags = std.mem.zeroes(SDL_PenInputFlags),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_PenMotionEvent = struct_SDL_PenMotionEvent;
 pub const struct_SDL_PenTouchEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_PenID = @import("std").mem.zeroes(SDL_PenID),
-    pen_state: SDL_PenInputFlags = @import("std").mem.zeroes(SDL_PenInputFlags),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    eraser: bool = @import("std").mem.zeroes(bool),
-    down: bool = @import("std").mem.zeroes(bool),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_PenID = std.mem.zeroes(SDL_PenID),
+    pen_state: SDL_PenInputFlags = std.mem.zeroes(SDL_PenInputFlags),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    eraser: bool = std.mem.zeroes(bool),
+    down: bool = std.mem.zeroes(bool),
 };
 pub const SDL_PenTouchEvent = struct_SDL_PenTouchEvent;
 pub const struct_SDL_PenButtonEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_PenID = @import("std").mem.zeroes(SDL_PenID),
-    pen_state: SDL_PenInputFlags = @import("std").mem.zeroes(SDL_PenInputFlags),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    button: Uint8 = @import("std").mem.zeroes(Uint8),
-    down: bool = @import("std").mem.zeroes(bool),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_PenID = std.mem.zeroes(SDL_PenID),
+    pen_state: SDL_PenInputFlags = std.mem.zeroes(SDL_PenInputFlags),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    button: Uint8 = std.mem.zeroes(Uint8),
+    down: bool = std.mem.zeroes(bool),
 };
 pub const SDL_PenButtonEvent = struct_SDL_PenButtonEvent;
 pub const struct_SDL_PenAxisEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    which: SDL_PenID = @import("std").mem.zeroes(SDL_PenID),
-    pen_state: SDL_PenInputFlags = @import("std").mem.zeroes(SDL_PenInputFlags),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    axis: SDL_PenAxis = @import("std").mem.zeroes(SDL_PenAxis),
-    value: f32 = @import("std").mem.zeroes(f32),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    which: SDL_PenID = std.mem.zeroes(SDL_PenID),
+    pen_state: SDL_PenInputFlags = std.mem.zeroes(SDL_PenInputFlags),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    axis: SDL_PenAxis = std.mem.zeroes(SDL_PenAxis),
+    value: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_PenAxisEvent = struct_SDL_PenAxisEvent;
 pub const struct_SDL_DropEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    source: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    data: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    source: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    data: [*c]const u8 = std.mem.zeroes([*c]const u8),
 };
 pub const SDL_DropEvent = struct_SDL_DropEvent;
 pub const struct_SDL_ClipboardEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    owner: bool = @import("std").mem.zeroes(bool),
-    num_mime_types: Sint32 = @import("std").mem.zeroes(Sint32),
-    mime_types: [*c][*c]const u8 = @import("std").mem.zeroes([*c][*c]const u8),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    owner: bool = std.mem.zeroes(bool),
+    num_mime_types: Sint32 = std.mem.zeroes(Sint32),
+    mime_types: [*c][*c]const u8 = std.mem.zeroes([*c][*c]const u8),
 };
 pub const SDL_ClipboardEvent = struct_SDL_ClipboardEvent;
 pub const struct_SDL_SensorEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    which: SDL_SensorID = @import("std").mem.zeroes(SDL_SensorID),
-    data: [6]f32 = @import("std").mem.zeroes([6]f32),
-    sensor_timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    which: SDL_SensorID = std.mem.zeroes(SDL_SensorID),
+    data: [6]f32 = std.mem.zeroes([6]f32),
+    sensor_timestamp: Uint64 = std.mem.zeroes(Uint64),
 };
 pub const SDL_SensorEvent = struct_SDL_SensorEvent;
 pub const struct_SDL_QuitEvent = extern struct {
-    type: SDL_EventType = @import("std").mem.zeroes(SDL_EventType),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
+    type: SDL_EventType = std.mem.zeroes(SDL_EventType),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
 };
 pub const SDL_QuitEvent = struct_SDL_QuitEvent;
 pub const struct_SDL_UserEvent = extern struct {
-    type: Uint32 = @import("std").mem.zeroes(Uint32),
-    reserved: Uint32 = @import("std").mem.zeroes(Uint32),
-    timestamp: Uint64 = @import("std").mem.zeroes(Uint64),
-    windowID: SDL_WindowID = @import("std").mem.zeroes(SDL_WindowID),
-    code: Sint32 = @import("std").mem.zeroes(Sint32),
-    data1: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
-    data2: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
+    type: Uint32 = std.mem.zeroes(Uint32),
+    reserved: Uint32 = std.mem.zeroes(Uint32),
+    timestamp: Uint64 = std.mem.zeroes(Uint64),
+    windowID: SDL_WindowID = std.mem.zeroes(SDL_WindowID),
+    code: Sint32 = std.mem.zeroes(Sint32),
+    data1: ?*anyopaque = std.mem.zeroes(?*anyopaque),
+    data2: ?*anyopaque = std.mem.zeroes(?*anyopaque),
 };
 pub const SDL_UserEvent = struct_SDL_UserEvent;
 pub const union_SDL_Event = extern union {
@@ -3450,11 +3581,11 @@ pub const SDL_PATHTYPE_OTHER: c_int = 3;
 pub const enum_SDL_PathType = c_uint;
 pub const SDL_PathType = enum_SDL_PathType;
 pub const struct_SDL_PathInfo = extern struct {
-    type: SDL_PathType = @import("std").mem.zeroes(SDL_PathType),
-    size: Uint64 = @import("std").mem.zeroes(Uint64),
-    create_time: SDL_Time = @import("std").mem.zeroes(SDL_Time),
-    modify_time: SDL_Time = @import("std").mem.zeroes(SDL_Time),
-    access_time: SDL_Time = @import("std").mem.zeroes(SDL_Time),
+    type: SDL_PathType = std.mem.zeroes(SDL_PathType),
+    size: Uint64 = std.mem.zeroes(Uint64),
+    create_time: SDL_Time = std.mem.zeroes(SDL_Time),
+    modify_time: SDL_Time = std.mem.zeroes(SDL_Time),
+    access_time: SDL_Time = std.mem.zeroes(SDL_Time),
 };
 pub const SDL_PathInfo = struct_SDL_PathInfo;
 pub const SDL_GlobFlags = Uint32;
@@ -3658,51 +3789,7 @@ pub const SDL_GPU_SHADERSTAGE_VERTEX: c_int = 0;
 pub const SDL_GPU_SHADERSTAGE_FRAGMENT: c_int = 1;
 pub const enum_SDL_GPUShaderStage = c_uint;
 pub const SDL_GPUShaderStage = enum_SDL_GPUShaderStage;
-
-pub const SDL_GPUShaderFormat = packed struct(u32) {
-    bit_00: bool = false,
-    bit_01: bool = false,
-    bit_02: bool = false,
-    bit_03: bool = false,
-    bit_04: bool = false,
-    bit_05: bool = false,
-    bit_06: bool = false,
-    bit_07: bool = false,
-    bit_08: bool = false,
-    bit_09: bool = false,
-    bit_10: bool = false,
-    bit_11: bool = false,
-    bit_12: bool = false,
-    bit_13: bool = false,
-    bit_14: bool = false,
-    bit_15: bool = false,
-    bit_16: bool = false,
-    bit_17: bool = false,
-    bit_18: bool = false,
-    bit_19: bool = false,
-    bit_20: bool = false,
-    bit_21: bool = false,
-    bit_22: bool = false,
-    bit_23: bool = false,
-    bit_24: bool = false,
-    bit_25: bool = false,
-    bit_26: bool = false,
-    bit_27: bool = false,
-    bit_28: bool = false,
-    bit_29: bool = false,
-    bit_30: bool = false,
-    bit_31: bool = false,
-
-    pub const invalid: @This() = @bitCast(@as(u32, @intCast(SDL_GPU_SHADERFORMAT_INVALID)));
-    pub const private: @This() = @bitCast(@as(u32, @intCast(SDL_GPU_SHADERFORMAT_PRIVATE)));
-    pub const spirv: @This() = @bitCast(@as(u32, @intCast(SDL_GPU_SHADERFORMAT_SPIRV)));
-    pub const dxbc: @This() = @bitCast(@as(u32, @intCast(SDL_GPU_SHADERFORMAT_DXBC)));
-    pub const dxil: @This() = @bitCast(@as(u32, @intCast(SDL_GPU_SHADERFORMAT_DXIL)));
-    pub const msl: @This() = @bitCast(@as(u32, @intCast(SDL_GPU_SHADERFORMAT_MSL)));
-    pub const metallib: @This() = @bitCast(@as(u32, @intCast(SDL_GPU_SHADERFORMAT_METALLIB)));
-};
-
-// pub const SDL_GPUShaderFormat = Uint32;
+pub const SDL_GPUShaderFormat = Uint32;
 pub const SDL_GPU_VERTEXELEMENTFORMAT_INVALID: c_int = 0;
 pub const SDL_GPU_VERTEXELEMENTFORMAT_INT: c_int = 1;
 pub const SDL_GPU_VERTEXELEMENTFORMAT_INT2: c_int = 2;
@@ -3825,335 +3912,335 @@ pub const SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2084: c_int = 3;
 pub const enum_SDL_GPUSwapchainComposition = c_uint;
 pub const SDL_GPUSwapchainComposition = enum_SDL_GPUSwapchainComposition;
 pub const struct_SDL_GPUViewport = extern struct {
-    x: f32 = @import("std").mem.zeroes(f32),
-    y: f32 = @import("std").mem.zeroes(f32),
-    w: f32 = @import("std").mem.zeroes(f32),
-    h: f32 = @import("std").mem.zeroes(f32),
-    min_depth: f32 = @import("std").mem.zeroes(f32),
-    max_depth: f32 = @import("std").mem.zeroes(f32),
+    x: f32 = std.mem.zeroes(f32),
+    y: f32 = std.mem.zeroes(f32),
+    w: f32 = std.mem.zeroes(f32),
+    h: f32 = std.mem.zeroes(f32),
+    min_depth: f32 = std.mem.zeroes(f32),
+    max_depth: f32 = std.mem.zeroes(f32),
 };
 pub const SDL_GPUViewport = struct_SDL_GPUViewport;
 pub const struct_SDL_GPUTextureTransferInfo = extern struct {
-    transfer_buffer: ?*SDL_GPUTransferBuffer = @import("std").mem.zeroes(?*SDL_GPUTransferBuffer),
-    offset: Uint32 = @import("std").mem.zeroes(Uint32),
-    pixels_per_row: Uint32 = @import("std").mem.zeroes(Uint32),
-    rows_per_layer: Uint32 = @import("std").mem.zeroes(Uint32),
+    transfer_buffer: ?*SDL_GPUTransferBuffer = std.mem.zeroes(?*SDL_GPUTransferBuffer),
+    offset: Uint32 = std.mem.zeroes(Uint32),
+    pixels_per_row: Uint32 = std.mem.zeroes(Uint32),
+    rows_per_layer: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUTextureTransferInfo = struct_SDL_GPUTextureTransferInfo;
 pub const struct_SDL_GPUTransferBufferLocation = extern struct {
-    transfer_buffer: ?*SDL_GPUTransferBuffer = @import("std").mem.zeroes(?*SDL_GPUTransferBuffer),
-    offset: Uint32 = @import("std").mem.zeroes(Uint32),
+    transfer_buffer: ?*SDL_GPUTransferBuffer = std.mem.zeroes(?*SDL_GPUTransferBuffer),
+    offset: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUTransferBufferLocation = struct_SDL_GPUTransferBufferLocation;
 pub const struct_SDL_GPUTextureLocation = extern struct {
-    texture: ?*SDL_GPUTexture = @import("std").mem.zeroes(?*SDL_GPUTexture),
-    mip_level: Uint32 = @import("std").mem.zeroes(Uint32),
-    layer: Uint32 = @import("std").mem.zeroes(Uint32),
-    x: Uint32 = @import("std").mem.zeroes(Uint32),
-    y: Uint32 = @import("std").mem.zeroes(Uint32),
-    z: Uint32 = @import("std").mem.zeroes(Uint32),
+    texture: ?*SDL_GPUTexture = std.mem.zeroes(?*SDL_GPUTexture),
+    mip_level: Uint32 = std.mem.zeroes(Uint32),
+    layer: Uint32 = std.mem.zeroes(Uint32),
+    x: Uint32 = std.mem.zeroes(Uint32),
+    y: Uint32 = std.mem.zeroes(Uint32),
+    z: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUTextureLocation = struct_SDL_GPUTextureLocation;
 pub const struct_SDL_GPUTextureRegion = extern struct {
-    texture: ?*SDL_GPUTexture = @import("std").mem.zeroes(?*SDL_GPUTexture),
-    mip_level: Uint32 = @import("std").mem.zeroes(Uint32),
-    layer: Uint32 = @import("std").mem.zeroes(Uint32),
-    x: Uint32 = @import("std").mem.zeroes(Uint32),
-    y: Uint32 = @import("std").mem.zeroes(Uint32),
-    z: Uint32 = @import("std").mem.zeroes(Uint32),
-    w: Uint32 = @import("std").mem.zeroes(Uint32),
-    h: Uint32 = @import("std").mem.zeroes(Uint32),
-    d: Uint32 = @import("std").mem.zeroes(Uint32),
+    texture: ?*SDL_GPUTexture = std.mem.zeroes(?*SDL_GPUTexture),
+    mip_level: Uint32 = std.mem.zeroes(Uint32),
+    layer: Uint32 = std.mem.zeroes(Uint32),
+    x: Uint32 = std.mem.zeroes(Uint32),
+    y: Uint32 = std.mem.zeroes(Uint32),
+    z: Uint32 = std.mem.zeroes(Uint32),
+    w: Uint32 = std.mem.zeroes(Uint32),
+    h: Uint32 = std.mem.zeroes(Uint32),
+    d: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUTextureRegion = struct_SDL_GPUTextureRegion;
 pub const struct_SDL_GPUBlitRegion = extern struct {
-    texture: ?*SDL_GPUTexture = @import("std").mem.zeroes(?*SDL_GPUTexture),
-    mip_level: Uint32 = @import("std").mem.zeroes(Uint32),
-    layer_or_depth_plane: Uint32 = @import("std").mem.zeroes(Uint32),
-    x: Uint32 = @import("std").mem.zeroes(Uint32),
-    y: Uint32 = @import("std").mem.zeroes(Uint32),
-    w: Uint32 = @import("std").mem.zeroes(Uint32),
-    h: Uint32 = @import("std").mem.zeroes(Uint32),
+    texture: ?*SDL_GPUTexture = std.mem.zeroes(?*SDL_GPUTexture),
+    mip_level: Uint32 = std.mem.zeroes(Uint32),
+    layer_or_depth_plane: Uint32 = std.mem.zeroes(Uint32),
+    x: Uint32 = std.mem.zeroes(Uint32),
+    y: Uint32 = std.mem.zeroes(Uint32),
+    w: Uint32 = std.mem.zeroes(Uint32),
+    h: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUBlitRegion = struct_SDL_GPUBlitRegion;
 pub const struct_SDL_GPUBufferLocation = extern struct {
-    buffer: ?*SDL_GPUBuffer = @import("std").mem.zeroes(?*SDL_GPUBuffer),
-    offset: Uint32 = @import("std").mem.zeroes(Uint32),
+    buffer: ?*SDL_GPUBuffer = std.mem.zeroes(?*SDL_GPUBuffer),
+    offset: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUBufferLocation = struct_SDL_GPUBufferLocation;
 pub const struct_SDL_GPUBufferRegion = extern struct {
-    buffer: ?*SDL_GPUBuffer = @import("std").mem.zeroes(?*SDL_GPUBuffer),
-    offset: Uint32 = @import("std").mem.zeroes(Uint32),
-    size: Uint32 = @import("std").mem.zeroes(Uint32),
+    buffer: ?*SDL_GPUBuffer = std.mem.zeroes(?*SDL_GPUBuffer),
+    offset: Uint32 = std.mem.zeroes(Uint32),
+    size: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUBufferRegion = struct_SDL_GPUBufferRegion;
 pub const struct_SDL_GPUIndirectDrawCommand = extern struct {
-    num_vertices: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_instances: Uint32 = @import("std").mem.zeroes(Uint32),
-    first_vertex: Uint32 = @import("std").mem.zeroes(Uint32),
-    first_instance: Uint32 = @import("std").mem.zeroes(Uint32),
+    num_vertices: Uint32 = std.mem.zeroes(Uint32),
+    num_instances: Uint32 = std.mem.zeroes(Uint32),
+    first_vertex: Uint32 = std.mem.zeroes(Uint32),
+    first_instance: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUIndirectDrawCommand = struct_SDL_GPUIndirectDrawCommand;
 pub const struct_SDL_GPUIndexedIndirectDrawCommand = extern struct {
-    num_indices: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_instances: Uint32 = @import("std").mem.zeroes(Uint32),
-    first_index: Uint32 = @import("std").mem.zeroes(Uint32),
-    vertex_offset: Sint32 = @import("std").mem.zeroes(Sint32),
-    first_instance: Uint32 = @import("std").mem.zeroes(Uint32),
+    num_indices: Uint32 = std.mem.zeroes(Uint32),
+    num_instances: Uint32 = std.mem.zeroes(Uint32),
+    first_index: Uint32 = std.mem.zeroes(Uint32),
+    vertex_offset: Sint32 = std.mem.zeroes(Sint32),
+    first_instance: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUIndexedIndirectDrawCommand = struct_SDL_GPUIndexedIndirectDrawCommand;
 pub const struct_SDL_GPUIndirectDispatchCommand = extern struct {
-    groupcount_x: Uint32 = @import("std").mem.zeroes(Uint32),
-    groupcount_y: Uint32 = @import("std").mem.zeroes(Uint32),
-    groupcount_z: Uint32 = @import("std").mem.zeroes(Uint32),
+    groupcount_x: Uint32 = std.mem.zeroes(Uint32),
+    groupcount_y: Uint32 = std.mem.zeroes(Uint32),
+    groupcount_z: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUIndirectDispatchCommand = struct_SDL_GPUIndirectDispatchCommand;
 pub const struct_SDL_GPUSamplerCreateInfo = extern struct {
-    min_filter: SDL_GPUFilter = @import("std").mem.zeroes(SDL_GPUFilter),
-    mag_filter: SDL_GPUFilter = @import("std").mem.zeroes(SDL_GPUFilter),
-    mipmap_mode: SDL_GPUSamplerMipmapMode = @import("std").mem.zeroes(SDL_GPUSamplerMipmapMode),
-    address_mode_u: SDL_GPUSamplerAddressMode = @import("std").mem.zeroes(SDL_GPUSamplerAddressMode),
-    address_mode_v: SDL_GPUSamplerAddressMode = @import("std").mem.zeroes(SDL_GPUSamplerAddressMode),
-    address_mode_w: SDL_GPUSamplerAddressMode = @import("std").mem.zeroes(SDL_GPUSamplerAddressMode),
-    mip_lod_bias: f32 = @import("std").mem.zeroes(f32),
-    max_anisotropy: f32 = @import("std").mem.zeroes(f32),
-    compare_op: SDL_GPUCompareOp = @import("std").mem.zeroes(SDL_GPUCompareOp),
-    min_lod: f32 = @import("std").mem.zeroes(f32),
-    max_lod: f32 = @import("std").mem.zeroes(f32),
-    enable_anisotropy: bool = @import("std").mem.zeroes(bool),
-    enable_compare: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    props: SDL_PropertiesID = @import("std").mem.zeroes(SDL_PropertiesID),
+    min_filter: SDL_GPUFilter = std.mem.zeroes(SDL_GPUFilter),
+    mag_filter: SDL_GPUFilter = std.mem.zeroes(SDL_GPUFilter),
+    mipmap_mode: SDL_GPUSamplerMipmapMode = std.mem.zeroes(SDL_GPUSamplerMipmapMode),
+    address_mode_u: SDL_GPUSamplerAddressMode = std.mem.zeroes(SDL_GPUSamplerAddressMode),
+    address_mode_v: SDL_GPUSamplerAddressMode = std.mem.zeroes(SDL_GPUSamplerAddressMode),
+    address_mode_w: SDL_GPUSamplerAddressMode = std.mem.zeroes(SDL_GPUSamplerAddressMode),
+    mip_lod_bias: f32 = std.mem.zeroes(f32),
+    max_anisotropy: f32 = std.mem.zeroes(f32),
+    compare_op: SDL_GPUCompareOp = std.mem.zeroes(SDL_GPUCompareOp),
+    min_lod: f32 = std.mem.zeroes(f32),
+    max_lod: f32 = std.mem.zeroes(f32),
+    enable_anisotropy: bool = std.mem.zeroes(bool),
+    enable_compare: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    props: SDL_PropertiesID = std.mem.zeroes(SDL_PropertiesID),
 };
 pub const SDL_GPUSamplerCreateInfo = struct_SDL_GPUSamplerCreateInfo;
 pub const struct_SDL_GPUVertexBufferDescription = extern struct {
-    slot: Uint32 = @import("std").mem.zeroes(Uint32),
-    pitch: Uint32 = @import("std").mem.zeroes(Uint32),
-    input_rate: SDL_GPUVertexInputRate = @import("std").mem.zeroes(SDL_GPUVertexInputRate),
-    instance_step_rate: Uint32 = @import("std").mem.zeroes(Uint32),
+    slot: Uint32 = std.mem.zeroes(Uint32),
+    pitch: Uint32 = std.mem.zeroes(Uint32),
+    input_rate: SDL_GPUVertexInputRate = std.mem.zeroes(SDL_GPUVertexInputRate),
+    instance_step_rate: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUVertexBufferDescription = struct_SDL_GPUVertexBufferDescription;
 pub const struct_SDL_GPUVertexAttribute = extern struct {
-    location: Uint32 = @import("std").mem.zeroes(Uint32),
-    buffer_slot: Uint32 = @import("std").mem.zeroes(Uint32),
-    format: SDL_GPUVertexElementFormat = @import("std").mem.zeroes(SDL_GPUVertexElementFormat),
-    offset: Uint32 = @import("std").mem.zeroes(Uint32),
+    location: Uint32 = std.mem.zeroes(Uint32),
+    buffer_slot: Uint32 = std.mem.zeroes(Uint32),
+    format: SDL_GPUVertexElementFormat = std.mem.zeroes(SDL_GPUVertexElementFormat),
+    offset: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUVertexAttribute = struct_SDL_GPUVertexAttribute;
 pub const struct_SDL_GPUVertexInputState = extern struct {
-    vertex_buffer_descriptions: [*c]const SDL_GPUVertexBufferDescription = @import("std").mem.zeroes([*c]const SDL_GPUVertexBufferDescription),
-    num_vertex_buffers: Uint32 = @import("std").mem.zeroes(Uint32),
-    vertex_attributes: [*c]const SDL_GPUVertexAttribute = @import("std").mem.zeroes([*c]const SDL_GPUVertexAttribute),
-    num_vertex_attributes: Uint32 = @import("std").mem.zeroes(Uint32),
+    vertex_buffer_descriptions: [*c]const SDL_GPUVertexBufferDescription = std.mem.zeroes([*c]const SDL_GPUVertexBufferDescription),
+    num_vertex_buffers: Uint32 = std.mem.zeroes(Uint32),
+    vertex_attributes: [*c]const SDL_GPUVertexAttribute = std.mem.zeroes([*c]const SDL_GPUVertexAttribute),
+    num_vertex_attributes: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUVertexInputState = struct_SDL_GPUVertexInputState;
 pub const struct_SDL_GPUStencilOpState = extern struct {
-    fail_op: SDL_GPUStencilOp = @import("std").mem.zeroes(SDL_GPUStencilOp),
-    pass_op: SDL_GPUStencilOp = @import("std").mem.zeroes(SDL_GPUStencilOp),
-    depth_fail_op: SDL_GPUStencilOp = @import("std").mem.zeroes(SDL_GPUStencilOp),
-    compare_op: SDL_GPUCompareOp = @import("std").mem.zeroes(SDL_GPUCompareOp),
+    fail_op: SDL_GPUStencilOp = std.mem.zeroes(SDL_GPUStencilOp),
+    pass_op: SDL_GPUStencilOp = std.mem.zeroes(SDL_GPUStencilOp),
+    depth_fail_op: SDL_GPUStencilOp = std.mem.zeroes(SDL_GPUStencilOp),
+    compare_op: SDL_GPUCompareOp = std.mem.zeroes(SDL_GPUCompareOp),
 };
 pub const SDL_GPUStencilOpState = struct_SDL_GPUStencilOpState;
 pub const struct_SDL_GPUColorTargetBlendState = extern struct {
-    src_color_blendfactor: SDL_GPUBlendFactor = @import("std").mem.zeroes(SDL_GPUBlendFactor),
-    dst_color_blendfactor: SDL_GPUBlendFactor = @import("std").mem.zeroes(SDL_GPUBlendFactor),
-    color_blend_op: SDL_GPUBlendOp = @import("std").mem.zeroes(SDL_GPUBlendOp),
-    src_alpha_blendfactor: SDL_GPUBlendFactor = @import("std").mem.zeroes(SDL_GPUBlendFactor),
-    dst_alpha_blendfactor: SDL_GPUBlendFactor = @import("std").mem.zeroes(SDL_GPUBlendFactor),
-    alpha_blend_op: SDL_GPUBlendOp = @import("std").mem.zeroes(SDL_GPUBlendOp),
-    color_write_mask: SDL_GPUColorComponentFlags = @import("std").mem.zeroes(SDL_GPUColorComponentFlags),
-    enable_blend: bool = @import("std").mem.zeroes(bool),
-    enable_color_write_mask: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
+    src_color_blendfactor: SDL_GPUBlendFactor = std.mem.zeroes(SDL_GPUBlendFactor),
+    dst_color_blendfactor: SDL_GPUBlendFactor = std.mem.zeroes(SDL_GPUBlendFactor),
+    color_blend_op: SDL_GPUBlendOp = std.mem.zeroes(SDL_GPUBlendOp),
+    src_alpha_blendfactor: SDL_GPUBlendFactor = std.mem.zeroes(SDL_GPUBlendFactor),
+    dst_alpha_blendfactor: SDL_GPUBlendFactor = std.mem.zeroes(SDL_GPUBlendFactor),
+    alpha_blend_op: SDL_GPUBlendOp = std.mem.zeroes(SDL_GPUBlendOp),
+    color_write_mask: SDL_GPUColorComponentFlags = std.mem.zeroes(SDL_GPUColorComponentFlags),
+    enable_blend: bool = std.mem.zeroes(bool),
+    enable_color_write_mask: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUColorTargetBlendState = struct_SDL_GPUColorTargetBlendState;
 pub const struct_SDL_GPUShaderCreateInfo = extern struct {
-    code_size: usize = @import("std").mem.zeroes(usize),
-    code: [*c]const Uint8 = @import("std").mem.zeroes([*c]const Uint8),
-    entrypoint: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    format: SDL_GPUShaderFormat = @import("std").mem.zeroes(SDL_GPUShaderFormat),
-    stage: SDL_GPUShaderStage = @import("std").mem.zeroes(SDL_GPUShaderStage),
-    num_samplers: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_storage_textures: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_storage_buffers: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_uniform_buffers: Uint32 = @import("std").mem.zeroes(Uint32),
-    props: SDL_PropertiesID = @import("std").mem.zeroes(SDL_PropertiesID),
+    code_size: usize = std.mem.zeroes(usize),
+    code: [*c]const Uint8 = std.mem.zeroes([*c]const Uint8),
+    entrypoint: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    format: SDL_GPUShaderFormat = std.mem.zeroes(SDL_GPUShaderFormat),
+    stage: SDL_GPUShaderStage = std.mem.zeroes(SDL_GPUShaderStage),
+    num_samplers: Uint32 = std.mem.zeroes(Uint32),
+    num_storage_textures: Uint32 = std.mem.zeroes(Uint32),
+    num_storage_buffers: Uint32 = std.mem.zeroes(Uint32),
+    num_uniform_buffers: Uint32 = std.mem.zeroes(Uint32),
+    props: SDL_PropertiesID = std.mem.zeroes(SDL_PropertiesID),
 };
 pub const SDL_GPUShaderCreateInfo = struct_SDL_GPUShaderCreateInfo;
 pub const struct_SDL_GPUTextureCreateInfo = extern struct {
-    type: SDL_GPUTextureType = @import("std").mem.zeroes(SDL_GPUTextureType),
-    format: SDL_GPUTextureFormat = @import("std").mem.zeroes(SDL_GPUTextureFormat),
-    usage: SDL_GPUTextureUsageFlags = @import("std").mem.zeroes(SDL_GPUTextureUsageFlags),
-    width: Uint32 = @import("std").mem.zeroes(Uint32),
-    height: Uint32 = @import("std").mem.zeroes(Uint32),
-    layer_count_or_depth: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_levels: Uint32 = @import("std").mem.zeroes(Uint32),
-    sample_count: SDL_GPUSampleCount = @import("std").mem.zeroes(SDL_GPUSampleCount),
-    props: SDL_PropertiesID = @import("std").mem.zeroes(SDL_PropertiesID),
+    type: SDL_GPUTextureType = std.mem.zeroes(SDL_GPUTextureType),
+    format: SDL_GPUTextureFormat = std.mem.zeroes(SDL_GPUTextureFormat),
+    usage: SDL_GPUTextureUsageFlags = std.mem.zeroes(SDL_GPUTextureUsageFlags),
+    width: Uint32 = std.mem.zeroes(Uint32),
+    height: Uint32 = std.mem.zeroes(Uint32),
+    layer_count_or_depth: Uint32 = std.mem.zeroes(Uint32),
+    num_levels: Uint32 = std.mem.zeroes(Uint32),
+    sample_count: SDL_GPUSampleCount = std.mem.zeroes(SDL_GPUSampleCount),
+    props: SDL_PropertiesID = std.mem.zeroes(SDL_PropertiesID),
 };
 pub const SDL_GPUTextureCreateInfo = struct_SDL_GPUTextureCreateInfo;
 pub const struct_SDL_GPUBufferCreateInfo = extern struct {
-    usage: SDL_GPUBufferUsageFlags = @import("std").mem.zeroes(SDL_GPUBufferUsageFlags),
-    size: Uint32 = @import("std").mem.zeroes(Uint32),
-    props: SDL_PropertiesID = @import("std").mem.zeroes(SDL_PropertiesID),
+    usage: SDL_GPUBufferUsageFlags = std.mem.zeroes(SDL_GPUBufferUsageFlags),
+    size: Uint32 = std.mem.zeroes(Uint32),
+    props: SDL_PropertiesID = std.mem.zeroes(SDL_PropertiesID),
 };
 pub const SDL_GPUBufferCreateInfo = struct_SDL_GPUBufferCreateInfo;
 pub const struct_SDL_GPUTransferBufferCreateInfo = extern struct {
-    usage: SDL_GPUTransferBufferUsage = @import("std").mem.zeroes(SDL_GPUTransferBufferUsage),
-    size: Uint32 = @import("std").mem.zeroes(Uint32),
-    props: SDL_PropertiesID = @import("std").mem.zeroes(SDL_PropertiesID),
+    usage: SDL_GPUTransferBufferUsage = std.mem.zeroes(SDL_GPUTransferBufferUsage),
+    size: Uint32 = std.mem.zeroes(Uint32),
+    props: SDL_PropertiesID = std.mem.zeroes(SDL_PropertiesID),
 };
 pub const SDL_GPUTransferBufferCreateInfo = struct_SDL_GPUTransferBufferCreateInfo;
 pub const struct_SDL_GPURasterizerState = extern struct {
-    fill_mode: SDL_GPUFillMode = @import("std").mem.zeroes(SDL_GPUFillMode),
-    cull_mode: SDL_GPUCullMode = @import("std").mem.zeroes(SDL_GPUCullMode),
-    front_face: SDL_GPUFrontFace = @import("std").mem.zeroes(SDL_GPUFrontFace),
-    depth_bias_constant_factor: f32 = @import("std").mem.zeroes(f32),
-    depth_bias_clamp: f32 = @import("std").mem.zeroes(f32),
-    depth_bias_slope_factor: f32 = @import("std").mem.zeroes(f32),
-    enable_depth_bias: bool = @import("std").mem.zeroes(bool),
-    enable_depth_clip: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
+    fill_mode: SDL_GPUFillMode = std.mem.zeroes(SDL_GPUFillMode),
+    cull_mode: SDL_GPUCullMode = std.mem.zeroes(SDL_GPUCullMode),
+    front_face: SDL_GPUFrontFace = std.mem.zeroes(SDL_GPUFrontFace),
+    depth_bias_constant_factor: f32 = std.mem.zeroes(f32),
+    depth_bias_clamp: f32 = std.mem.zeroes(f32),
+    depth_bias_slope_factor: f32 = std.mem.zeroes(f32),
+    enable_depth_bias: bool = std.mem.zeroes(bool),
+    enable_depth_clip: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPURasterizerState = struct_SDL_GPURasterizerState;
 pub const struct_SDL_GPUMultisampleState = extern struct {
-    sample_count: SDL_GPUSampleCount = @import("std").mem.zeroes(SDL_GPUSampleCount),
-    sample_mask: Uint32 = @import("std").mem.zeroes(Uint32),
-    enable_mask: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
+    sample_count: SDL_GPUSampleCount = std.mem.zeroes(SDL_GPUSampleCount),
+    sample_mask: Uint32 = std.mem.zeroes(Uint32),
+    enable_mask: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUMultisampleState = struct_SDL_GPUMultisampleState;
 pub const struct_SDL_GPUDepthStencilState = extern struct {
-    compare_op: SDL_GPUCompareOp = @import("std").mem.zeroes(SDL_GPUCompareOp),
-    back_stencil_state: SDL_GPUStencilOpState = @import("std").mem.zeroes(SDL_GPUStencilOpState),
-    front_stencil_state: SDL_GPUStencilOpState = @import("std").mem.zeroes(SDL_GPUStencilOpState),
-    compare_mask: Uint8 = @import("std").mem.zeroes(Uint8),
-    write_mask: Uint8 = @import("std").mem.zeroes(Uint8),
-    enable_depth_test: bool = @import("std").mem.zeroes(bool),
-    enable_depth_write: bool = @import("std").mem.zeroes(bool),
-    enable_stencil_test: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
+    compare_op: SDL_GPUCompareOp = std.mem.zeroes(SDL_GPUCompareOp),
+    back_stencil_state: SDL_GPUStencilOpState = std.mem.zeroes(SDL_GPUStencilOpState),
+    front_stencil_state: SDL_GPUStencilOpState = std.mem.zeroes(SDL_GPUStencilOpState),
+    compare_mask: Uint8 = std.mem.zeroes(Uint8),
+    write_mask: Uint8 = std.mem.zeroes(Uint8),
+    enable_depth_test: bool = std.mem.zeroes(bool),
+    enable_depth_write: bool = std.mem.zeroes(bool),
+    enable_stencil_test: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUDepthStencilState = struct_SDL_GPUDepthStencilState;
 pub const struct_SDL_GPUColorTargetDescription = extern struct {
-    format: SDL_GPUTextureFormat = @import("std").mem.zeroes(SDL_GPUTextureFormat),
-    blend_state: SDL_GPUColorTargetBlendState = @import("std").mem.zeroes(SDL_GPUColorTargetBlendState),
+    format: SDL_GPUTextureFormat = std.mem.zeroes(SDL_GPUTextureFormat),
+    blend_state: SDL_GPUColorTargetBlendState = std.mem.zeroes(SDL_GPUColorTargetBlendState),
 };
 pub const SDL_GPUColorTargetDescription = struct_SDL_GPUColorTargetDescription;
 pub const struct_SDL_GPUGraphicsPipelineTargetInfo = extern struct {
-    color_target_descriptions: [*c]const SDL_GPUColorTargetDescription = @import("std").mem.zeroes([*c]const SDL_GPUColorTargetDescription),
-    num_color_targets: Uint32 = @import("std").mem.zeroes(Uint32),
-    depth_stencil_format: SDL_GPUTextureFormat = @import("std").mem.zeroes(SDL_GPUTextureFormat),
-    has_depth_stencil_target: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
+    color_target_descriptions: [*c]const SDL_GPUColorTargetDescription = std.mem.zeroes([*c]const SDL_GPUColorTargetDescription),
+    num_color_targets: Uint32 = std.mem.zeroes(Uint32),
+    depth_stencil_format: SDL_GPUTextureFormat = std.mem.zeroes(SDL_GPUTextureFormat),
+    has_depth_stencil_target: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUGraphicsPipelineTargetInfo = struct_SDL_GPUGraphicsPipelineTargetInfo;
 pub const struct_SDL_GPUGraphicsPipelineCreateInfo = extern struct {
-    vertex_shader: ?*SDL_GPUShader = @import("std").mem.zeroes(?*SDL_GPUShader),
-    fragment_shader: ?*SDL_GPUShader = @import("std").mem.zeroes(?*SDL_GPUShader),
-    vertex_input_state: SDL_GPUVertexInputState = @import("std").mem.zeroes(SDL_GPUVertexInputState),
-    primitive_type: SDL_GPUPrimitiveType = @import("std").mem.zeroes(SDL_GPUPrimitiveType),
-    rasterizer_state: SDL_GPURasterizerState = @import("std").mem.zeroes(SDL_GPURasterizerState),
-    multisample_state: SDL_GPUMultisampleState = @import("std").mem.zeroes(SDL_GPUMultisampleState),
-    depth_stencil_state: SDL_GPUDepthStencilState = @import("std").mem.zeroes(SDL_GPUDepthStencilState),
-    target_info: SDL_GPUGraphicsPipelineTargetInfo = @import("std").mem.zeroes(SDL_GPUGraphicsPipelineTargetInfo),
-    props: SDL_PropertiesID = @import("std").mem.zeroes(SDL_PropertiesID),
+    vertex_shader: ?*SDL_GPUShader = std.mem.zeroes(?*SDL_GPUShader),
+    fragment_shader: ?*SDL_GPUShader = std.mem.zeroes(?*SDL_GPUShader),
+    vertex_input_state: SDL_GPUVertexInputState = std.mem.zeroes(SDL_GPUVertexInputState),
+    primitive_type: SDL_GPUPrimitiveType = std.mem.zeroes(SDL_GPUPrimitiveType),
+    rasterizer_state: SDL_GPURasterizerState = std.mem.zeroes(SDL_GPURasterizerState),
+    multisample_state: SDL_GPUMultisampleState = std.mem.zeroes(SDL_GPUMultisampleState),
+    depth_stencil_state: SDL_GPUDepthStencilState = std.mem.zeroes(SDL_GPUDepthStencilState),
+    target_info: SDL_GPUGraphicsPipelineTargetInfo = std.mem.zeroes(SDL_GPUGraphicsPipelineTargetInfo),
+    props: SDL_PropertiesID = std.mem.zeroes(SDL_PropertiesID),
 };
 pub const SDL_GPUGraphicsPipelineCreateInfo = struct_SDL_GPUGraphicsPipelineCreateInfo;
 pub const struct_SDL_GPUComputePipelineCreateInfo = extern struct {
-    code_size: usize = @import("std").mem.zeroes(usize),
-    code: [*c]const Uint8 = @import("std").mem.zeroes([*c]const Uint8),
-    entrypoint: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    format: SDL_GPUShaderFormat = @import("std").mem.zeroes(SDL_GPUShaderFormat),
-    num_samplers: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_readonly_storage_textures: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_readonly_storage_buffers: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_readwrite_storage_textures: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_readwrite_storage_buffers: Uint32 = @import("std").mem.zeroes(Uint32),
-    num_uniform_buffers: Uint32 = @import("std").mem.zeroes(Uint32),
-    threadcount_x: Uint32 = @import("std").mem.zeroes(Uint32),
-    threadcount_y: Uint32 = @import("std").mem.zeroes(Uint32),
-    threadcount_z: Uint32 = @import("std").mem.zeroes(Uint32),
-    props: SDL_PropertiesID = @import("std").mem.zeroes(SDL_PropertiesID),
+    code_size: usize = std.mem.zeroes(usize),
+    code: [*c]const Uint8 = std.mem.zeroes([*c]const Uint8),
+    entrypoint: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    format: SDL_GPUShaderFormat = std.mem.zeroes(SDL_GPUShaderFormat),
+    num_samplers: Uint32 = std.mem.zeroes(Uint32),
+    num_readonly_storage_textures: Uint32 = std.mem.zeroes(Uint32),
+    num_readonly_storage_buffers: Uint32 = std.mem.zeroes(Uint32),
+    num_readwrite_storage_textures: Uint32 = std.mem.zeroes(Uint32),
+    num_readwrite_storage_buffers: Uint32 = std.mem.zeroes(Uint32),
+    num_uniform_buffers: Uint32 = std.mem.zeroes(Uint32),
+    threadcount_x: Uint32 = std.mem.zeroes(Uint32),
+    threadcount_y: Uint32 = std.mem.zeroes(Uint32),
+    threadcount_z: Uint32 = std.mem.zeroes(Uint32),
+    props: SDL_PropertiesID = std.mem.zeroes(SDL_PropertiesID),
 };
 pub const SDL_GPUComputePipelineCreateInfo = struct_SDL_GPUComputePipelineCreateInfo;
 pub const struct_SDL_GPUColorTargetInfo = extern struct {
-    texture: ?*SDL_GPUTexture = @import("std").mem.zeroes(?*SDL_GPUTexture),
-    mip_level: Uint32 = @import("std").mem.zeroes(Uint32),
-    layer_or_depth_plane: Uint32 = @import("std").mem.zeroes(Uint32),
-    clear_color: SDL_FColor = @import("std").mem.zeroes(SDL_FColor),
-    load_op: SDL_GPULoadOp = @import("std").mem.zeroes(SDL_GPULoadOp),
-    store_op: SDL_GPUStoreOp = @import("std").mem.zeroes(SDL_GPUStoreOp),
-    resolve_texture: ?*SDL_GPUTexture = @import("std").mem.zeroes(?*SDL_GPUTexture),
-    resolve_mip_level: Uint32 = @import("std").mem.zeroes(Uint32),
-    resolve_layer: Uint32 = @import("std").mem.zeroes(Uint32),
-    cycle: bool = @import("std").mem.zeroes(bool),
-    cycle_resolve_texture: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
+    texture: ?*SDL_GPUTexture = std.mem.zeroes(?*SDL_GPUTexture),
+    mip_level: Uint32 = std.mem.zeroes(Uint32),
+    layer_or_depth_plane: Uint32 = std.mem.zeroes(Uint32),
+    clear_color: SDL_FColor = std.mem.zeroes(SDL_FColor),
+    load_op: SDL_GPULoadOp = std.mem.zeroes(SDL_GPULoadOp),
+    store_op: SDL_GPUStoreOp = std.mem.zeroes(SDL_GPUStoreOp),
+    resolve_texture: ?*SDL_GPUTexture = std.mem.zeroes(?*SDL_GPUTexture),
+    resolve_mip_level: Uint32 = std.mem.zeroes(Uint32),
+    resolve_layer: Uint32 = std.mem.zeroes(Uint32),
+    cycle: bool = std.mem.zeroes(bool),
+    cycle_resolve_texture: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUColorTargetInfo = struct_SDL_GPUColorTargetInfo;
 pub const struct_SDL_GPUDepthStencilTargetInfo = extern struct {
-    texture: ?*SDL_GPUTexture = @import("std").mem.zeroes(?*SDL_GPUTexture),
-    clear_depth: f32 = @import("std").mem.zeroes(f32),
-    load_op: SDL_GPULoadOp = @import("std").mem.zeroes(SDL_GPULoadOp),
-    store_op: SDL_GPUStoreOp = @import("std").mem.zeroes(SDL_GPUStoreOp),
-    stencil_load_op: SDL_GPULoadOp = @import("std").mem.zeroes(SDL_GPULoadOp),
-    stencil_store_op: SDL_GPUStoreOp = @import("std").mem.zeroes(SDL_GPUStoreOp),
-    cycle: bool = @import("std").mem.zeroes(bool),
-    clear_stencil: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
+    texture: ?*SDL_GPUTexture = std.mem.zeroes(?*SDL_GPUTexture),
+    clear_depth: f32 = std.mem.zeroes(f32),
+    load_op: SDL_GPULoadOp = std.mem.zeroes(SDL_GPULoadOp),
+    store_op: SDL_GPUStoreOp = std.mem.zeroes(SDL_GPUStoreOp),
+    stencil_load_op: SDL_GPULoadOp = std.mem.zeroes(SDL_GPULoadOp),
+    stencil_store_op: SDL_GPUStoreOp = std.mem.zeroes(SDL_GPUStoreOp),
+    cycle: bool = std.mem.zeroes(bool),
+    clear_stencil: Uint8 = std.mem.zeroes(Uint8),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUDepthStencilTargetInfo = struct_SDL_GPUDepthStencilTargetInfo;
 pub const struct_SDL_GPUBlitInfo = extern struct {
-    source: SDL_GPUBlitRegion = @import("std").mem.zeroes(SDL_GPUBlitRegion),
-    destination: SDL_GPUBlitRegion = @import("std").mem.zeroes(SDL_GPUBlitRegion),
-    load_op: SDL_GPULoadOp = @import("std").mem.zeroes(SDL_GPULoadOp),
-    clear_color: SDL_FColor = @import("std").mem.zeroes(SDL_FColor),
-    flip_mode: SDL_FlipMode = @import("std").mem.zeroes(SDL_FlipMode),
-    filter: SDL_GPUFilter = @import("std").mem.zeroes(SDL_GPUFilter),
-    cycle: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
+    source: SDL_GPUBlitRegion = std.mem.zeroes(SDL_GPUBlitRegion),
+    destination: SDL_GPUBlitRegion = std.mem.zeroes(SDL_GPUBlitRegion),
+    load_op: SDL_GPULoadOp = std.mem.zeroes(SDL_GPULoadOp),
+    clear_color: SDL_FColor = std.mem.zeroes(SDL_FColor),
+    flip_mode: SDL_FlipMode = std.mem.zeroes(SDL_FlipMode),
+    filter: SDL_GPUFilter = std.mem.zeroes(SDL_GPUFilter),
+    cycle: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUBlitInfo = struct_SDL_GPUBlitInfo;
 pub const struct_SDL_GPUBufferBinding = extern struct {
-    buffer: ?*SDL_GPUBuffer = @import("std").mem.zeroes(?*SDL_GPUBuffer),
-    offset: Uint32 = @import("std").mem.zeroes(Uint32),
+    buffer: ?*SDL_GPUBuffer = std.mem.zeroes(?*SDL_GPUBuffer),
+    offset: Uint32 = std.mem.zeroes(Uint32),
 };
 pub const SDL_GPUBufferBinding = struct_SDL_GPUBufferBinding;
 pub const struct_SDL_GPUTextureSamplerBinding = extern struct {
-    texture: ?*SDL_GPUTexture = @import("std").mem.zeroes(?*SDL_GPUTexture),
-    sampler: ?*SDL_GPUSampler = @import("std").mem.zeroes(?*SDL_GPUSampler),
+    texture: ?*SDL_GPUTexture = std.mem.zeroes(?*SDL_GPUTexture),
+    sampler: ?*SDL_GPUSampler = std.mem.zeroes(?*SDL_GPUSampler),
 };
 pub const SDL_GPUTextureSamplerBinding = struct_SDL_GPUTextureSamplerBinding;
 pub const struct_SDL_GPUStorageBufferReadWriteBinding = extern struct {
-    buffer: ?*SDL_GPUBuffer = @import("std").mem.zeroes(?*SDL_GPUBuffer),
-    cycle: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
+    buffer: ?*SDL_GPUBuffer = std.mem.zeroes(?*SDL_GPUBuffer),
+    cycle: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUStorageBufferReadWriteBinding = struct_SDL_GPUStorageBufferReadWriteBinding;
 pub const struct_SDL_GPUStorageTextureReadWriteBinding = extern struct {
-    texture: ?*SDL_GPUTexture = @import("std").mem.zeroes(?*SDL_GPUTexture),
-    mip_level: Uint32 = @import("std").mem.zeroes(Uint32),
-    layer: Uint32 = @import("std").mem.zeroes(Uint32),
-    cycle: bool = @import("std").mem.zeroes(bool),
-    padding1: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding2: Uint8 = @import("std").mem.zeroes(Uint8),
-    padding3: Uint8 = @import("std").mem.zeroes(Uint8),
+    texture: ?*SDL_GPUTexture = std.mem.zeroes(?*SDL_GPUTexture),
+    mip_level: Uint32 = std.mem.zeroes(Uint32),
+    layer: Uint32 = std.mem.zeroes(Uint32),
+    cycle: bool = std.mem.zeroes(bool),
+    padding1: Uint8 = std.mem.zeroes(Uint8),
+    padding2: Uint8 = std.mem.zeroes(Uint8),
+    padding3: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_GPUStorageTextureReadWriteBinding = struct_SDL_GPUStorageTextureReadWriteBinding;
 pub extern fn SDL_GPUSupportsShaderFormats(format_flags: SDL_GPUShaderFormat, name: [*c]const u8) bool;
@@ -4251,93 +4338,93 @@ pub extern fn SDL_CalculateGPUTextureFormatSize(format: SDL_GPUTextureFormat, wi
 pub const struct_SDL_Haptic = opaque {};
 pub const SDL_Haptic = struct_SDL_Haptic;
 pub const struct_SDL_HapticDirection = extern struct {
-    type: Uint8 = @import("std").mem.zeroes(Uint8),
-    dir: [3]Sint32 = @import("std").mem.zeroes([3]Sint32),
+    type: Uint8 = std.mem.zeroes(Uint8),
+    dir: [3]Sint32 = std.mem.zeroes([3]Sint32),
 };
 pub const SDL_HapticDirection = struct_SDL_HapticDirection;
 pub const struct_SDL_HapticConstant = extern struct {
-    type: Uint16 = @import("std").mem.zeroes(Uint16),
-    direction: SDL_HapticDirection = @import("std").mem.zeroes(SDL_HapticDirection),
-    length: Uint32 = @import("std").mem.zeroes(Uint32),
-    delay: Uint16 = @import("std").mem.zeroes(Uint16),
-    button: Uint16 = @import("std").mem.zeroes(Uint16),
-    interval: Uint16 = @import("std").mem.zeroes(Uint16),
-    level: Sint16 = @import("std").mem.zeroes(Sint16),
-    attack_length: Uint16 = @import("std").mem.zeroes(Uint16),
-    attack_level: Uint16 = @import("std").mem.zeroes(Uint16),
-    fade_length: Uint16 = @import("std").mem.zeroes(Uint16),
-    fade_level: Uint16 = @import("std").mem.zeroes(Uint16),
+    type: Uint16 = std.mem.zeroes(Uint16),
+    direction: SDL_HapticDirection = std.mem.zeroes(SDL_HapticDirection),
+    length: Uint32 = std.mem.zeroes(Uint32),
+    delay: Uint16 = std.mem.zeroes(Uint16),
+    button: Uint16 = std.mem.zeroes(Uint16),
+    interval: Uint16 = std.mem.zeroes(Uint16),
+    level: Sint16 = std.mem.zeroes(Sint16),
+    attack_length: Uint16 = std.mem.zeroes(Uint16),
+    attack_level: Uint16 = std.mem.zeroes(Uint16),
+    fade_length: Uint16 = std.mem.zeroes(Uint16),
+    fade_level: Uint16 = std.mem.zeroes(Uint16),
 };
 pub const SDL_HapticConstant = struct_SDL_HapticConstant;
 pub const struct_SDL_HapticPeriodic = extern struct {
-    type: Uint16 = @import("std").mem.zeroes(Uint16),
-    direction: SDL_HapticDirection = @import("std").mem.zeroes(SDL_HapticDirection),
-    length: Uint32 = @import("std").mem.zeroes(Uint32),
-    delay: Uint16 = @import("std").mem.zeroes(Uint16),
-    button: Uint16 = @import("std").mem.zeroes(Uint16),
-    interval: Uint16 = @import("std").mem.zeroes(Uint16),
-    period: Uint16 = @import("std").mem.zeroes(Uint16),
-    magnitude: Sint16 = @import("std").mem.zeroes(Sint16),
-    offset: Sint16 = @import("std").mem.zeroes(Sint16),
-    phase: Uint16 = @import("std").mem.zeroes(Uint16),
-    attack_length: Uint16 = @import("std").mem.zeroes(Uint16),
-    attack_level: Uint16 = @import("std").mem.zeroes(Uint16),
-    fade_length: Uint16 = @import("std").mem.zeroes(Uint16),
-    fade_level: Uint16 = @import("std").mem.zeroes(Uint16),
+    type: Uint16 = std.mem.zeroes(Uint16),
+    direction: SDL_HapticDirection = std.mem.zeroes(SDL_HapticDirection),
+    length: Uint32 = std.mem.zeroes(Uint32),
+    delay: Uint16 = std.mem.zeroes(Uint16),
+    button: Uint16 = std.mem.zeroes(Uint16),
+    interval: Uint16 = std.mem.zeroes(Uint16),
+    period: Uint16 = std.mem.zeroes(Uint16),
+    magnitude: Sint16 = std.mem.zeroes(Sint16),
+    offset: Sint16 = std.mem.zeroes(Sint16),
+    phase: Uint16 = std.mem.zeroes(Uint16),
+    attack_length: Uint16 = std.mem.zeroes(Uint16),
+    attack_level: Uint16 = std.mem.zeroes(Uint16),
+    fade_length: Uint16 = std.mem.zeroes(Uint16),
+    fade_level: Uint16 = std.mem.zeroes(Uint16),
 };
 pub const SDL_HapticPeriodic = struct_SDL_HapticPeriodic;
 pub const struct_SDL_HapticCondition = extern struct {
-    type: Uint16 = @import("std").mem.zeroes(Uint16),
-    direction: SDL_HapticDirection = @import("std").mem.zeroes(SDL_HapticDirection),
-    length: Uint32 = @import("std").mem.zeroes(Uint32),
-    delay: Uint16 = @import("std").mem.zeroes(Uint16),
-    button: Uint16 = @import("std").mem.zeroes(Uint16),
-    interval: Uint16 = @import("std").mem.zeroes(Uint16),
-    right_sat: [3]Uint16 = @import("std").mem.zeroes([3]Uint16),
-    left_sat: [3]Uint16 = @import("std").mem.zeroes([3]Uint16),
-    right_coeff: [3]Sint16 = @import("std").mem.zeroes([3]Sint16),
-    left_coeff: [3]Sint16 = @import("std").mem.zeroes([3]Sint16),
-    deadband: [3]Uint16 = @import("std").mem.zeroes([3]Uint16),
-    center: [3]Sint16 = @import("std").mem.zeroes([3]Sint16),
+    type: Uint16 = std.mem.zeroes(Uint16),
+    direction: SDL_HapticDirection = std.mem.zeroes(SDL_HapticDirection),
+    length: Uint32 = std.mem.zeroes(Uint32),
+    delay: Uint16 = std.mem.zeroes(Uint16),
+    button: Uint16 = std.mem.zeroes(Uint16),
+    interval: Uint16 = std.mem.zeroes(Uint16),
+    right_sat: [3]Uint16 = std.mem.zeroes([3]Uint16),
+    left_sat: [3]Uint16 = std.mem.zeroes([3]Uint16),
+    right_coeff: [3]Sint16 = std.mem.zeroes([3]Sint16),
+    left_coeff: [3]Sint16 = std.mem.zeroes([3]Sint16),
+    deadband: [3]Uint16 = std.mem.zeroes([3]Uint16),
+    center: [3]Sint16 = std.mem.zeroes([3]Sint16),
 };
 pub const SDL_HapticCondition = struct_SDL_HapticCondition;
 pub const struct_SDL_HapticRamp = extern struct {
-    type: Uint16 = @import("std").mem.zeroes(Uint16),
-    direction: SDL_HapticDirection = @import("std").mem.zeroes(SDL_HapticDirection),
-    length: Uint32 = @import("std").mem.zeroes(Uint32),
-    delay: Uint16 = @import("std").mem.zeroes(Uint16),
-    button: Uint16 = @import("std").mem.zeroes(Uint16),
-    interval: Uint16 = @import("std").mem.zeroes(Uint16),
-    start: Sint16 = @import("std").mem.zeroes(Sint16),
-    end: Sint16 = @import("std").mem.zeroes(Sint16),
-    attack_length: Uint16 = @import("std").mem.zeroes(Uint16),
-    attack_level: Uint16 = @import("std").mem.zeroes(Uint16),
-    fade_length: Uint16 = @import("std").mem.zeroes(Uint16),
-    fade_level: Uint16 = @import("std").mem.zeroes(Uint16),
+    type: Uint16 = std.mem.zeroes(Uint16),
+    direction: SDL_HapticDirection = std.mem.zeroes(SDL_HapticDirection),
+    length: Uint32 = std.mem.zeroes(Uint32),
+    delay: Uint16 = std.mem.zeroes(Uint16),
+    button: Uint16 = std.mem.zeroes(Uint16),
+    interval: Uint16 = std.mem.zeroes(Uint16),
+    start: Sint16 = std.mem.zeroes(Sint16),
+    end: Sint16 = std.mem.zeroes(Sint16),
+    attack_length: Uint16 = std.mem.zeroes(Uint16),
+    attack_level: Uint16 = std.mem.zeroes(Uint16),
+    fade_length: Uint16 = std.mem.zeroes(Uint16),
+    fade_level: Uint16 = std.mem.zeroes(Uint16),
 };
 pub const SDL_HapticRamp = struct_SDL_HapticRamp;
 pub const struct_SDL_HapticLeftRight = extern struct {
-    type: Uint16 = @import("std").mem.zeroes(Uint16),
-    length: Uint32 = @import("std").mem.zeroes(Uint32),
-    large_magnitude: Uint16 = @import("std").mem.zeroes(Uint16),
-    small_magnitude: Uint16 = @import("std").mem.zeroes(Uint16),
+    type: Uint16 = std.mem.zeroes(Uint16),
+    length: Uint32 = std.mem.zeroes(Uint32),
+    large_magnitude: Uint16 = std.mem.zeroes(Uint16),
+    small_magnitude: Uint16 = std.mem.zeroes(Uint16),
 };
 pub const SDL_HapticLeftRight = struct_SDL_HapticLeftRight;
 pub const struct_SDL_HapticCustom = extern struct {
-    type: Uint16 = @import("std").mem.zeroes(Uint16),
-    direction: SDL_HapticDirection = @import("std").mem.zeroes(SDL_HapticDirection),
-    length: Uint32 = @import("std").mem.zeroes(Uint32),
-    delay: Uint16 = @import("std").mem.zeroes(Uint16),
-    button: Uint16 = @import("std").mem.zeroes(Uint16),
-    interval: Uint16 = @import("std").mem.zeroes(Uint16),
-    channels: Uint8 = @import("std").mem.zeroes(Uint8),
-    period: Uint16 = @import("std").mem.zeroes(Uint16),
-    samples: Uint16 = @import("std").mem.zeroes(Uint16),
-    data: [*c]Uint16 = @import("std").mem.zeroes([*c]Uint16),
-    attack_length: Uint16 = @import("std").mem.zeroes(Uint16),
-    attack_level: Uint16 = @import("std").mem.zeroes(Uint16),
-    fade_length: Uint16 = @import("std").mem.zeroes(Uint16),
-    fade_level: Uint16 = @import("std").mem.zeroes(Uint16),
+    type: Uint16 = std.mem.zeroes(Uint16),
+    direction: SDL_HapticDirection = std.mem.zeroes(SDL_HapticDirection),
+    length: Uint32 = std.mem.zeroes(Uint32),
+    delay: Uint16 = std.mem.zeroes(Uint16),
+    button: Uint16 = std.mem.zeroes(Uint16),
+    interval: Uint16 = std.mem.zeroes(Uint16),
+    channels: Uint8 = std.mem.zeroes(Uint8),
+    period: Uint16 = std.mem.zeroes(Uint16),
+    samples: Uint16 = std.mem.zeroes(Uint16),
+    data: [*c]Uint16 = std.mem.zeroes([*c]Uint16),
+    attack_length: Uint16 = std.mem.zeroes(Uint16),
+    attack_level: Uint16 = std.mem.zeroes(Uint16),
+    fade_length: Uint16 = std.mem.zeroes(Uint16),
+    fade_level: Uint16 = std.mem.zeroes(Uint16),
 };
 pub const SDL_HapticCustom = struct_SDL_HapticCustom;
 pub const union_SDL_HapticEffect = extern union {
@@ -4392,21 +4479,21 @@ pub const SDL_HID_API_BUS_SPI: c_int = 4;
 pub const enum_SDL_hid_bus_type = c_uint;
 pub const SDL_hid_bus_type = enum_SDL_hid_bus_type;
 pub const struct_SDL_hid_device_info = extern struct {
-    path: [*c]u8 = @import("std").mem.zeroes([*c]u8),
-    vendor_id: c_ushort = @import("std").mem.zeroes(c_ushort),
-    product_id: c_ushort = @import("std").mem.zeroes(c_ushort),
-    serial_number: [*c]wchar_t = @import("std").mem.zeroes([*c]wchar_t),
-    release_number: c_ushort = @import("std").mem.zeroes(c_ushort),
-    manufacturer_string: [*c]wchar_t = @import("std").mem.zeroes([*c]wchar_t),
-    product_string: [*c]wchar_t = @import("std").mem.zeroes([*c]wchar_t),
-    usage_page: c_ushort = @import("std").mem.zeroes(c_ushort),
-    usage: c_ushort = @import("std").mem.zeroes(c_ushort),
-    interface_number: c_int = @import("std").mem.zeroes(c_int),
-    interface_class: c_int = @import("std").mem.zeroes(c_int),
-    interface_subclass: c_int = @import("std").mem.zeroes(c_int),
-    interface_protocol: c_int = @import("std").mem.zeroes(c_int),
-    bus_type: SDL_hid_bus_type = @import("std").mem.zeroes(SDL_hid_bus_type),
-    next: [*c]struct_SDL_hid_device_info = @import("std").mem.zeroes([*c]struct_SDL_hid_device_info),
+    path: [*c]u8 = std.mem.zeroes([*c]u8),
+    vendor_id: c_ushort = std.mem.zeroes(c_ushort),
+    product_id: c_ushort = std.mem.zeroes(c_ushort),
+    serial_number: [*c]wchar_t = std.mem.zeroes([*c]wchar_t),
+    release_number: c_ushort = std.mem.zeroes(c_ushort),
+    manufacturer_string: [*c]wchar_t = std.mem.zeroes([*c]wchar_t),
+    product_string: [*c]wchar_t = std.mem.zeroes([*c]wchar_t),
+    usage_page: c_ushort = std.mem.zeroes(c_ushort),
+    usage: c_ushort = std.mem.zeroes(c_ushort),
+    interface_number: c_int = std.mem.zeroes(c_int),
+    interface_class: c_int = std.mem.zeroes(c_int),
+    interface_subclass: c_int = std.mem.zeroes(c_int),
+    interface_protocol: c_int = std.mem.zeroes(c_int),
+    bus_type: SDL_hid_bus_type = std.mem.zeroes(SDL_hid_bus_type),
+    next: [*c]struct_SDL_hid_device_info = std.mem.zeroes([*c]struct_SDL_hid_device_info),
 };
 pub const SDL_hid_device_info = struct_SDL_hid_device_info;
 pub extern fn SDL_hid_init() c_int;
@@ -4472,8 +4559,8 @@ pub extern fn SDL_LoadObject(sofile: [*c]const u8) ?*SDL_SharedObject;
 pub extern fn SDL_LoadFunction(handle: ?*SDL_SharedObject, name: [*c]const u8) SDL_FunctionPointer;
 pub extern fn SDL_UnloadObject(handle: ?*SDL_SharedObject) void;
 pub const struct_SDL_Locale = extern struct {
-    language: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    country: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
+    language: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    country: [*c]const u8 = std.mem.zeroes([*c]const u8),
 };
 pub const SDL_Locale = struct_SDL_Locale;
 pub extern fn SDL_GetPreferredLocales(count: [*c]c_int) [*c][*c]SDL_Locale;
@@ -4532,15 +4619,15 @@ pub extern fn SDL_SetLogOutputFunction(callback: SDL_LogOutputFunction, userdata
 pub const SDL_MessageBoxFlags = Uint32;
 pub const SDL_MessageBoxButtonFlags = Uint32;
 pub const struct_SDL_MessageBoxButtonData = extern struct {
-    flags: SDL_MessageBoxButtonFlags = @import("std").mem.zeroes(SDL_MessageBoxButtonFlags),
-    buttonID: c_int = @import("std").mem.zeroes(c_int),
-    text: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
+    flags: SDL_MessageBoxButtonFlags = std.mem.zeroes(SDL_MessageBoxButtonFlags),
+    buttonID: c_int = std.mem.zeroes(c_int),
+    text: [*c]const u8 = std.mem.zeroes([*c]const u8),
 };
 pub const SDL_MessageBoxButtonData = struct_SDL_MessageBoxButtonData;
 pub const struct_SDL_MessageBoxColor = extern struct {
-    r: Uint8 = @import("std").mem.zeroes(Uint8),
-    g: Uint8 = @import("std").mem.zeroes(Uint8),
-    b: Uint8 = @import("std").mem.zeroes(Uint8),
+    r: Uint8 = std.mem.zeroes(Uint8),
+    g: Uint8 = std.mem.zeroes(Uint8),
+    b: Uint8 = std.mem.zeroes(Uint8),
 };
 pub const SDL_MessageBoxColor = struct_SDL_MessageBoxColor;
 pub const SDL_MESSAGEBOX_COLOR_BACKGROUND: c_int = 0;
@@ -4552,17 +4639,17 @@ pub const SDL_MESSAGEBOX_COLOR_COUNT: c_int = 5;
 pub const enum_SDL_MessageBoxColorType = c_uint;
 pub const SDL_MessageBoxColorType = enum_SDL_MessageBoxColorType;
 pub const struct_SDL_MessageBoxColorScheme = extern struct {
-    colors: [5]SDL_MessageBoxColor = @import("std").mem.zeroes([5]SDL_MessageBoxColor),
+    colors: [5]SDL_MessageBoxColor = std.mem.zeroes([5]SDL_MessageBoxColor),
 };
 pub const SDL_MessageBoxColorScheme = struct_SDL_MessageBoxColorScheme;
 pub const struct_SDL_MessageBoxData = extern struct {
-    flags: SDL_MessageBoxFlags = @import("std").mem.zeroes(SDL_MessageBoxFlags),
-    window: ?*SDL_Window = @import("std").mem.zeroes(?*SDL_Window),
-    title: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    message: [*c]const u8 = @import("std").mem.zeroes([*c]const u8),
-    numbuttons: c_int = @import("std").mem.zeroes(c_int),
-    buttons: [*c]const SDL_MessageBoxButtonData = @import("std").mem.zeroes([*c]const SDL_MessageBoxButtonData),
-    colorScheme: [*c]const SDL_MessageBoxColorScheme = @import("std").mem.zeroes([*c]const SDL_MessageBoxColorScheme),
+    flags: SDL_MessageBoxFlags = std.mem.zeroes(SDL_MessageBoxFlags),
+    window: ?*SDL_Window = std.mem.zeroes(?*SDL_Window),
+    title: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    message: [*c]const u8 = std.mem.zeroes([*c]const u8),
+    numbuttons: c_int = std.mem.zeroes(c_int),
+    buttons: [*c]const SDL_MessageBoxButtonData = std.mem.zeroes([*c]const SDL_MessageBoxButtonData),
+    colorScheme: [*c]const SDL_MessageBoxColorScheme = std.mem.zeroes([*c]const SDL_MessageBoxColorScheme),
 };
 pub const SDL_MessageBoxData = struct_SDL_MessageBoxData;
 pub extern fn SDL_ShowMessageBox(messageboxdata: [*c]const SDL_MessageBoxData, buttonid: [*c]c_int) bool;
@@ -4591,9 +4678,9 @@ pub extern fn SDL_KillProcess(process: ?*SDL_Process, force: bool) bool;
 pub extern fn SDL_WaitProcess(process: ?*SDL_Process, block: bool, exitcode: [*c]c_int) bool;
 pub extern fn SDL_DestroyProcess(process: ?*SDL_Process) void;
 pub const struct_SDL_Vertex = extern struct {
-    position: SDL_FPoint = @import("std").mem.zeroes(SDL_FPoint),
-    color: SDL_FColor = @import("std").mem.zeroes(SDL_FColor),
-    tex_coord: SDL_FPoint = @import("std").mem.zeroes(SDL_FPoint),
+    position: SDL_FPoint = std.mem.zeroes(SDL_FPoint),
+    color: SDL_FColor = std.mem.zeroes(SDL_FColor),
+    tex_coord: SDL_FPoint = std.mem.zeroes(SDL_FPoint),
 };
 pub const SDL_Vertex = struct_SDL_Vertex;
 pub const SDL_TEXTUREACCESS_STATIC: c_int = 0;
@@ -4611,10 +4698,10 @@ pub const SDL_RendererLogicalPresentation = enum_SDL_RendererLogicalPresentation
 pub const struct_SDL_Renderer = opaque {};
 pub const SDL_Renderer = struct_SDL_Renderer;
 pub const struct_SDL_Texture = extern struct {
-    format: SDL_PixelFormat = @import("std").mem.zeroes(SDL_PixelFormat),
-    w: c_int = @import("std").mem.zeroes(c_int),
-    h: c_int = @import("std").mem.zeroes(c_int),
-    refcount: c_int = @import("std").mem.zeroes(c_int),
+    format: SDL_PixelFormat = std.mem.zeroes(SDL_PixelFormat),
+    w: c_int = std.mem.zeroes(c_int),
+    h: c_int = std.mem.zeroes(c_int),
+    refcount: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_Texture = struct_SDL_Texture;
 pub extern fn SDL_GetNumRenderDrivers() c_int;
@@ -4707,18 +4794,18 @@ pub extern fn SDL_GetRenderVSync(renderer: ?*SDL_Renderer, vsync: [*c]c_int) boo
 pub extern fn SDL_RenderDebugText(renderer: ?*SDL_Renderer, x: f32, y: f32, str: [*c]const u8) bool;
 pub extern fn SDL_RenderDebugTextFormat(renderer: ?*SDL_Renderer, x: f32, y: f32, fmt: [*c]const u8, ...) bool;
 pub const struct_SDL_StorageInterface = extern struct {
-    version: Uint32 = @import("std").mem.zeroes(Uint32),
-    close: ?*const fn (?*anyopaque) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque) callconv(.c) bool),
-    ready: ?*const fn (?*anyopaque) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque) callconv(.c) bool),
-    enumerate: ?*const fn (?*anyopaque, [*c]const u8, SDL_EnumerateDirectoryCallback, ?*anyopaque) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, SDL_EnumerateDirectoryCallback, ?*anyopaque) callconv(.c) bool),
-    info: ?*const fn (?*anyopaque, [*c]const u8, [*c]SDL_PathInfo) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, [*c]SDL_PathInfo) callconv(.c) bool),
-    read_file: ?*const fn (?*anyopaque, [*c]const u8, ?*anyopaque, Uint64) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, ?*anyopaque, Uint64) callconv(.c) bool),
-    write_file: ?*const fn (?*anyopaque, [*c]const u8, ?*const anyopaque, Uint64) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, ?*const anyopaque, Uint64) callconv(.c) bool),
-    mkdir: ?*const fn (?*anyopaque, [*c]const u8) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]const u8) callconv(.c) bool),
-    remove: ?*const fn (?*anyopaque, [*c]const u8) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]const u8) callconv(.c) bool),
-    rename: ?*const fn (?*anyopaque, [*c]const u8, [*c]const u8) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, [*c]const u8) callconv(.c) bool),
-    copy: ?*const fn (?*anyopaque, [*c]const u8, [*c]const u8) callconv(.c) bool = @import("std").mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, [*c]const u8) callconv(.c) bool),
-    space_remaining: ?*const fn (?*anyopaque) callconv(.c) Uint64 = @import("std").mem.zeroes(?*const fn (?*anyopaque) callconv(.c) Uint64),
+    version: Uint32 = std.mem.zeroes(Uint32),
+    close: ?*const fn (?*anyopaque) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque) callconv(.c) bool),
+    ready: ?*const fn (?*anyopaque) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque) callconv(.c) bool),
+    enumerate: ?*const fn (?*anyopaque, [*c]const u8, SDL_EnumerateDirectoryCallback, ?*anyopaque) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, SDL_EnumerateDirectoryCallback, ?*anyopaque) callconv(.c) bool),
+    info: ?*const fn (?*anyopaque, [*c]const u8, [*c]SDL_PathInfo) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, [*c]SDL_PathInfo) callconv(.c) bool),
+    read_file: ?*const fn (?*anyopaque, [*c]const u8, ?*anyopaque, Uint64) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, ?*anyopaque, Uint64) callconv(.c) bool),
+    write_file: ?*const fn (?*anyopaque, [*c]const u8, ?*const anyopaque, Uint64) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, ?*const anyopaque, Uint64) callconv(.c) bool),
+    mkdir: ?*const fn (?*anyopaque, [*c]const u8) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]const u8) callconv(.c) bool),
+    remove: ?*const fn (?*anyopaque, [*c]const u8) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]const u8) callconv(.c) bool),
+    rename: ?*const fn (?*anyopaque, [*c]const u8, [*c]const u8) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, [*c]const u8) callconv(.c) bool),
+    copy: ?*const fn (?*anyopaque, [*c]const u8, [*c]const u8) callconv(.c) bool = std.mem.zeroes(?*const fn (?*anyopaque, [*c]const u8, [*c]const u8) callconv(.c) bool),
+    space_remaining: ?*const fn (?*anyopaque) callconv(.c) Uint64 = std.mem.zeroes(?*const fn (?*anyopaque) callconv(.c) Uint64),
 };
 pub const SDL_StorageInterface = struct_SDL_StorageInterface;
 // deps/SDL/include/SDL3/SDL_stdinc.h:203:42: warning: ignoring StaticAssert declaration
@@ -4764,15 +4851,15 @@ pub extern fn SDL_OnApplicationDidEnterBackground() void;
 pub extern fn SDL_OnApplicationWillEnterForeground() void;
 pub extern fn SDL_OnApplicationDidEnterForeground() void;
 pub const struct_SDL_DateTime = extern struct {
-    year: c_int = @import("std").mem.zeroes(c_int),
-    month: c_int = @import("std").mem.zeroes(c_int),
-    day: c_int = @import("std").mem.zeroes(c_int),
-    hour: c_int = @import("std").mem.zeroes(c_int),
-    minute: c_int = @import("std").mem.zeroes(c_int),
-    second: c_int = @import("std").mem.zeroes(c_int),
-    nanosecond: c_int = @import("std").mem.zeroes(c_int),
-    day_of_week: c_int = @import("std").mem.zeroes(c_int),
-    utc_offset: c_int = @import("std").mem.zeroes(c_int),
+    year: c_int = std.mem.zeroes(c_int),
+    month: c_int = std.mem.zeroes(c_int),
+    day: c_int = std.mem.zeroes(c_int),
+    hour: c_int = std.mem.zeroes(c_int),
+    minute: c_int = std.mem.zeroes(c_int),
+    second: c_int = std.mem.zeroes(c_int),
+    nanosecond: c_int = std.mem.zeroes(c_int),
+    day_of_week: c_int = std.mem.zeroes(c_int),
+    utc_offset: c_int = std.mem.zeroes(c_int),
 };
 pub const SDL_DateTime = struct_SDL_DateTime;
 pub const SDL_DATE_FORMAT_YYYYMMDD: c_int = 0;
@@ -4900,27 +4987,27 @@ pub const __SHRT_WIDTH__ = @as(c_int, 16);
 pub const __INT_WIDTH__ = @as(c_int, 32);
 pub const __LONG_WIDTH__ = @as(c_int, 64);
 pub const __LLONG_WIDTH__ = @as(c_int, 64);
-pub const __BITINT_MAXWIDTH__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 8388608, .decimal);
+pub const __BITINT_MAXWIDTH__ = std.zig.c_translation.promoteIntLiteral(c_int, 8388608, .decimal);
 pub const __SCHAR_MAX__ = @as(c_int, 127);
 pub const __SHRT_MAX__ = @as(c_int, 32767);
-pub const __INT_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
-pub const __LONG_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INT_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __LONG_MAX__ = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
 pub const __LONG_LONG_MAX__ = @as(c_longlong, 9223372036854775807);
-pub const __WCHAR_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __WCHAR_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
 pub const __WCHAR_WIDTH__ = @as(c_int, 32);
-pub const __WINT_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const __WINT_MAX__ = std.zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
 pub const __WINT_WIDTH__ = @as(c_int, 32);
-pub const __INTMAX_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INTMAX_MAX__ = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
 pub const __INTMAX_WIDTH__ = @as(c_int, 64);
-pub const __SIZE_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __SIZE_MAX__ = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
 pub const __SIZE_WIDTH__ = @as(c_int, 64);
-pub const __UINTMAX_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __UINTMAX_MAX__ = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
 pub const __UINTMAX_WIDTH__ = @as(c_int, 64);
-pub const __PTRDIFF_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __PTRDIFF_MAX__ = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
 pub const __PTRDIFF_WIDTH__ = @as(c_int, 64);
-pub const __INTPTR_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INTPTR_MAX__ = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
 pub const __INTPTR_WIDTH__ = @as(c_int, 64);
-pub const __UINTPTR_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __UINTPTR_MAX__ = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
 pub const __UINTPTR_WIDTH__ = @as(c_int, 64);
 pub const __SIZEOF_DOUBLE__ = @as(c_int, 8);
 pub const __SIZEOF_FLOAT__ = @as(c_int, 4);
@@ -4960,7 +5047,7 @@ pub const __SIZE_FMTx__ = "lx";
 pub const __SIZE_FMTX__ = "lX";
 pub const __WCHAR_TYPE__ = c_int;
 pub const __WINT_TYPE__ = c_uint;
-pub const __SIG_ATOMIC_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __SIG_ATOMIC_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
 pub const __SIG_ATOMIC_WIDTH__ = @as(c_int, 32);
 pub const __CHAR16_TYPE__ = c_ushort;
 pub const __CHAR32_TYPE__ = c_uint;
@@ -5063,7 +5150,7 @@ pub const __UINT16_FMTu__ = "hu";
 pub const __UINT16_FMTx__ = "hx";
 pub const __UINT16_FMTX__ = "hX";
 pub const __UINT16_C_SUFFIX__ = "";
-pub const __UINT16_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
+pub const __UINT16_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
 pub const __INT16_MAX__ = @as(c_int, 32767);
 pub const __UINT32_TYPE__ = c_uint;
 pub const __UINT32_FMTo__ = "o";
@@ -5072,8 +5159,8 @@ pub const __UINT32_FMTx__ = "x";
 pub const __UINT32_FMTX__ = "X";
 pub const __UINT32_C_SUFFIX__ = @compileError("unable to translate macro: undefined identifier `U`");
 // (no file):224:9
-pub const __UINT32_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
-pub const __INT32_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __UINT32_MAX__ = std.zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const __INT32_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
 pub const __UINT64_TYPE__ = c_ulong;
 pub const __UINT64_FMTo__ = "lo";
 pub const __UINT64_FMTu__ = "lu";
@@ -5081,8 +5168,8 @@ pub const __UINT64_FMTx__ = "lx";
 pub const __UINT64_FMTX__ = "lX";
 pub const __UINT64_C_SUFFIX__ = @compileError("unable to translate macro: undefined identifier `UL`");
 // (no file):232:9
-pub const __UINT64_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
-pub const __INT64_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __UINT64_MAX__ = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __INT64_MAX__ = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
 pub const __INT_LEAST8_TYPE__ = i8;
 pub const __INT_LEAST8_MAX__ = @as(c_int, 127);
 pub const __INT_LEAST8_WIDTH__ = @as(c_int, 8);
@@ -5100,29 +5187,29 @@ pub const __INT_LEAST16_WIDTH__ = @as(c_int, 16);
 pub const __INT_LEAST16_FMTd__ = "hd";
 pub const __INT_LEAST16_FMTi__ = "hi";
 pub const __UINT_LEAST16_TYPE__ = c_ushort;
-pub const __UINT_LEAST16_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
+pub const __UINT_LEAST16_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
 pub const __UINT_LEAST16_FMTo__ = "ho";
 pub const __UINT_LEAST16_FMTu__ = "hu";
 pub const __UINT_LEAST16_FMTx__ = "hx";
 pub const __UINT_LEAST16_FMTX__ = "hX";
 pub const __INT_LEAST32_TYPE__ = c_int;
-pub const __INT_LEAST32_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __INT_LEAST32_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
 pub const __INT_LEAST32_WIDTH__ = @as(c_int, 32);
 pub const __INT_LEAST32_FMTd__ = "d";
 pub const __INT_LEAST32_FMTi__ = "i";
 pub const __UINT_LEAST32_TYPE__ = c_uint;
-pub const __UINT_LEAST32_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const __UINT_LEAST32_MAX__ = std.zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
 pub const __UINT_LEAST32_FMTo__ = "o";
 pub const __UINT_LEAST32_FMTu__ = "u";
 pub const __UINT_LEAST32_FMTx__ = "x";
 pub const __UINT_LEAST32_FMTX__ = "X";
 pub const __INT_LEAST64_TYPE__ = c_long;
-pub const __INT_LEAST64_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INT_LEAST64_MAX__ = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
 pub const __INT_LEAST64_WIDTH__ = @as(c_int, 64);
 pub const __INT_LEAST64_FMTd__ = "ld";
 pub const __INT_LEAST64_FMTi__ = "li";
 pub const __UINT_LEAST64_TYPE__ = c_ulong;
-pub const __UINT_LEAST64_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __UINT_LEAST64_MAX__ = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
 pub const __UINT_LEAST64_FMTo__ = "lo";
 pub const __UINT_LEAST64_FMTu__ = "lu";
 pub const __UINT_LEAST64_FMTx__ = "lx";
@@ -5144,29 +5231,29 @@ pub const __INT_FAST16_WIDTH__ = @as(c_int, 16);
 pub const __INT_FAST16_FMTd__ = "hd";
 pub const __INT_FAST16_FMTi__ = "hi";
 pub const __UINT_FAST16_TYPE__ = c_ushort;
-pub const __UINT_FAST16_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
+pub const __UINT_FAST16_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
 pub const __UINT_FAST16_FMTo__ = "ho";
 pub const __UINT_FAST16_FMTu__ = "hu";
 pub const __UINT_FAST16_FMTx__ = "hx";
 pub const __UINT_FAST16_FMTX__ = "hX";
 pub const __INT_FAST32_TYPE__ = c_int;
-pub const __INT_FAST32_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __INT_FAST32_MAX__ = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
 pub const __INT_FAST32_WIDTH__ = @as(c_int, 32);
 pub const __INT_FAST32_FMTd__ = "d";
 pub const __INT_FAST32_FMTi__ = "i";
 pub const __UINT_FAST32_TYPE__ = c_uint;
-pub const __UINT_FAST32_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const __UINT_FAST32_MAX__ = std.zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
 pub const __UINT_FAST32_FMTo__ = "o";
 pub const __UINT_FAST32_FMTu__ = "u";
 pub const __UINT_FAST32_FMTx__ = "x";
 pub const __UINT_FAST32_FMTX__ = "X";
 pub const __INT_FAST64_TYPE__ = c_long;
-pub const __INT_FAST64_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INT_FAST64_MAX__ = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
 pub const __INT_FAST64_WIDTH__ = @as(c_int, 64);
 pub const __INT_FAST64_FMTd__ = "ld";
 pub const __INT_FAST64_FMTi__ = "li";
 pub const __UINT_FAST64_TYPE__ = c_ulong;
-pub const __UINT_FAST64_MAX__ = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __UINT_FAST64_MAX__ = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
 pub const __UINT_FAST64_FMTo__ = "lo";
 pub const __UINT_FAST64_FMTu__ = "lu";
 pub const __UINT_FAST64_FMTx__ = "lx";
@@ -5651,59 +5738,59 @@ pub const _BITS_STDINT_INTN_H = @as(c_int, 1);
 pub const _BITS_STDINT_UINTN_H = @as(c_int, 1);
 pub const _BITS_STDINT_LEAST_H = @as(c_int, 1);
 pub const __intptr_t_defined = "";
-pub const __INT64_C = @import("std").zig.c_translation.Macros.L_SUFFIX;
-pub const __UINT64_C = @import("std").zig.c_translation.Macros.UL_SUFFIX;
+pub const __INT64_C = std.zig.c_translation.Macros.L_SUFFIX;
+pub const __UINT64_C = std.zig.c_translation.Macros.UL_SUFFIX;
 pub const INT8_MIN = -@as(c_int, 128);
 pub const INT16_MIN = -@as(c_int, 32767) - @as(c_int, 1);
-pub const INT32_MIN = -@import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
-pub const INT64_MIN = -__INT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
+pub const INT32_MIN = -std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
+pub const INT64_MIN = -__INT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
 pub const INT8_MAX = @as(c_int, 127);
 pub const INT16_MAX = @as(c_int, 32767);
-pub const INT32_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
-pub const INT64_MAX = __INT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
+pub const INT32_MAX = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const INT64_MAX = __INT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
 pub const UINT8_MAX = @as(c_int, 255);
-pub const UINT16_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
-pub const UINT32_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
-pub const UINT64_MAX = __UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
+pub const UINT16_MAX = std.zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
+pub const UINT32_MAX = std.zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const UINT64_MAX = __UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
 pub const INT_LEAST8_MIN = -@as(c_int, 128);
 pub const INT_LEAST16_MIN = -@as(c_int, 32767) - @as(c_int, 1);
-pub const INT_LEAST32_MIN = -@import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
-pub const INT_LEAST64_MIN = -__INT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
+pub const INT_LEAST32_MIN = -std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
+pub const INT_LEAST64_MIN = -__INT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
 pub const INT_LEAST8_MAX = @as(c_int, 127);
 pub const INT_LEAST16_MAX = @as(c_int, 32767);
-pub const INT_LEAST32_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
-pub const INT_LEAST64_MAX = __INT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
+pub const INT_LEAST32_MAX = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const INT_LEAST64_MAX = __INT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
 pub const UINT_LEAST8_MAX = @as(c_int, 255);
-pub const UINT_LEAST16_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
-pub const UINT_LEAST32_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
-pub const UINT_LEAST64_MAX = __UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
+pub const UINT_LEAST16_MAX = std.zig.c_translation.promoteIntLiteral(c_int, 65535, .decimal);
+pub const UINT_LEAST32_MAX = std.zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const UINT_LEAST64_MAX = __UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
 pub const INT_FAST8_MIN = -@as(c_int, 128);
-pub const INT_FAST16_MIN = -@import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
-pub const INT_FAST32_MIN = -@import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
-pub const INT_FAST64_MIN = -__INT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
+pub const INT_FAST16_MIN = -std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
+pub const INT_FAST32_MIN = -std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
+pub const INT_FAST64_MIN = -__INT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
 pub const INT_FAST8_MAX = @as(c_int, 127);
-pub const INT_FAST16_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
-pub const INT_FAST32_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
-pub const INT_FAST64_MAX = __INT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
+pub const INT_FAST16_MAX = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const INT_FAST32_MAX = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const INT_FAST64_MAX = __INT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
 pub const UINT_FAST8_MAX = @as(c_int, 255);
-pub const UINT_FAST16_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
-pub const UINT_FAST32_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
-pub const UINT_FAST64_MAX = __UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
-pub const INTPTR_MIN = -@import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
-pub const INTPTR_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
-pub const UINTPTR_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
-pub const INTMAX_MIN = -__INT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
-pub const INTMAX_MAX = __INT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
-pub const UINTMAX_MAX = __UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
-pub const PTRDIFF_MIN = -@import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
-pub const PTRDIFF_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
-pub const SIG_ATOMIC_MIN = -@import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
-pub const SIG_ATOMIC_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
-pub const SIZE_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const UINT_FAST16_MAX = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const UINT_FAST32_MAX = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const UINT_FAST64_MAX = __UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
+pub const INTPTR_MIN = -std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
+pub const INTPTR_MAX = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const UINTPTR_MAX = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const INTMAX_MIN = -__INT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
+pub const INTMAX_MAX = __INT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
+pub const UINTMAX_MAX = __UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
+pub const PTRDIFF_MIN = -std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
+pub const PTRDIFF_MAX = std.zig.c_translation.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const SIG_ATOMIC_MIN = -std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
+pub const SIG_ATOMIC_MAX = std.zig.c_translation.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const SIZE_MAX = std.zig.c_translation.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
 pub const WCHAR_MIN = __WCHAR_MIN;
 pub const WCHAR_MAX = __WCHAR_MAX;
 pub const WINT_MIN = @as(c_uint, 0);
-pub const WINT_MAX = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const WINT_MAX = std.zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
 pub inline fn INT8_C(c: anytype) @TypeOf(c) {
     _ = &c;
     return c;
@@ -5716,7 +5803,7 @@ pub inline fn INT32_C(c: anytype) @TypeOf(c) {
     _ = &c;
     return c;
 }
-pub const INT64_C = @import("std").zig.c_translation.Macros.L_SUFFIX;
+pub const INT64_C = std.zig.c_translation.Macros.L_SUFFIX;
 pub inline fn UINT8_C(c: anytype) @TypeOf(c) {
     _ = &c;
     return c;
@@ -5725,15 +5812,15 @@ pub inline fn UINT16_C(c: anytype) @TypeOf(c) {
     _ = &c;
     return c;
 }
-pub const UINT32_C = @import("std").zig.c_translation.Macros.U_SUFFIX;
-pub const UINT64_C = @import("std").zig.c_translation.Macros.UL_SUFFIX;
-pub const INTMAX_C = @import("std").zig.c_translation.Macros.L_SUFFIX;
-pub const UINTMAX_C = @import("std").zig.c_translation.Macros.UL_SUFFIX;
+pub const UINT32_C = std.zig.c_translation.Macros.U_SUFFIX;
+pub const UINT64_C = std.zig.c_translation.Macros.UL_SUFFIX;
+pub const INTMAX_C = std.zig.c_translation.Macros.L_SUFFIX;
+pub const UINTMAX_C = std.zig.c_translation.Macros.UL_SUFFIX;
 pub const _STRING_H = @as(c_int, 1);
 pub const __need_size_t = "";
 pub const __need_NULL = "";
 pub const _SIZE_T = "";
-pub const NULL = @import("std").zig.c_translation.cast(?*anyopaque, @as(c_int, 0));
+pub const NULL = std.zig.c_translation.cast(?*anyopaque, @as(c_int, 0));
 pub const _BITS_TYPES_LOCALE_T_H = @as(c_int, 1);
 pub const _BITS_TYPES___LOCALE_T_H = @as(c_int, 1);
 pub const _STRINGS_H = @as(c_int, 1);
@@ -5757,7 +5844,7 @@ pub const __HAVE_DISTINCT_FLOAT64X = @as(c_int, 0);
 pub const __HAVE_DISTINCT_FLOAT128X = __HAVE_FLOAT128X;
 pub const __HAVE_FLOAT128_UNLIKE_LDBL = (__HAVE_DISTINCT_FLOAT128 != 0) and (__LDBL_MANT_DIG__ != @as(c_int, 113));
 pub const __HAVE_FLOATN_NOT_TYPEDEF = @as(c_int, 0);
-pub const __f32 = @import("std").zig.c_translation.Macros.F_SUFFIX;
+pub const __f32 = std.zig.c_translation.Macros.F_SUFFIX;
 pub inline fn __f64(x: anytype) @TypeOf(x) {
     _ = &x;
     return x;
@@ -5766,7 +5853,7 @@ pub inline fn __f32x(x: anytype) @TypeOf(x) {
     _ = &x;
     return x;
 }
-pub const __f64x = @import("std").zig.c_translation.Macros.L_SUFFIX;
+pub const __f64x = std.zig.c_translation.Macros.L_SUFFIX;
 pub const __CFLOAT32 = @compileError("unable to translate: TODO _Complex");
 // /nix/store/1ycjq6h047qqwp3fm9sbl805xnrxlh2h-glibc-2.40-66-dev/include/bits/floatn-common.h:149:12
 pub const __CFLOAT64 = @compileError("unable to translate: TODO _Complex");
@@ -5820,7 +5907,7 @@ pub const __mbstate_t_defined = @as(c_int, 1);
 pub const ____mbstate_t_defined = @as(c_int, 1);
 pub const ____FILE_defined = @as(c_int, 1);
 pub const __FILE_defined = @as(c_int, 1);
-pub const WEOF = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0xffffffff, .hex);
+pub const WEOF = std.zig.c_translation.promoteIntLiteral(c_uint, 0xffffffff, .hex);
 pub const __attr_dealloc_fclose = "";
 pub const __CLANG_INTTYPES_H = "";
 pub const _INTTYPES_H = @as(c_int, 1);
@@ -5996,9 +6083,9 @@ pub const SDL_arraysize = @compileError("unable to translate C expr: expected ')
 // deps/SDL/include/SDL3/SDL_stdinc.h:225:9
 pub const SDL_STRINGIFY_ARG = @compileError("unable to translate C expr: unexpected token '#'");
 // deps/SDL/include/SDL3/SDL_stdinc.h:240:9
-pub const SDL_reinterpret_cast = @import("std").zig.c_translation.Macros.CAST_OR_CALL;
-pub const SDL_static_cast = @import("std").zig.c_translation.Macros.CAST_OR_CALL;
-pub const SDL_const_cast = @import("std").zig.c_translation.Macros.CAST_OR_CALL;
+pub const SDL_reinterpret_cast = std.zig.c_translation.Macros.CAST_OR_CALL;
+pub const SDL_static_cast = std.zig.c_translation.Macros.CAST_OR_CALL;
+pub const SDL_const_cast = std.zig.c_translation.Macros.CAST_OR_CALL;
 pub inline fn SDL_FOURCC(A: anytype, B: anytype, C: anytype, D: anytype) @TypeOf((((SDL_static_cast(Uint32, SDL_static_cast(Uint8, A)) << @as(c_int, 0)) | (SDL_static_cast(Uint32, SDL_static_cast(Uint8, B)) << @as(c_int, 8))) | (SDL_static_cast(Uint32, SDL_static_cast(Uint8, C)) << @as(c_int, 16))) | (SDL_static_cast(Uint32, SDL_static_cast(Uint8, D)) << @as(c_int, 24))) {
     _ = &A;
     _ = &B;
@@ -6014,21 +6101,21 @@ pub inline fn SDL_UINT64_C(c: anytype) @TypeOf(UINT64_C(c)) {
     _ = &c;
     return UINT64_C(c);
 }
-pub const SDL_MAX_SINT8 = @import("std").zig.c_translation.cast(Sint8, @as(c_int, 0x7F));
-pub const SDL_MIN_SINT8 = @import("std").zig.c_translation.cast(Sint8, ~@as(c_int, 0x7F));
-pub const SDL_MAX_UINT8 = @import("std").zig.c_translation.cast(Uint8, @as(c_int, 0xFF));
-pub const SDL_MIN_UINT8 = @import("std").zig.c_translation.cast(Uint8, @as(c_int, 0x00));
-pub const SDL_MAX_SINT16 = @import("std").zig.c_translation.cast(Sint16, @as(c_int, 0x7FFF));
-pub const SDL_MIN_SINT16 = @import("std").zig.c_translation.cast(Sint16, ~@as(c_int, 0x7FFF));
-pub const SDL_MAX_UINT16 = @import("std").zig.c_translation.cast(Uint16, @import("std").zig.c_translation.promoteIntLiteral(c_int, 0xFFFF, .hex));
-pub const SDL_MIN_UINT16 = @import("std").zig.c_translation.cast(Uint16, @as(c_int, 0x0000));
-pub const SDL_MAX_SINT32 = @import("std").zig.c_translation.cast(Sint32, @import("std").zig.c_translation.promoteIntLiteral(c_int, 0x7FFFFFFF, .hex));
-pub const SDL_MIN_SINT32 = @import("std").zig.c_translation.cast(Sint32, ~@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x7FFFFFFF, .hex));
-pub const SDL_MAX_UINT32 = @import("std").zig.c_translation.cast(Uint32, @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0xFFFFFFFF, .hex));
-pub const SDL_MIN_UINT32 = @import("std").zig.c_translation.cast(Uint32, @as(c_int, 0x00000000));
-pub const SDL_MAX_SINT64 = SDL_SINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x7FFFFFFFFFFFFFFF, .hex));
-pub const SDL_MIN_SINT64 = ~SDL_SINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x7FFFFFFFFFFFFFFF, .hex));
-pub const SDL_MAX_UINT64 = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0xFFFFFFFFFFFFFFFF, .hex));
+pub const SDL_MAX_SINT8 = std.zig.c_translation.cast(Sint8, @as(c_int, 0x7F));
+pub const SDL_MIN_SINT8 = std.zig.c_translation.cast(Sint8, ~@as(c_int, 0x7F));
+pub const SDL_MAX_UINT8 = std.zig.c_translation.cast(Uint8, @as(c_int, 0xFF));
+pub const SDL_MIN_UINT8 = std.zig.c_translation.cast(Uint8, @as(c_int, 0x00));
+pub const SDL_MAX_SINT16 = std.zig.c_translation.cast(Sint16, @as(c_int, 0x7FFF));
+pub const SDL_MIN_SINT16 = std.zig.c_translation.cast(Sint16, ~@as(c_int, 0x7FFF));
+pub const SDL_MAX_UINT16 = std.zig.c_translation.cast(Uint16, std.zig.c_translation.promoteIntLiteral(c_int, 0xFFFF, .hex));
+pub const SDL_MIN_UINT16 = std.zig.c_translation.cast(Uint16, @as(c_int, 0x0000));
+pub const SDL_MAX_SINT32 = std.zig.c_translation.cast(Sint32, std.zig.c_translation.promoteIntLiteral(c_int, 0x7FFFFFFF, .hex));
+pub const SDL_MIN_SINT32 = std.zig.c_translation.cast(Sint32, ~std.zig.c_translation.promoteIntLiteral(c_int, 0x7FFFFFFF, .hex));
+pub const SDL_MAX_UINT32 = std.zig.c_translation.cast(Uint32, std.zig.c_translation.promoteIntLiteral(c_uint, 0xFFFFFFFF, .hex));
+pub const SDL_MIN_UINT32 = std.zig.c_translation.cast(Uint32, @as(c_int, 0x00000000));
+pub const SDL_MAX_SINT64 = SDL_SINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x7FFFFFFFFFFFFFFF, .hex));
+pub const SDL_MIN_SINT64 = ~SDL_SINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x7FFFFFFFFFFFFFFF, .hex));
+pub const SDL_MAX_UINT64 = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0xFFFFFFFFFFFFFFFF, .hex));
 pub const SDL_MIN_UINT64 = SDL_UINT64_C(@as(c_int, 0x0000000000000000));
 pub const SDL_MAX_TIME = SDL_MAX_SINT64;
 pub const SDL_MIN_TIME = SDL_MIN_SINT64;
@@ -6134,28 +6221,28 @@ pub const SDL_zerop = @compileError("unable to translate C expr: unexpected toke
 // deps/SDL/include/SDL3/SDL_stdinc.h:2614:9
 pub const SDL_zeroa = @compileError("unable to translate C expr: unexpected token '('");
 // deps/SDL/include/SDL3/SDL_stdinc.h:2633:9
-pub const SDL_INVALID_UNICODE_CODEPOINT = @import("std").zig.c_translation.promoteIntLiteral(c_int, 0xFFFD, .hex);
+pub const SDL_INVALID_UNICODE_CODEPOINT = std.zig.c_translation.promoteIntLiteral(c_int, 0xFFFD, .hex);
 pub const SDL_PI_D = @as(f64, 3.141592653589793238462643383279502884);
 pub const SDL_PI_F = @as(f32, 3.141592653589793238462643383279502884);
-pub const SDL_ICONV_ERROR = @import("std").zig.c_translation.cast(usize, -@as(c_int, 1));
-pub const SDL_ICONV_E2BIG = @import("std").zig.c_translation.cast(usize, -@as(c_int, 2));
-pub const SDL_ICONV_EILSEQ = @import("std").zig.c_translation.cast(usize, -@as(c_int, 3));
-pub const SDL_ICONV_EINVAL = @import("std").zig.c_translation.cast(usize, -@as(c_int, 4));
+pub const SDL_ICONV_ERROR = std.zig.c_translation.cast(usize, -@as(c_int, 1));
+pub const SDL_ICONV_E2BIG = std.zig.c_translation.cast(usize, -@as(c_int, 2));
+pub const SDL_ICONV_EILSEQ = std.zig.c_translation.cast(usize, -@as(c_int, 3));
+pub const SDL_ICONV_EINVAL = std.zig.c_translation.cast(usize, -@as(c_int, 4));
 pub inline fn SDL_iconv_utf8_locale(S: anytype) @TypeOf(SDL_iconv_string("", "UTF-8", S, SDL_strlen(S) + @as(c_int, 1))) {
     _ = &S;
     return SDL_iconv_string("", "UTF-8", S, SDL_strlen(S) + @as(c_int, 1));
 }
 pub inline fn SDL_iconv_utf8_ucs2(S: anytype) [*c]Uint16 {
     _ = &S;
-    return @import("std").zig.c_translation.cast([*c]Uint16, SDL_iconv_string("UCS-2", "UTF-8", S, SDL_strlen(S) + @as(c_int, 1)));
+    return std.zig.c_translation.cast([*c]Uint16, SDL_iconv_string("UCS-2", "UTF-8", S, SDL_strlen(S) + @as(c_int, 1)));
 }
 pub inline fn SDL_iconv_utf8_ucs4(S: anytype) [*c]Uint32 {
     _ = &S;
-    return @import("std").zig.c_translation.cast([*c]Uint32, SDL_iconv_string("UCS-4", "UTF-8", S, SDL_strlen(S) + @as(c_int, 1)));
+    return std.zig.c_translation.cast([*c]Uint32, SDL_iconv_string("UCS-4", "UTF-8", S, SDL_strlen(S) + @as(c_int, 1)));
 }
-pub inline fn SDL_iconv_wchar_utf8(S: anytype) @TypeOf(SDL_iconv_string("UTF-8", "WCHAR_T", @import("std").zig.c_translation.cast([*c]u8, S), (SDL_wcslen(S) + @as(c_int, 1)) * @import("std").zig.c_translation.sizeof(wchar_t))) {
+pub inline fn SDL_iconv_wchar_utf8(S: anytype) @TypeOf(SDL_iconv_string("UTF-8", "WCHAR_T", std.zig.c_translation.cast([*c]u8, S), (SDL_wcslen(S) + @as(c_int, 1)) * std.zig.c_translation.sizeof(wchar_t))) {
     _ = &S;
-    return SDL_iconv_string("UTF-8", "WCHAR_T", @import("std").zig.c_translation.cast([*c]u8, S), (SDL_wcslen(S) + @as(c_int, 1)) * @import("std").zig.c_translation.sizeof(wchar_t));
+    return SDL_iconv_string("UTF-8", "WCHAR_T", std.zig.c_translation.cast([*c]u8, S), (SDL_wcslen(S) + @as(c_int, 1)) * std.zig.c_translation.sizeof(wchar_t));
 }
 pub const SDL_assert_h_ = "";
 pub const SDL_ASSERT_LEVEL = @as(c_int, 2);
@@ -6238,11 +6325,11 @@ pub const BYTE_ORDER = __BYTE_ORDER;
 pub const _BITS_BYTESWAP_H = @as(c_int, 1);
 pub inline fn __bswap_constant_16(x: anytype) __uint16_t {
     _ = &x;
-    return @import("std").zig.c_translation.cast(__uint16_t, ((x >> @as(c_int, 8)) & @as(c_int, 0xff)) | ((x & @as(c_int, 0xff)) << @as(c_int, 8)));
+    return std.zig.c_translation.cast(__uint16_t, ((x >> @as(c_int, 8)) & @as(c_int, 0xff)) | ((x & @as(c_int, 0xff)) << @as(c_int, 8)));
 }
-pub inline fn __bswap_constant_32(x: anytype) @TypeOf(((((x & @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0xff000000, .hex)) >> @as(c_int, 24)) | ((x & @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x00ff0000, .hex)) >> @as(c_int, 8))) | ((x & @as(c_uint, 0x0000ff00)) << @as(c_int, 8))) | ((x & @as(c_uint, 0x000000ff)) << @as(c_int, 24))) {
+pub inline fn __bswap_constant_32(x: anytype) @TypeOf(((((x & std.zig.c_translation.promoteIntLiteral(c_uint, 0xff000000, .hex)) >> @as(c_int, 24)) | ((x & std.zig.c_translation.promoteIntLiteral(c_uint, 0x00ff0000, .hex)) >> @as(c_int, 8))) | ((x & @as(c_uint, 0x0000ff00)) << @as(c_int, 8))) | ((x & @as(c_uint, 0x000000ff)) << @as(c_int, 24))) {
     _ = &x;
-    return ((((x & @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0xff000000, .hex)) >> @as(c_int, 24)) | ((x & @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x00ff0000, .hex)) >> @as(c_int, 8))) | ((x & @as(c_uint, 0x0000ff00)) << @as(c_int, 8))) | ((x & @as(c_uint, 0x000000ff)) << @as(c_int, 24));
+    return ((((x & std.zig.c_translation.promoteIntLiteral(c_uint, 0xff000000, .hex)) >> @as(c_int, 24)) | ((x & std.zig.c_translation.promoteIntLiteral(c_uint, 0x00ff0000, .hex)) >> @as(c_int, 8))) | ((x & @as(c_uint, 0x0000ff00)) << @as(c_int, 8))) | ((x & @as(c_uint, 0x000000ff)) << @as(c_int, 24));
 }
 pub inline fn __bswap_constant_64(x: anytype) @TypeOf(((((((((x & @as(c_ulonglong, 0xff00000000000000)) >> @as(c_int, 56)) | ((x & @as(c_ulonglong, 0x00ff000000000000)) >> @as(c_int, 40))) | ((x & @as(c_ulonglong, 0x0000ff0000000000)) >> @as(c_int, 24))) | ((x & @as(c_ulonglong, 0x000000ff00000000)) >> @as(c_int, 8))) | ((x & @as(c_ulonglong, 0x00000000ff000000)) << @as(c_int, 8))) | ((x & @as(c_ulonglong, 0x0000000000ff0000)) << @as(c_int, 24))) | ((x & @as(c_ulonglong, 0x000000000000ff00)) << @as(c_int, 40))) | ((x & @as(c_ulonglong, 0x00000000000000ff)) << @as(c_int, 56))) {
     _ = &x;
@@ -6360,15 +6447,15 @@ pub const SDL_thread_h_ = "";
 pub const SDL_properties_h_ = "";
 pub const SDL_BeginThreadFunction = NULL;
 pub const SDL_EndThreadFunction = NULL;
-pub inline fn SDL_CreateThread(@"fn": anytype, name: anytype, data: anytype) @TypeOf(SDL_CreateThreadRuntime(@"fn", name, data, @import("std").zig.c_translation.cast(SDL_FunctionPointer, SDL_BeginThreadFunction), @import("std").zig.c_translation.cast(SDL_FunctionPointer, SDL_EndThreadFunction))) {
+pub inline fn SDL_CreateThread(@"fn": anytype, name: anytype, data: anytype) @TypeOf(SDL_CreateThreadRuntime(@"fn", name, data, std.zig.c_translation.cast(SDL_FunctionPointer, SDL_BeginThreadFunction), std.zig.c_translation.cast(SDL_FunctionPointer, SDL_EndThreadFunction))) {
     _ = &@"fn";
     _ = &name;
     _ = &data;
-    return SDL_CreateThreadRuntime(@"fn", name, data, @import("std").zig.c_translation.cast(SDL_FunctionPointer, SDL_BeginThreadFunction), @import("std").zig.c_translation.cast(SDL_FunctionPointer, SDL_EndThreadFunction));
+    return SDL_CreateThreadRuntime(@"fn", name, data, std.zig.c_translation.cast(SDL_FunctionPointer, SDL_BeginThreadFunction), std.zig.c_translation.cast(SDL_FunctionPointer, SDL_EndThreadFunction));
 }
-pub inline fn SDL_CreateThreadWithProperties(props: anytype) @TypeOf(SDL_CreateThreadWithPropertiesRuntime(props, @import("std").zig.c_translation.cast(SDL_FunctionPointer, SDL_BeginThreadFunction), @import("std").zig.c_translation.cast(SDL_FunctionPointer, SDL_EndThreadFunction))) {
+pub inline fn SDL_CreateThreadWithProperties(props: anytype) @TypeOf(SDL_CreateThreadWithPropertiesRuntime(props, std.zig.c_translation.cast(SDL_FunctionPointer, SDL_BeginThreadFunction), std.zig.c_translation.cast(SDL_FunctionPointer, SDL_EndThreadFunction))) {
     _ = &props;
-    return SDL_CreateThreadWithPropertiesRuntime(props, @import("std").zig.c_translation.cast(SDL_FunctionPointer, SDL_BeginThreadFunction), @import("std").zig.c_translation.cast(SDL_FunctionPointer, SDL_EndThreadFunction));
+    return SDL_CreateThreadWithPropertiesRuntime(props, std.zig.c_translation.cast(SDL_FunctionPointer, SDL_BeginThreadFunction), std.zig.c_translation.cast(SDL_FunctionPointer, SDL_EndThreadFunction));
 }
 pub const SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER = "SDL.thread.create.entry_function";
 pub const SDL_PROP_THREAD_CREATE_NAME_STRING = "SDL.thread.create.name";
@@ -6435,9 +6522,9 @@ pub inline fn SDL_AUDIO_BITSIZE(x: anytype) @TypeOf(x & SDL_AUDIO_MASK_BITSIZE) 
     _ = &x;
     return x & SDL_AUDIO_MASK_BITSIZE;
 }
-pub inline fn SDL_AUDIO_BYTESIZE(x: anytype) @TypeOf(@import("std").zig.c_translation.MacroArithmetic.div(SDL_AUDIO_BITSIZE(x), @as(c_int, 8))) {
+pub inline fn SDL_AUDIO_BYTESIZE(x: anytype) @TypeOf(std.zig.c_translation.MacroArithmetic.div(SDL_AUDIO_BITSIZE(x), @as(c_int, 8))) {
     _ = &x;
-    return @import("std").zig.c_translation.MacroArithmetic.div(SDL_AUDIO_BITSIZE(x), @as(c_int, 8));
+    return std.zig.c_translation.MacroArithmetic.div(SDL_AUDIO_BITSIZE(x), @as(c_int, 8));
 }
 pub inline fn SDL_AUDIO_ISFLOAT(x: anytype) @TypeOf(x & SDL_AUDIO_MASK_FLOAT) {
     _ = &x;
@@ -6463,8 +6550,8 @@ pub inline fn SDL_AUDIO_ISUNSIGNED(x: anytype) @TypeOf(!(SDL_AUDIO_ISSIGNED(x) !
     _ = &x;
     return !(SDL_AUDIO_ISSIGNED(x) != 0);
 }
-pub const SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK = @import("std").zig.c_translation.cast(SDL_AudioDeviceID, @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0xFFFFFFFF, .hex));
-pub const SDL_AUDIO_DEVICE_DEFAULT_RECORDING = @import("std").zig.c_translation.cast(SDL_AudioDeviceID, @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0xFFFFFFFE, .hex));
+pub const SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK = std.zig.c_translation.cast(SDL_AudioDeviceID, std.zig.c_translation.promoteIntLiteral(c_uint, 0xFFFFFFFF, .hex));
+pub const SDL_AUDIO_DEVICE_DEFAULT_RECORDING = std.zig.c_translation.cast(SDL_AudioDeviceID, std.zig.c_translation.promoteIntLiteral(c_uint, 0xFFFFFFFE, .hex));
 pub inline fn SDL_AUDIO_FRAMESIZE(x: anytype) @TypeOf(SDL_AUDIO_BYTESIZE(x.format) * x.channels) {
     _ = &x;
     return SDL_AUDIO_BYTESIZE(x.format) * x.channels;
@@ -6478,7 +6565,7 @@ pub const SDL_BLENDMODE_ADD = @as(c_uint, 0x00000002);
 pub const SDL_BLENDMODE_ADD_PREMULTIPLIED = @as(c_uint, 0x00000020);
 pub const SDL_BLENDMODE_MOD = @as(c_uint, 0x00000004);
 pub const SDL_BLENDMODE_MUL = @as(c_uint, 0x00000008);
-pub const SDL_BLENDMODE_INVALID = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x7FFFFFFF, .hex);
+pub const SDL_BLENDMODE_INVALID = std.zig.c_translation.promoteIntLiteral(c_uint, 0x7FFFFFFF, .hex);
 pub const SDL_camera_h_ = "";
 pub const SDL_pixels_h_ = "";
 pub const SDL_ALPHA_OPAQUE = @as(c_int, 255);
@@ -6552,38 +6639,38 @@ pub inline fn SDL_ISPIXELFORMAT_FOURCC(format: anytype) @TypeOf((format != 0) an
     _ = &format;
     return (format != 0) and (SDL_PIXELFLAG(format) != @as(c_int, 1));
 }
-pub inline fn SDL_DEFINE_COLORSPACE(@"type": anytype, range: anytype, primaries: anytype, transfer: anytype, matrix: anytype, chroma: anytype) @TypeOf((((((@import("std").zig.c_translation.cast(Uint32, @"type") << @as(c_int, 28)) | (@import("std").zig.c_translation.cast(Uint32, range) << @as(c_int, 24))) | (@import("std").zig.c_translation.cast(Uint32, chroma) << @as(c_int, 20))) | (@import("std").zig.c_translation.cast(Uint32, primaries) << @as(c_int, 10))) | (@import("std").zig.c_translation.cast(Uint32, transfer) << @as(c_int, 5))) | (@import("std").zig.c_translation.cast(Uint32, matrix) << @as(c_int, 0))) {
+pub inline fn SDL_DEFINE_COLORSPACE(@"type": anytype, range: anytype, primaries: anytype, transfer: anytype, matrix: anytype, chroma: anytype) @TypeOf((((((std.zig.c_translation.cast(Uint32, @"type") << @as(c_int, 28)) | (std.zig.c_translation.cast(Uint32, range) << @as(c_int, 24))) | (std.zig.c_translation.cast(Uint32, chroma) << @as(c_int, 20))) | (std.zig.c_translation.cast(Uint32, primaries) << @as(c_int, 10))) | (std.zig.c_translation.cast(Uint32, transfer) << @as(c_int, 5))) | (std.zig.c_translation.cast(Uint32, matrix) << @as(c_int, 0))) {
     _ = &@"type";
     _ = &range;
     _ = &primaries;
     _ = &transfer;
     _ = &matrix;
     _ = &chroma;
-    return (((((@import("std").zig.c_translation.cast(Uint32, @"type") << @as(c_int, 28)) | (@import("std").zig.c_translation.cast(Uint32, range) << @as(c_int, 24))) | (@import("std").zig.c_translation.cast(Uint32, chroma) << @as(c_int, 20))) | (@import("std").zig.c_translation.cast(Uint32, primaries) << @as(c_int, 10))) | (@import("std").zig.c_translation.cast(Uint32, transfer) << @as(c_int, 5))) | (@import("std").zig.c_translation.cast(Uint32, matrix) << @as(c_int, 0));
+    return (((((std.zig.c_translation.cast(Uint32, @"type") << @as(c_int, 28)) | (std.zig.c_translation.cast(Uint32, range) << @as(c_int, 24))) | (std.zig.c_translation.cast(Uint32, chroma) << @as(c_int, 20))) | (std.zig.c_translation.cast(Uint32, primaries) << @as(c_int, 10))) | (std.zig.c_translation.cast(Uint32, transfer) << @as(c_int, 5))) | (std.zig.c_translation.cast(Uint32, matrix) << @as(c_int, 0));
 }
 pub inline fn SDL_COLORSPACETYPE(cspace: anytype) SDL_ColorType {
     _ = &cspace;
-    return @import("std").zig.c_translation.cast(SDL_ColorType, (cspace >> @as(c_int, 28)) & @as(c_int, 0x0F));
+    return std.zig.c_translation.cast(SDL_ColorType, (cspace >> @as(c_int, 28)) & @as(c_int, 0x0F));
 }
 pub inline fn SDL_COLORSPACERANGE(cspace: anytype) SDL_ColorRange {
     _ = &cspace;
-    return @import("std").zig.c_translation.cast(SDL_ColorRange, (cspace >> @as(c_int, 24)) & @as(c_int, 0x0F));
+    return std.zig.c_translation.cast(SDL_ColorRange, (cspace >> @as(c_int, 24)) & @as(c_int, 0x0F));
 }
 pub inline fn SDL_COLORSPACECHROMA(cspace: anytype) SDL_ChromaLocation {
     _ = &cspace;
-    return @import("std").zig.c_translation.cast(SDL_ChromaLocation, (cspace >> @as(c_int, 20)) & @as(c_int, 0x0F));
+    return std.zig.c_translation.cast(SDL_ChromaLocation, (cspace >> @as(c_int, 20)) & @as(c_int, 0x0F));
 }
 pub inline fn SDL_COLORSPACEPRIMARIES(cspace: anytype) SDL_ColorPrimaries {
     _ = &cspace;
-    return @import("std").zig.c_translation.cast(SDL_ColorPrimaries, (cspace >> @as(c_int, 10)) & @as(c_int, 0x1F));
+    return std.zig.c_translation.cast(SDL_ColorPrimaries, (cspace >> @as(c_int, 10)) & @as(c_int, 0x1F));
 }
 pub inline fn SDL_COLORSPACETRANSFER(cspace: anytype) SDL_TransferCharacteristics {
     _ = &cspace;
-    return @import("std").zig.c_translation.cast(SDL_TransferCharacteristics, (cspace >> @as(c_int, 5)) & @as(c_int, 0x1F));
+    return std.zig.c_translation.cast(SDL_TransferCharacteristics, (cspace >> @as(c_int, 5)) & @as(c_int, 0x1F));
 }
 pub inline fn SDL_COLORSPACEMATRIX(cspace: anytype) SDL_MatrixCoefficients {
     _ = &cspace;
-    return @import("std").zig.c_translation.cast(SDL_MatrixCoefficients, cspace & @as(c_int, 0x1F));
+    return std.zig.c_translation.cast(SDL_MatrixCoefficients, cspace & @as(c_int, 0x1F));
 }
 pub inline fn SDL_ISCOLORSPACE_MATRIX_BT601(cspace: anytype) @TypeOf((SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT601) or (SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT470BG)) {
     _ = &cspace;
@@ -6639,35 +6726,35 @@ pub const SDL_WINDOW_EXTERNAL = SDL_UINT64_C(@as(c_int, 0x0000000000000800));
 pub const SDL_WINDOW_MODAL = SDL_UINT64_C(@as(c_int, 0x0000000000001000));
 pub const SDL_WINDOW_HIGH_PIXEL_DENSITY = SDL_UINT64_C(@as(c_int, 0x0000000000002000));
 pub const SDL_WINDOW_MOUSE_CAPTURE = SDL_UINT64_C(@as(c_int, 0x0000000000004000));
-pub const SDL_WINDOW_MOUSE_RELATIVE_MODE = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000000008000, .hex));
-pub const SDL_WINDOW_ALWAYS_ON_TOP = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000000010000, .hex));
-pub const SDL_WINDOW_UTILITY = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000000020000, .hex));
-pub const SDL_WINDOW_TOOLTIP = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000000040000, .hex));
-pub const SDL_WINDOW_POPUP_MENU = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000000080000, .hex));
-pub const SDL_WINDOW_KEYBOARD_GRABBED = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000000100000, .hex));
-pub const SDL_WINDOW_VULKAN = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000010000000, .hex));
-pub const SDL_WINDOW_METAL = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000020000000, .hex));
-pub const SDL_WINDOW_TRANSPARENT = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000040000000, .hex));
-pub const SDL_WINDOW_NOT_FOCUSABLE = SDL_UINT64_C(@import("std").zig.c_translation.promoteIntLiteral(c_int, 0x0000000080000000, .hex));
-pub const SDL_WINDOWPOS_UNDEFINED_MASK = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x1FFF0000, .hex);
+pub const SDL_WINDOW_MOUSE_RELATIVE_MODE = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000000008000, .hex));
+pub const SDL_WINDOW_ALWAYS_ON_TOP = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000000010000, .hex));
+pub const SDL_WINDOW_UTILITY = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000000020000, .hex));
+pub const SDL_WINDOW_TOOLTIP = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000000040000, .hex));
+pub const SDL_WINDOW_POPUP_MENU = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000000080000, .hex));
+pub const SDL_WINDOW_KEYBOARD_GRABBED = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000000100000, .hex));
+pub const SDL_WINDOW_VULKAN = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000010000000, .hex));
+pub const SDL_WINDOW_METAL = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000020000000, .hex));
+pub const SDL_WINDOW_TRANSPARENT = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000040000000, .hex));
+pub const SDL_WINDOW_NOT_FOCUSABLE = SDL_UINT64_C(std.zig.c_translation.promoteIntLiteral(c_int, 0x0000000080000000, .hex));
+pub const SDL_WINDOWPOS_UNDEFINED_MASK = std.zig.c_translation.promoteIntLiteral(c_uint, 0x1FFF0000, .hex);
 pub inline fn SDL_WINDOWPOS_UNDEFINED_DISPLAY(X: anytype) @TypeOf(SDL_WINDOWPOS_UNDEFINED_MASK | X) {
     _ = &X;
     return SDL_WINDOWPOS_UNDEFINED_MASK | X;
 }
 pub const SDL_WINDOWPOS_UNDEFINED = SDL_WINDOWPOS_UNDEFINED_DISPLAY(@as(c_int, 0));
-pub inline fn SDL_WINDOWPOS_ISUNDEFINED(X: anytype) @TypeOf((X & @import("std").zig.c_translation.promoteIntLiteral(c_int, 0xFFFF0000, .hex)) == SDL_WINDOWPOS_UNDEFINED_MASK) {
+pub inline fn SDL_WINDOWPOS_ISUNDEFINED(X: anytype) @TypeOf((X & std.zig.c_translation.promoteIntLiteral(c_int, 0xFFFF0000, .hex)) == SDL_WINDOWPOS_UNDEFINED_MASK) {
     _ = &X;
-    return (X & @import("std").zig.c_translation.promoteIntLiteral(c_int, 0xFFFF0000, .hex)) == SDL_WINDOWPOS_UNDEFINED_MASK;
+    return (X & std.zig.c_translation.promoteIntLiteral(c_int, 0xFFFF0000, .hex)) == SDL_WINDOWPOS_UNDEFINED_MASK;
 }
-pub const SDL_WINDOWPOS_CENTERED_MASK = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x2FFF0000, .hex);
+pub const SDL_WINDOWPOS_CENTERED_MASK = std.zig.c_translation.promoteIntLiteral(c_uint, 0x2FFF0000, .hex);
 pub inline fn SDL_WINDOWPOS_CENTERED_DISPLAY(X: anytype) @TypeOf(SDL_WINDOWPOS_CENTERED_MASK | X) {
     _ = &X;
     return SDL_WINDOWPOS_CENTERED_MASK | X;
 }
 pub const SDL_WINDOWPOS_CENTERED = SDL_WINDOWPOS_CENTERED_DISPLAY(@as(c_int, 0));
-pub inline fn SDL_WINDOWPOS_ISCENTERED(X: anytype) @TypeOf((X & @import("std").zig.c_translation.promoteIntLiteral(c_int, 0xFFFF0000, .hex)) == SDL_WINDOWPOS_CENTERED_MASK) {
+pub inline fn SDL_WINDOWPOS_ISCENTERED(X: anytype) @TypeOf((X & std.zig.c_translation.promoteIntLiteral(c_int, 0xFFFF0000, .hex)) == SDL_WINDOWPOS_CENTERED_MASK) {
     _ = &X;
-    return (X & @import("std").zig.c_translation.promoteIntLiteral(c_int, 0xFFFF0000, .hex)) == SDL_WINDOWPOS_CENTERED_MASK;
+    return (X & std.zig.c_translation.promoteIntLiteral(c_int, 0xFFFF0000, .hex)) == SDL_WINDOWPOS_CENTERED_MASK;
 }
 pub const SDL_GL_CONTEXT_PROFILE_CORE = @as(c_int, 0x0001);
 pub const SDL_GL_CONTEXT_PROFILE_COMPATIBILITY = @as(c_int, 0x0002);
@@ -6769,7 +6856,7 @@ pub const SDL_power_h_ = "";
 pub const SDL_sensor_h_ = "";
 pub const SDL_STANDARD_GRAVITY = @as(f32, 9.80665);
 pub const SDL_JOYSTICK_AXIS_MAX = @as(c_int, 32767);
-pub const SDL_JOYSTICK_AXIS_MIN = -@import("std").zig.c_translation.promoteIntLiteral(c_int, 32768, .decimal);
+pub const SDL_JOYSTICK_AXIS_MIN = -std.zig.c_translation.promoteIntLiteral(c_int, 32768, .decimal);
 pub const SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN = "SDL.joystick.cap.mono_led";
 pub const SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN = "SDL.joystick.cap.rgb_led";
 pub const SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN = "SDL.joystick.cap.player_led";
@@ -6874,186 +6961,186 @@ pub const SDLK_RIGHTBRACE = @as(c_uint, 0x0000007d);
 pub const SDLK_TILDE = @as(c_uint, 0x0000007e);
 pub const SDLK_DELETE = @as(c_uint, 0x0000007f);
 pub const SDLK_PLUSMINUS = @as(c_uint, 0x000000b1);
-pub const SDLK_CAPSLOCK = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000039, .hex);
-pub const SDLK_F1 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000003a, .hex);
-pub const SDLK_F2 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000003b, .hex);
-pub const SDLK_F3 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000003c, .hex);
-pub const SDLK_F4 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000003d, .hex);
-pub const SDLK_F5 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000003e, .hex);
-pub const SDLK_F6 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000003f, .hex);
-pub const SDLK_F7 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000040, .hex);
-pub const SDLK_F8 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000041, .hex);
-pub const SDLK_F9 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000042, .hex);
-pub const SDLK_F10 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000043, .hex);
-pub const SDLK_F11 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000044, .hex);
-pub const SDLK_F12 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000045, .hex);
-pub const SDLK_PRINTSCREEN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000046, .hex);
-pub const SDLK_SCROLLLOCK = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000047, .hex);
-pub const SDLK_PAUSE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000048, .hex);
-pub const SDLK_INSERT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000049, .hex);
-pub const SDLK_HOME = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000004a, .hex);
-pub const SDLK_PAGEUP = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000004b, .hex);
-pub const SDLK_END = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000004d, .hex);
-pub const SDLK_PAGEDOWN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000004e, .hex);
-pub const SDLK_RIGHT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000004f, .hex);
-pub const SDLK_LEFT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000050, .hex);
-pub const SDLK_DOWN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000051, .hex);
-pub const SDLK_UP = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000052, .hex);
-pub const SDLK_NUMLOCKCLEAR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000053, .hex);
-pub const SDLK_KP_DIVIDE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000054, .hex);
-pub const SDLK_KP_MULTIPLY = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000055, .hex);
-pub const SDLK_KP_MINUS = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000056, .hex);
-pub const SDLK_KP_PLUS = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000057, .hex);
-pub const SDLK_KP_ENTER = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000058, .hex);
-pub const SDLK_KP_1 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000059, .hex);
-pub const SDLK_KP_2 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000005a, .hex);
-pub const SDLK_KP_3 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000005b, .hex);
-pub const SDLK_KP_4 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000005c, .hex);
-pub const SDLK_KP_5 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000005d, .hex);
-pub const SDLK_KP_6 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000005e, .hex);
-pub const SDLK_KP_7 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000005f, .hex);
-pub const SDLK_KP_8 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000060, .hex);
-pub const SDLK_KP_9 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000061, .hex);
-pub const SDLK_KP_0 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000062, .hex);
-pub const SDLK_KP_PERIOD = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000063, .hex);
-pub const SDLK_APPLICATION = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000065, .hex);
-pub const SDLK_POWER = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000066, .hex);
-pub const SDLK_KP_EQUALS = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000067, .hex);
-pub const SDLK_F13 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000068, .hex);
-pub const SDLK_F14 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000069, .hex);
-pub const SDLK_F15 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000006a, .hex);
-pub const SDLK_F16 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000006b, .hex);
-pub const SDLK_F17 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000006c, .hex);
-pub const SDLK_F18 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000006d, .hex);
-pub const SDLK_F19 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000006e, .hex);
-pub const SDLK_F20 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000006f, .hex);
-pub const SDLK_F21 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000070, .hex);
-pub const SDLK_F22 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000071, .hex);
-pub const SDLK_F23 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000072, .hex);
-pub const SDLK_F24 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000073, .hex);
-pub const SDLK_EXECUTE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000074, .hex);
-pub const SDLK_HELP = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000075, .hex);
-pub const SDLK_MENU = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000076, .hex);
-pub const SDLK_SELECT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000077, .hex);
-pub const SDLK_STOP = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000078, .hex);
-pub const SDLK_AGAIN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000079, .hex);
-pub const SDLK_UNDO = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000007a, .hex);
-pub const SDLK_CUT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000007b, .hex);
-pub const SDLK_COPY = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000007c, .hex);
-pub const SDLK_PASTE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000007d, .hex);
-pub const SDLK_FIND = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000007e, .hex);
-pub const SDLK_MUTE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000007f, .hex);
-pub const SDLK_VOLUMEUP = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000080, .hex);
-pub const SDLK_VOLUMEDOWN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000081, .hex);
-pub const SDLK_KP_COMMA = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000085, .hex);
-pub const SDLK_KP_EQUALSAS400 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000086, .hex);
-pub const SDLK_ALTERASE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000099, .hex);
-pub const SDLK_SYSREQ = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000009a, .hex);
-pub const SDLK_CANCEL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000009b, .hex);
-pub const SDLK_CLEAR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000009c, .hex);
-pub const SDLK_PRIOR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000009d, .hex);
-pub const SDLK_RETURN2 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000009e, .hex);
-pub const SDLK_SEPARATOR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000009f, .hex);
-pub const SDLK_OUT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000a0, .hex);
-pub const SDLK_OPER = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000a1, .hex);
-pub const SDLK_CLEARAGAIN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000a2, .hex);
-pub const SDLK_CRSEL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000a3, .hex);
-pub const SDLK_EXSEL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000a4, .hex);
-pub const SDLK_KP_00 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b0, .hex);
-pub const SDLK_KP_000 = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b1, .hex);
-pub const SDLK_THOUSANDSSEPARATOR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b2, .hex);
-pub const SDLK_DECIMALSEPARATOR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b3, .hex);
-pub const SDLK_CURRENCYUNIT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b4, .hex);
-pub const SDLK_CURRENCYSUBUNIT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b5, .hex);
-pub const SDLK_KP_LEFTPAREN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b6, .hex);
-pub const SDLK_KP_RIGHTPAREN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b7, .hex);
-pub const SDLK_KP_LEFTBRACE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b8, .hex);
-pub const SDLK_KP_RIGHTBRACE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000b9, .hex);
-pub const SDLK_KP_TAB = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000ba, .hex);
-pub const SDLK_KP_BACKSPACE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000bb, .hex);
-pub const SDLK_KP_A = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000bc, .hex);
-pub const SDLK_KP_B = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000bd, .hex);
-pub const SDLK_KP_C = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000be, .hex);
-pub const SDLK_KP_D = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000bf, .hex);
-pub const SDLK_KP_E = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c0, .hex);
-pub const SDLK_KP_F = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c1, .hex);
-pub const SDLK_KP_XOR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c2, .hex);
-pub const SDLK_KP_POWER = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c3, .hex);
-pub const SDLK_KP_PERCENT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c4, .hex);
-pub const SDLK_KP_LESS = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c5, .hex);
-pub const SDLK_KP_GREATER = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c6, .hex);
-pub const SDLK_KP_AMPERSAND = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c7, .hex);
-pub const SDLK_KP_DBLAMPERSAND = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c8, .hex);
-pub const SDLK_KP_VERTICALBAR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000c9, .hex);
-pub const SDLK_KP_DBLVERTICALBAR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000ca, .hex);
-pub const SDLK_KP_COLON = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000cb, .hex);
-pub const SDLK_KP_HASH = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000cc, .hex);
-pub const SDLK_KP_SPACE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000cd, .hex);
-pub const SDLK_KP_AT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000ce, .hex);
-pub const SDLK_KP_EXCLAM = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000cf, .hex);
-pub const SDLK_KP_MEMSTORE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d0, .hex);
-pub const SDLK_KP_MEMRECALL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d1, .hex);
-pub const SDLK_KP_MEMCLEAR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d2, .hex);
-pub const SDLK_KP_MEMADD = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d3, .hex);
-pub const SDLK_KP_MEMSUBTRACT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d4, .hex);
-pub const SDLK_KP_MEMMULTIPLY = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d5, .hex);
-pub const SDLK_KP_MEMDIVIDE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d6, .hex);
-pub const SDLK_KP_PLUSMINUS = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d7, .hex);
-pub const SDLK_KP_CLEAR = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d8, .hex);
-pub const SDLK_KP_CLEARENTRY = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000d9, .hex);
-pub const SDLK_KP_BINARY = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000da, .hex);
-pub const SDLK_KP_OCTAL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000db, .hex);
-pub const SDLK_KP_DECIMAL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000dc, .hex);
-pub const SDLK_KP_HEXADECIMAL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000dd, .hex);
-pub const SDLK_LCTRL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000e0, .hex);
-pub const SDLK_LSHIFT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000e1, .hex);
-pub const SDLK_LALT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000e2, .hex);
-pub const SDLK_LGUI = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000e3, .hex);
-pub const SDLK_RCTRL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000e4, .hex);
-pub const SDLK_RSHIFT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000e5, .hex);
-pub const SDLK_RALT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000e6, .hex);
-pub const SDLK_RGUI = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x400000e7, .hex);
-pub const SDLK_MODE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000101, .hex);
-pub const SDLK_SLEEP = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000102, .hex);
-pub const SDLK_WAKE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000103, .hex);
-pub const SDLK_CHANNEL_INCREMENT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000104, .hex);
-pub const SDLK_CHANNEL_DECREMENT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000105, .hex);
-pub const SDLK_MEDIA_PLAY = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000106, .hex);
-pub const SDLK_MEDIA_PAUSE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000107, .hex);
-pub const SDLK_MEDIA_RECORD = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000108, .hex);
-pub const SDLK_MEDIA_FAST_FORWARD = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000109, .hex);
-pub const SDLK_MEDIA_REWIND = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000010a, .hex);
-pub const SDLK_MEDIA_NEXT_TRACK = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000010b, .hex);
-pub const SDLK_MEDIA_PREVIOUS_TRACK = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000010c, .hex);
-pub const SDLK_MEDIA_STOP = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000010d, .hex);
-pub const SDLK_MEDIA_EJECT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000010e, .hex);
-pub const SDLK_MEDIA_PLAY_PAUSE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000010f, .hex);
-pub const SDLK_MEDIA_SELECT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000110, .hex);
-pub const SDLK_AC_NEW = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000111, .hex);
-pub const SDLK_AC_OPEN = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000112, .hex);
-pub const SDLK_AC_CLOSE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000113, .hex);
-pub const SDLK_AC_EXIT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000114, .hex);
-pub const SDLK_AC_SAVE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000115, .hex);
-pub const SDLK_AC_PRINT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000116, .hex);
-pub const SDLK_AC_PROPERTIES = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000117, .hex);
-pub const SDLK_AC_SEARCH = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000118, .hex);
-pub const SDLK_AC_HOME = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000119, .hex);
-pub const SDLK_AC_BACK = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000011a, .hex);
-pub const SDLK_AC_FORWARD = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000011b, .hex);
-pub const SDLK_AC_STOP = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000011c, .hex);
-pub const SDLK_AC_REFRESH = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000011d, .hex);
-pub const SDLK_AC_BOOKMARKS = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000011e, .hex);
-pub const SDLK_SOFTLEFT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x4000011f, .hex);
-pub const SDLK_SOFTRIGHT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000120, .hex);
-pub const SDLK_CALL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000121, .hex);
-pub const SDLK_ENDCALL = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000122, .hex);
-pub const SDLK_LEFT_TAB = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x20000001, .hex);
-pub const SDLK_LEVEL5_SHIFT = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x20000002, .hex);
-pub const SDLK_MULTI_KEY_COMPOSE = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x20000003, .hex);
-pub const SDLK_LMETA = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x20000004, .hex);
-pub const SDLK_RMETA = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x20000005, .hex);
-pub const SDLK_LHYPER = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x20000006, .hex);
-pub const SDLK_RHYPER = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x20000007, .hex);
+pub const SDLK_CAPSLOCK = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000039, .hex);
+pub const SDLK_F1 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000003a, .hex);
+pub const SDLK_F2 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000003b, .hex);
+pub const SDLK_F3 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000003c, .hex);
+pub const SDLK_F4 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000003d, .hex);
+pub const SDLK_F5 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000003e, .hex);
+pub const SDLK_F6 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000003f, .hex);
+pub const SDLK_F7 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000040, .hex);
+pub const SDLK_F8 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000041, .hex);
+pub const SDLK_F9 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000042, .hex);
+pub const SDLK_F10 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000043, .hex);
+pub const SDLK_F11 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000044, .hex);
+pub const SDLK_F12 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000045, .hex);
+pub const SDLK_PRINTSCREEN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000046, .hex);
+pub const SDLK_SCROLLLOCK = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000047, .hex);
+pub const SDLK_PAUSE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000048, .hex);
+pub const SDLK_INSERT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000049, .hex);
+pub const SDLK_HOME = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000004a, .hex);
+pub const SDLK_PAGEUP = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000004b, .hex);
+pub const SDLK_END = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000004d, .hex);
+pub const SDLK_PAGEDOWN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000004e, .hex);
+pub const SDLK_RIGHT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000004f, .hex);
+pub const SDLK_LEFT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000050, .hex);
+pub const SDLK_DOWN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000051, .hex);
+pub const SDLK_UP = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000052, .hex);
+pub const SDLK_NUMLOCKCLEAR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000053, .hex);
+pub const SDLK_KP_DIVIDE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000054, .hex);
+pub const SDLK_KP_MULTIPLY = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000055, .hex);
+pub const SDLK_KP_MINUS = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000056, .hex);
+pub const SDLK_KP_PLUS = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000057, .hex);
+pub const SDLK_KP_ENTER = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000058, .hex);
+pub const SDLK_KP_1 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000059, .hex);
+pub const SDLK_KP_2 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000005a, .hex);
+pub const SDLK_KP_3 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000005b, .hex);
+pub const SDLK_KP_4 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000005c, .hex);
+pub const SDLK_KP_5 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000005d, .hex);
+pub const SDLK_KP_6 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000005e, .hex);
+pub const SDLK_KP_7 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000005f, .hex);
+pub const SDLK_KP_8 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000060, .hex);
+pub const SDLK_KP_9 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000061, .hex);
+pub const SDLK_KP_0 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000062, .hex);
+pub const SDLK_KP_PERIOD = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000063, .hex);
+pub const SDLK_APPLICATION = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000065, .hex);
+pub const SDLK_POWER = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000066, .hex);
+pub const SDLK_KP_EQUALS = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000067, .hex);
+pub const SDLK_F13 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000068, .hex);
+pub const SDLK_F14 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000069, .hex);
+pub const SDLK_F15 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000006a, .hex);
+pub const SDLK_F16 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000006b, .hex);
+pub const SDLK_F17 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000006c, .hex);
+pub const SDLK_F18 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000006d, .hex);
+pub const SDLK_F19 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000006e, .hex);
+pub const SDLK_F20 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000006f, .hex);
+pub const SDLK_F21 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000070, .hex);
+pub const SDLK_F22 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000071, .hex);
+pub const SDLK_F23 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000072, .hex);
+pub const SDLK_F24 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000073, .hex);
+pub const SDLK_EXECUTE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000074, .hex);
+pub const SDLK_HELP = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000075, .hex);
+pub const SDLK_MENU = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000076, .hex);
+pub const SDLK_SELECT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000077, .hex);
+pub const SDLK_STOP = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000078, .hex);
+pub const SDLK_AGAIN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000079, .hex);
+pub const SDLK_UNDO = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000007a, .hex);
+pub const SDLK_CUT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000007b, .hex);
+pub const SDLK_COPY = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000007c, .hex);
+pub const SDLK_PASTE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000007d, .hex);
+pub const SDLK_FIND = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000007e, .hex);
+pub const SDLK_MUTE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000007f, .hex);
+pub const SDLK_VOLUMEUP = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000080, .hex);
+pub const SDLK_VOLUMEDOWN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000081, .hex);
+pub const SDLK_KP_COMMA = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000085, .hex);
+pub const SDLK_KP_EQUALSAS400 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000086, .hex);
+pub const SDLK_ALTERASE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000099, .hex);
+pub const SDLK_SYSREQ = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000009a, .hex);
+pub const SDLK_CANCEL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000009b, .hex);
+pub const SDLK_CLEAR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000009c, .hex);
+pub const SDLK_PRIOR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000009d, .hex);
+pub const SDLK_RETURN2 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000009e, .hex);
+pub const SDLK_SEPARATOR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000009f, .hex);
+pub const SDLK_OUT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000a0, .hex);
+pub const SDLK_OPER = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000a1, .hex);
+pub const SDLK_CLEARAGAIN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000a2, .hex);
+pub const SDLK_CRSEL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000a3, .hex);
+pub const SDLK_EXSEL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000a4, .hex);
+pub const SDLK_KP_00 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b0, .hex);
+pub const SDLK_KP_000 = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b1, .hex);
+pub const SDLK_THOUSANDSSEPARATOR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b2, .hex);
+pub const SDLK_DECIMALSEPARATOR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b3, .hex);
+pub const SDLK_CURRENCYUNIT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b4, .hex);
+pub const SDLK_CURRENCYSUBUNIT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b5, .hex);
+pub const SDLK_KP_LEFTPAREN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b6, .hex);
+pub const SDLK_KP_RIGHTPAREN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b7, .hex);
+pub const SDLK_KP_LEFTBRACE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b8, .hex);
+pub const SDLK_KP_RIGHTBRACE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000b9, .hex);
+pub const SDLK_KP_TAB = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000ba, .hex);
+pub const SDLK_KP_BACKSPACE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000bb, .hex);
+pub const SDLK_KP_A = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000bc, .hex);
+pub const SDLK_KP_B = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000bd, .hex);
+pub const SDLK_KP_C = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000be, .hex);
+pub const SDLK_KP_D = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000bf, .hex);
+pub const SDLK_KP_E = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c0, .hex);
+pub const SDLK_KP_F = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c1, .hex);
+pub const SDLK_KP_XOR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c2, .hex);
+pub const SDLK_KP_POWER = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c3, .hex);
+pub const SDLK_KP_PERCENT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c4, .hex);
+pub const SDLK_KP_LESS = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c5, .hex);
+pub const SDLK_KP_GREATER = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c6, .hex);
+pub const SDLK_KP_AMPERSAND = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c7, .hex);
+pub const SDLK_KP_DBLAMPERSAND = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c8, .hex);
+pub const SDLK_KP_VERTICALBAR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000c9, .hex);
+pub const SDLK_KP_DBLVERTICALBAR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000ca, .hex);
+pub const SDLK_KP_COLON = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000cb, .hex);
+pub const SDLK_KP_HASH = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000cc, .hex);
+pub const SDLK_KP_SPACE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000cd, .hex);
+pub const SDLK_KP_AT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000ce, .hex);
+pub const SDLK_KP_EXCLAM = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000cf, .hex);
+pub const SDLK_KP_MEMSTORE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d0, .hex);
+pub const SDLK_KP_MEMRECALL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d1, .hex);
+pub const SDLK_KP_MEMCLEAR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d2, .hex);
+pub const SDLK_KP_MEMADD = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d3, .hex);
+pub const SDLK_KP_MEMSUBTRACT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d4, .hex);
+pub const SDLK_KP_MEMMULTIPLY = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d5, .hex);
+pub const SDLK_KP_MEMDIVIDE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d6, .hex);
+pub const SDLK_KP_PLUSMINUS = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d7, .hex);
+pub const SDLK_KP_CLEAR = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d8, .hex);
+pub const SDLK_KP_CLEARENTRY = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000d9, .hex);
+pub const SDLK_KP_BINARY = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000da, .hex);
+pub const SDLK_KP_OCTAL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000db, .hex);
+pub const SDLK_KP_DECIMAL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000dc, .hex);
+pub const SDLK_KP_HEXADECIMAL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000dd, .hex);
+pub const SDLK_LCTRL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000e0, .hex);
+pub const SDLK_LSHIFT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000e1, .hex);
+pub const SDLK_LALT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000e2, .hex);
+pub const SDLK_LGUI = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000e3, .hex);
+pub const SDLK_RCTRL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000e4, .hex);
+pub const SDLK_RSHIFT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000e5, .hex);
+pub const SDLK_RALT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000e6, .hex);
+pub const SDLK_RGUI = std.zig.c_translation.promoteIntLiteral(c_uint, 0x400000e7, .hex);
+pub const SDLK_MODE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000101, .hex);
+pub const SDLK_SLEEP = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000102, .hex);
+pub const SDLK_WAKE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000103, .hex);
+pub const SDLK_CHANNEL_INCREMENT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000104, .hex);
+pub const SDLK_CHANNEL_DECREMENT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000105, .hex);
+pub const SDLK_MEDIA_PLAY = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000106, .hex);
+pub const SDLK_MEDIA_PAUSE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000107, .hex);
+pub const SDLK_MEDIA_RECORD = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000108, .hex);
+pub const SDLK_MEDIA_FAST_FORWARD = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000109, .hex);
+pub const SDLK_MEDIA_REWIND = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000010a, .hex);
+pub const SDLK_MEDIA_NEXT_TRACK = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000010b, .hex);
+pub const SDLK_MEDIA_PREVIOUS_TRACK = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000010c, .hex);
+pub const SDLK_MEDIA_STOP = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000010d, .hex);
+pub const SDLK_MEDIA_EJECT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000010e, .hex);
+pub const SDLK_MEDIA_PLAY_PAUSE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000010f, .hex);
+pub const SDLK_MEDIA_SELECT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000110, .hex);
+pub const SDLK_AC_NEW = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000111, .hex);
+pub const SDLK_AC_OPEN = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000112, .hex);
+pub const SDLK_AC_CLOSE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000113, .hex);
+pub const SDLK_AC_EXIT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000114, .hex);
+pub const SDLK_AC_SAVE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000115, .hex);
+pub const SDLK_AC_PRINT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000116, .hex);
+pub const SDLK_AC_PROPERTIES = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000117, .hex);
+pub const SDLK_AC_SEARCH = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000118, .hex);
+pub const SDLK_AC_HOME = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000119, .hex);
+pub const SDLK_AC_BACK = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000011a, .hex);
+pub const SDLK_AC_FORWARD = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000011b, .hex);
+pub const SDLK_AC_STOP = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000011c, .hex);
+pub const SDLK_AC_REFRESH = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000011d, .hex);
+pub const SDLK_AC_BOOKMARKS = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000011e, .hex);
+pub const SDLK_SOFTLEFT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x4000011f, .hex);
+pub const SDLK_SOFTRIGHT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000120, .hex);
+pub const SDLK_CALL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000121, .hex);
+pub const SDLK_ENDCALL = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000122, .hex);
+pub const SDLK_LEFT_TAB = std.zig.c_translation.promoteIntLiteral(c_uint, 0x20000001, .hex);
+pub const SDLK_LEVEL5_SHIFT = std.zig.c_translation.promoteIntLiteral(c_uint, 0x20000002, .hex);
+pub const SDLK_MULTI_KEY_COMPOSE = std.zig.c_translation.promoteIntLiteral(c_uint, 0x20000003, .hex);
+pub const SDLK_LMETA = std.zig.c_translation.promoteIntLiteral(c_uint, 0x20000004, .hex);
+pub const SDLK_RMETA = std.zig.c_translation.promoteIntLiteral(c_uint, 0x20000005, .hex);
+pub const SDLK_LHYPER = std.zig.c_translation.promoteIntLiteral(c_uint, 0x20000006, .hex);
+pub const SDLK_RHYPER = std.zig.c_translation.promoteIntLiteral(c_uint, 0x20000007, .hex);
 pub const SDL_KMOD_NONE = @as(c_uint, 0x0000);
 pub const SDL_KMOD_LSHIFT = @as(c_uint, 0x0001);
 pub const SDL_KMOD_RSHIFT = @as(c_uint, 0x0002);
@@ -7093,6 +7180,16 @@ pub const MouseButton = enum(u8) {
     x1 = 4,
     x2 = 5,
     _,
+
+    pub fn toInt(button: MouseButton) u8 {
+        return @intFromEnum(button);
+    }
+    /// use to get the index for an array from the mouse button
+    /// should not use with "invalid" type
+    pub fn toIdx(button: MouseButton) u8 {
+        std.debug.assert(button != .invalid);
+        return button.toInt() - 1;
+    }
 };
 
 pub inline fn SDL_BUTTON_MASK(X: anytype) @TypeOf(@as(c_uint, 1) << (X - @as(c_int, 1))) {
@@ -7106,10 +7203,10 @@ pub const SDL_BUTTON_X1MASK = SDL_BUTTON_MASK(SDL_BUTTON_X1);
 pub const SDL_BUTTON_X2MASK = SDL_BUTTON_MASK(SDL_BUTTON_X2);
 pub const SDL_pen_h_ = "";
 pub const SDL_touch_h_ = "";
-pub const SDL_TOUCH_MOUSEID = @import("std").zig.c_translation.cast(SDL_MouseID, -@as(c_int, 1));
-pub const SDL_MOUSE_TOUCHID = @import("std").zig.c_translation.cast(SDL_TouchID, -@as(c_int, 1));
-pub const SDL_PEN_MOUSEID = @import("std").zig.c_translation.cast(SDL_MouseID, -@as(c_int, 2));
-pub const SDL_PEN_TOUCHID = @import("std").zig.c_translation.cast(SDL_TouchID, -@as(c_int, 2));
+pub const SDL_TOUCH_MOUSEID = std.zig.c_translation.cast(SDL_MouseID, -@as(c_int, 1));
+pub const SDL_MOUSE_TOUCHID = std.zig.c_translation.cast(SDL_TouchID, -@as(c_int, 1));
+pub const SDL_PEN_MOUSEID = std.zig.c_translation.cast(SDL_MouseID, -@as(c_int, 2));
+pub const SDL_PEN_TOUCHID = std.zig.c_translation.cast(SDL_TouchID, -@as(c_int, 2));
 pub const SDL_PEN_INPUT_DOWN = @as(c_uint, 1) << @as(c_int, 0);
 pub const SDL_PEN_INPUT_BUTTON_1 = @as(c_uint, 1) << @as(c_int, 1);
 pub const SDL_PEN_INPUT_BUTTON_2 = @as(c_uint, 1) << @as(c_int, 2);
@@ -7192,7 +7289,7 @@ pub const SDL_HAPTIC_POLAR = @as(c_int, 0);
 pub const SDL_HAPTIC_CARTESIAN = @as(c_int, 1);
 pub const SDL_HAPTIC_SPHERICAL = @as(c_int, 2);
 pub const SDL_HAPTIC_STEERING_AXIS = @as(c_int, 3);
-pub const SDL_HAPTIC_INFINITY = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const SDL_HAPTIC_INFINITY = std.zig.c_translation.promoteIntLiteral(c_uint, 4294967295, .decimal);
 pub const SDL_hidapi_h_ = "";
 pub const SDL_hints_h_ = "";
 pub const SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED = "SDL_ALLOW_ALT_TAB_WHILE_GRABBED";
@@ -7439,7 +7536,7 @@ pub const SDL_INIT_HAPTIC = @as(c_uint, 0x00001000);
 pub const SDL_INIT_GAMEPAD = @as(c_uint, 0x00002000);
 pub const SDL_INIT_EVENTS = @as(c_uint, 0x00004000);
 pub const SDL_INIT_SENSOR = @as(c_uint, 0x00008000);
-pub const SDL_INIT_CAMERA = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x00010000, .hex);
+pub const SDL_INIT_CAMERA = std.zig.c_translation.promoteIntLiteral(c_uint, 0x00010000, .hex);
 pub const SDL_PROP_APP_METADATA_NAME_STRING = "SDL.app.metadata.name";
 pub const SDL_PROP_APP_METADATA_VERSION_STRING = "SDL.app.metadata.version";
 pub const SDL_PROP_APP_METADATA_IDENTIFIER_STRING = "SDL.app.metadata.identifier";
@@ -7571,61 +7668,61 @@ pub const SDL_system_h_ = "";
 pub const SDL_time_h_ = "";
 pub const SDL_timer_h_ = "";
 pub const SDL_MS_PER_SECOND = @as(c_int, 1000);
-pub const SDL_US_PER_SECOND = @import("std").zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal);
+pub const SDL_US_PER_SECOND = std.zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal);
 pub const SDL_NS_PER_SECOND = @as(c_longlong, 1000000000);
-pub const SDL_NS_PER_MS = @import("std").zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal);
+pub const SDL_NS_PER_MS = std.zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal);
 pub const SDL_NS_PER_US = @as(c_int, 1000);
-pub inline fn SDL_SECONDS_TO_NS(S: anytype) @TypeOf(@import("std").zig.c_translation.cast(Uint64, S) * SDL_NS_PER_SECOND) {
+pub inline fn SDL_SECONDS_TO_NS(S: anytype) @TypeOf(std.zig.c_translation.cast(Uint64, S) * SDL_NS_PER_SECOND) {
     _ = &S;
-    return @import("std").zig.c_translation.cast(Uint64, S) * SDL_NS_PER_SECOND;
+    return std.zig.c_translation.cast(Uint64, S) * SDL_NS_PER_SECOND;
 }
-pub inline fn SDL_NS_TO_SECONDS(NS: anytype) @TypeOf(@import("std").zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_SECOND)) {
+pub inline fn SDL_NS_TO_SECONDS(NS: anytype) @TypeOf(std.zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_SECOND)) {
     _ = &NS;
-    return @import("std").zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_SECOND);
+    return std.zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_SECOND);
 }
-pub inline fn SDL_MS_TO_NS(MS: anytype) @TypeOf(@import("std").zig.c_translation.cast(Uint64, MS) * SDL_NS_PER_MS) {
+pub inline fn SDL_MS_TO_NS(MS: anytype) @TypeOf(std.zig.c_translation.cast(Uint64, MS) * SDL_NS_PER_MS) {
     _ = &MS;
-    return @import("std").zig.c_translation.cast(Uint64, MS) * SDL_NS_PER_MS;
+    return std.zig.c_translation.cast(Uint64, MS) * SDL_NS_PER_MS;
 }
-pub inline fn SDL_NS_TO_MS(NS: anytype) @TypeOf(@import("std").zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_MS)) {
+pub inline fn SDL_NS_TO_MS(NS: anytype) @TypeOf(std.zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_MS)) {
     _ = &NS;
-    return @import("std").zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_MS);
+    return std.zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_MS);
 }
-pub inline fn SDL_US_TO_NS(US: anytype) @TypeOf(@import("std").zig.c_translation.cast(Uint64, US) * SDL_NS_PER_US) {
+pub inline fn SDL_US_TO_NS(US: anytype) @TypeOf(std.zig.c_translation.cast(Uint64, US) * SDL_NS_PER_US) {
     _ = &US;
-    return @import("std").zig.c_translation.cast(Uint64, US) * SDL_NS_PER_US;
+    return std.zig.c_translation.cast(Uint64, US) * SDL_NS_PER_US;
 }
-pub inline fn SDL_NS_TO_US(NS: anytype) @TypeOf(@import("std").zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_US)) {
+pub inline fn SDL_NS_TO_US(NS: anytype) @TypeOf(std.zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_US)) {
     _ = &NS;
-    return @import("std").zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_US);
+    return std.zig.c_translation.MacroArithmetic.div(NS, SDL_NS_PER_US);
 }
 pub const SDL_tray_h_ = "";
 pub const SDL_TRAYENTRY_BUTTON = @as(c_uint, 0x00000001);
 pub const SDL_TRAYENTRY_CHECKBOX = @as(c_uint, 0x00000002);
 pub const SDL_TRAYENTRY_SUBMENU = @as(c_uint, 0x00000004);
-pub const SDL_TRAYENTRY_DISABLED = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x80000000, .hex);
-pub const SDL_TRAYENTRY_CHECKED = @import("std").zig.c_translation.promoteIntLiteral(c_uint, 0x40000000, .hex);
+pub const SDL_TRAYENTRY_DISABLED = std.zig.c_translation.promoteIntLiteral(c_uint, 0x80000000, .hex);
+pub const SDL_TRAYENTRY_CHECKED = std.zig.c_translation.promoteIntLiteral(c_uint, 0x40000000, .hex);
 pub const SDL_version_h_ = "";
 pub const SDL_MAJOR_VERSION = @as(c_int, 3);
 pub const SDL_MINOR_VERSION = @as(c_int, 2);
 pub const SDL_MICRO_VERSION = @as(c_int, 4);
-pub inline fn SDL_VERSIONNUM(major: anytype, minor: anytype, patch: anytype) @TypeOf(((major * @import("std").zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal)) + (minor * @as(c_int, 1000))) + patch) {
+pub inline fn SDL_VERSIONNUM(major: anytype, minor: anytype, patch: anytype) @TypeOf(((major * std.zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal)) + (minor * @as(c_int, 1000))) + patch) {
     _ = &major;
     _ = &minor;
     _ = &patch;
-    return ((major * @import("std").zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal)) + (minor * @as(c_int, 1000))) + patch;
+    return ((major * std.zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal)) + (minor * @as(c_int, 1000))) + patch;
 }
-pub inline fn SDL_VERSIONNUM_MAJOR(version: anytype) @TypeOf(@import("std").zig.c_translation.MacroArithmetic.div(version, @import("std").zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal))) {
+pub inline fn SDL_VERSIONNUM_MAJOR(version: anytype) @TypeOf(std.zig.c_translation.MacroArithmetic.div(version, std.zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal))) {
     _ = &version;
-    return @import("std").zig.c_translation.MacroArithmetic.div(version, @import("std").zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal));
+    return std.zig.c_translation.MacroArithmetic.div(version, std.zig.c_translation.promoteIntLiteral(c_int, 1000000, .decimal));
 }
-pub inline fn SDL_VERSIONNUM_MINOR(version: anytype) @TypeOf(@import("std").zig.c_translation.MacroArithmetic.rem(@import("std").zig.c_translation.MacroArithmetic.div(version, @as(c_int, 1000)), @as(c_int, 1000))) {
+pub inline fn SDL_VERSIONNUM_MINOR(version: anytype) @TypeOf(std.zig.c_translation.MacroArithmetic.rem(std.zig.c_translation.MacroArithmetic.div(version, @as(c_int, 1000)), @as(c_int, 1000))) {
     _ = &version;
-    return @import("std").zig.c_translation.MacroArithmetic.rem(@import("std").zig.c_translation.MacroArithmetic.div(version, @as(c_int, 1000)), @as(c_int, 1000));
+    return std.zig.c_translation.MacroArithmetic.rem(std.zig.c_translation.MacroArithmetic.div(version, @as(c_int, 1000)), @as(c_int, 1000));
 }
-pub inline fn SDL_VERSIONNUM_MICRO(version: anytype) @TypeOf(@import("std").zig.c_translation.MacroArithmetic.rem(version, @as(c_int, 1000))) {
+pub inline fn SDL_VERSIONNUM_MICRO(version: anytype) @TypeOf(std.zig.c_translation.MacroArithmetic.rem(version, @as(c_int, 1000))) {
     _ = &version;
-    return @import("std").zig.c_translation.MacroArithmetic.rem(version, @as(c_int, 1000));
+    return std.zig.c_translation.MacroArithmetic.rem(version, @as(c_int, 1000));
 }
 pub const SDL_VERSION = SDL_VERSIONNUM(SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_MICRO_VERSION);
 pub inline fn SDL_VERSION_ATLEAST(X: anytype, Y: anytype, Z: anytype) @TypeOf(SDL_VERSION >= SDL_VERSIONNUM(X, Y, Z)) {

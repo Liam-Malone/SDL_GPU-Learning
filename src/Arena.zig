@@ -1,9 +1,8 @@
+// Copyright (c) Liam Malone. All rights reserved.
+
 const std = @import("std");
 const builtin = @import("builtin");
-
-const log = std.log.scoped(.Arena);
-const mem = std.mem;
-const posix = std.posix;
+const math = @import("math.zig");
 
 pub const Arena = @This();
 
@@ -47,8 +46,8 @@ pub const InitParams = struct {
 
     pub const large_pages: @This() = .{
         .flags = .largepage,
-        .reserve_size = to_unit(2, .megabytes),
-        .commit_size = to_unit(2, .megabytes),
+        .reserve_size = math.Units.MB(2),
+        .commit_size = math.Units.MB(2),
         .backing_buffer = null,
     };
 };
@@ -70,8 +69,8 @@ pub fn init(params: InitParams) *Arena {
     var commit_size: usize = params.commit_size;
     var flags: Flags = params.flags;
     if (params.flags.large_pages) {
-        reserve_size = align_pow2(reserve_size, to_unit(2, .megabytes));
-        commit_size = align_pow2(commit_size, to_unit(2, .megabytes));
+        reserve_size = align_pow2(reserve_size, math.Units.MB(2));
+        commit_size = align_pow2(commit_size, math.Units.MB(2));
     } else {
         reserve_size = align_pow2(reserve_size, std.heap.page_size_min);
         commit_size = align_pow2(commit_size, std.heap.page_size_min);
@@ -127,12 +126,19 @@ pub fn init(params: InitParams) *Arena {
     return arena;
 }
 
-pub fn push(arena: *Arena, comptime T: type, count: usize) []T {
+pub fn push_no_zero(arena: *Arena, comptime T: type, count: usize) []T {
     const data: []u8 = arena._push_impl((@sizeOf(T) * count), @max(8, @alignOf(T)));
-    @memset(data[0..count], 0);
     const res: [*]T = @ptrCast(@alignCast(data));
 
     return (res[0..count]);
+}
+
+pub inline fn push(arena: *Arena, comptime T: type, count: usize) []T {
+    const bytes = arena.push_no_zero(T, count);
+    const raw_bytes: []u8 = @alignCast(@ptrCast(bytes));
+    @memset(raw_bytes[0 .. count * @sizeOf(T)], 0);
+
+    return bytes;
 }
 
 pub fn create(arena: *Arena, comptime T: type) *T {
@@ -161,12 +167,16 @@ pub fn pos(arena: *Arena) usize {
 pub fn pop_to(arena: *Arena, _pos: usize) void {
     const big_pos = if (Arena.Size < _pos) _pos else Arena.Size;
     var cur: *Arena = arena.cur;
-    var prev: ?*Arena = null;
+    var prev_opt: ?*Arena = null;
 
-    while (cur.base_pos >= big_pos) : (cur = prev.?) {
-        prev = cur.prev;
+    while (cur.base_pos >= big_pos) {
+        prev_opt = cur.prev;
         const ptr: [*]align(std.heap.page_size_min) const u8 = @ptrCast(@alignCast(cur));
         mem_release(ptr[0..cur.res]);
+
+        if (prev_opt) |prev| {
+            cur = prev;
+        }
     }
 
     arena.cur = cur;
@@ -328,7 +338,7 @@ fn mem_release(ptr: []align(std.heap.page_size_min) const u8) void {
         .linux, .macos => {
             posix.munmap(ptr);
         },
-        .windows => windows.VirtualFree(@ptrCast(ptr), 0, windows.MEM_FREE),
+        .windows => windows.VirtualFree(@constCast(@ptrCast(ptr)), 0, windows.MEM_FREE),
         else => @compileError("Unsupported platform"),
     }
 }
@@ -404,7 +414,7 @@ pub fn allocator(arena: *Arena) std.mem.Allocator {
         .vtable = &.{
             .alloc = alloc,
             .resize = resize,
-            .remap = remap, // TODO: add remap functionality
+            .remap = remap, // TODO: add proper remap functionality
             .free = free, // TODO: add a free list
         },
     };
@@ -438,19 +448,15 @@ fn resize(ctx: *anyopaque, buf: []u8, log2_buf_align: mem.Alignment, new_len: us
     }
 }
 
-/// Request to modify the size of an allocation, allowing relocation.
-///
-/// A non-`null` return value indicates the resize was successful. The
-/// allocation may have same address, or may have been relocated. In either
-/// case, the allocation now has size of `new_len`. A `null` return value
-/// indicates that the resize would be equivalent to allocating new memory,
-/// copying the bytes from the old memory, and then freeing the old memory.
-/// In such case, it is more efficient for the caller to perform those
-/// operations.
-///
-/// `allocation` may be an empty slice, in which case a new allocation is made.
-///
-/// `new_len` may be zero, in which case the allocation is freed.
+pub const Temp = packed struct {
+    arena: *Arena,
+    pos: usize,
+
+    pub fn end(tmp: *const Temp) void {
+        tmp.arena.pop_to(tmp.pos);
+    }
+};
+
 fn remap(
     context: *anyopaque,
     memory: []u8,
@@ -469,15 +475,6 @@ fn free(ctx: *anyopaque, buf: []u8, pow2_buf_align: mem.Alignment, ret_addr: usi
     // TODO: Implement a free list in arena
     _ = buf;
 }
-
-pub const Temp = packed struct {
-    arena: *Arena,
-    pos: usize,
-
-    pub fn end(tmp: *const Temp) void {
-        tmp.arena.pop_to(tmp.pos);
-    }
-};
 
 test "Normal Page Size" {
     const arena: *Arena = .init(.default);
@@ -529,32 +526,6 @@ test "Large Page Reserve Fallback" {
     }
 }
 
-// test "Large Page Size" {
-//     const params: Arena.InitParams = .large_pages;
-//     const arena: *Arena = .init(params);
-//     defer arena.release();
-//
-//     // Mostly copied from std.heap.arena_allocator
-//     var rng_src = std.Random.DefaultPrng.init(19930913);
-//     const random = rng_src.random();
-//     var rounds: usize = 25;
-//     while (rounds > 0) {
-//         rounds -= 1;
-//         arena.clear();
-//         var alloced_bytes: usize = 0;
-//         const total_size: usize = random.intRangeAtMost(usize, 256, 16384);
-//         while (alloced_bytes < total_size) {
-//             const size = random.intRangeAtMost(usize, 16, 256);
-//             const alignment = 32;
-//             const slice = try arena.allocator().alignedAlloc(u8, alignment, size);
-//             try std.testing.expect(std.mem.isAligned(@intFromPtr(slice.ptr), alignment));
-//             try std.testing.expectEqual(size, slice.len);
-//             alloced_bytes += slice.len;
-//         }
-//         try std.testing.expectEqual(params.flags, arena.flags); // Ensure No Fallback Required
-//     }
-// }
-
 test "Temp Arena" {
     const arena: *Arena = .init(.default);
     defer arena.release();
@@ -585,16 +556,10 @@ test "Temp Arena" {
     try std.testing.expect(start_pos == end_pos);
 }
 
-// Utility Functionality
-const SizeUnit = enum(u6) {
-    kilobytes = 10,
-    megabytes = 20,
-    gigabytes = 30,
-    terabytes = 40,
-};
-pub fn to_unit(n: usize, unit: SizeUnit) usize {
-    return (@as(usize, n) << @intFromEnum(unit));
-}
 pub fn align_pow2(x: usize, b: usize) usize {
     return @as(usize, (@as(usize, (x + b - 1)) & (~@as(usize, (b - 1)))));
 }
+
+const log = std.log.scoped(.Arena);
+const mem = std.mem;
+const posix = std.posix;

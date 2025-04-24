@@ -14,19 +14,21 @@
       devShells = forEachSupportedSystem({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            egl-wayland
             libGL
             lldb
-            valgrind
             mesa
             pkg-config
+            shaderc
+            valgrind
+            vulkan-loader
+            vulkan-tools
             zig
           ];
           shellHook = ''
             export LD_LIBRARY_PATH=${pkgs.wayland}/lib:${pkgs.libxkbcommon}/lib:${pkgs.libGL}/lib:${pkgs.mesa}/lib:${pkgs.pipewire}/lib:$LD_LIBRARY_PATH
-            export DISPLAY=:0
             export SDL_VIDEODRIVER=wayland
             export SDL_AUDIODRIVER=pipewire
+            export SDL_GPU_PREFER_VULKAN=1
           '';
         };
       });

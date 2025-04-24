@@ -1,7 +1,7 @@
 .{
     .name = .GPU,
     .version = "0.0.0",
-    .fingerprint = 0x2b2eba78ab010270,
+    .fingerprint = 0x2b2eba78f41fcce1,
     .dependencies = .{
         .sdl = .{
             .path = "deps/SDL",

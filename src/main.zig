@@ -41,7 +41,7 @@ pub fn main() !void {
     // macro magic, 'SDL_SetMainReady' should be called before calling 'SDL_Init'.
     sdl.SDL_SetMainReady();
 
-    try errify(sdl.SDL_SetAppMetadata("GAME", "0.0.0", "lm.custom.GAME"));
+    try errify(sdl.SDL_SetAppMetadata("GPU", "0.0.0", "lm.custom.GPU"));
 
     try errify(sdl.SDL_Init(sdl.SDL_INIT_VIDEO | sdl.SDL_INIT_AUDIO | sdl.SDL_INIT_GAMEPAD));
     defer sdl.SDL_Quit();
@@ -64,49 +64,151 @@ pub fn main() !void {
     const window_w = 16 * scale;
     const window_h = 10 * scale;
 
-    const window = sdl.SDL_CreateWindow("GPU", window_w, window_h, 0) orelse return error.FailedToOpenSdlWindow;
-    defer sdl.SDL_DestroyWindow(window);
-
-    const device = sdl.SDL_CreateGPUDevice(.spirv, true, null) orelse return error.FailedToCreateGpuDevice;
+    const device = errify(sdl.SDL_CreateGPUDevice(
+        sdl.SDL_GPU_SHADERFORMAT_SPIRV | sdl.SDL_GPU_SHADERFORMAT_DXIL | sdl.SDL_GPU_SHADERFORMAT_MSL,
+        true,
+        null,
+    )) catch {
+        log.err("{s}", .{sdl.SDL_GetError()});
+        std.process.exit(1);
+    };
     defer sdl.SDL_DestroyGPUDevice(device);
+
+    const window = try errify(sdl.SDL_CreateWindow("GPU", window_w, window_h, .{}));
+    defer sdl.SDL_DestroyWindow(window);
 
     if (!sdl.SDL_ClaimWindowForGPUDevice(device, window)) {
         log.err("Failed to claim window for GPU Device", .{});
         running = false;
     }
+    defer sdl.SDL_ReleaseWindowFromGPUDevice(device, window);
 
-    const vertices = .{
-        -0.5, -0.5, // bottom-left
-        0.5, -0.5, // bottom-right
-        -0.5, 0.5, // top-left
-        0.5, 0.5, // top-left
+    const vert_shader = try load_shader(
+        arena,
+        device,
+        "vert.spv",
+        0,
+        0,
+        0,
+        0,
+    );
+    const frag_shader = try load_shader(
+        arena,
+        device,
+        "frag.spv",
+        0,
+        0,
+        0,
+        0,
+    );
+
+    const vertices = [_]Vertex{
+        .{ .pos = .{ -0.5, -0.5 }, .color = .{ 1, 0, 0 } },
+        .{ .pos = .{ 0.5, -0.5 }, .color = .{ 0, 1, 0 } },
+        .{ .pos = .{ 0.0, 0.5 }, .color = .{ 0, 0, 1 } },
     };
 
-    const vertex_buf = sdl.SDL_CreateGPUBuffer(device, &.{
-        .size = @sizeOf(vertices),
+    // Create vertex buffer
+    const vertex_buffer = try errify(sdl.SDL_CreateGPUBuffer(device, &.{
+        .size = @sizeOf(@TypeOf(vertices)),
         .usage = sdl.SDL_GPU_BUFFERUSAGE_VERTEX,
-        .props = 0,
-    }) orelse return error.SdlFailedToCreateGpuBuffer;
-    _ = vertex_buf;
+    }));
+    defer sdl.SDL_ReleaseGPUBuffer(device, vertex_buffer);
 
-    const transfer_buf = sdl.SDL_CreateGPUTransferBuffer(device, &.{
-        .size = @sizeOf(vertices),
-        .usage = sdl.SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD,
-        .props = 0,
-    }) orelse return error.SdlFailedToCreateGpuTransferBuffer;
-    _ = transfer_buf;
+    {
+        // Create transfer buffer
+        const transfer_buffer = try errify(sdl.SDL_CreateGPUTransferBuffer(device, &.{
+            .size = @sizeOf(@TypeOf(vertices)),
+        }));
+        defer sdl.SDL_ReleaseGPUTransferBuffer(device, transfer_buffer);
 
-    main_loop: while (running) {
+        // Map and upload to transfer buffer
+        const ptr = sdl.SDL_MapGPUTransferBuffer(device, transfer_buffer, false) orelse return error.SdlFailedToMapTransferBuffer;
+        @memcpy(@as([*]Vertex, @alignCast(@ptrCast(ptr))), &vertices);
+        sdl.SDL_UnmapGPUTransferBuffer(device, transfer_buffer);
+        // Copy from transfer buffer to vertex buffer
+        const cmdbuf = sdl.SDL_AcquireGPUCommandBuffer(device) orelse return error.SdlFailedToAcquireCommandBuffer;
+        const copy_pass = sdl.SDL_BeginGPUCopyPass(cmdbuf) orelse return error.SdlFailedToBeginCopyPass;
+
+        const source = sdl.SDL_GPUTransferBufferLocation{
+            .transfer_buffer = transfer_buffer,
+            .offset = 0,
+        };
+        const destination = sdl.SDL_GPUBufferRegion{ .buffer = vertex_buffer, .offset = 0, .size = @intCast(@sizeOf(@TypeOf(vertices))) };
+
+        sdl.SDL_UploadToGPUBuffer(copy_pass, &source, &destination, false);
+
+        sdl.SDL_EndGPUCopyPass(copy_pass);
+        if (!sdl.SDL_SubmitGPUCommandBuffer(cmdbuf)) {
+            log.err("SDL GPU Buffer Upload failed", .{});
+        }
+    }
+
+    // Define vertex attributes and binding
+    const vertex_attributes = [_]sdl.SDL_GPUVertexAttribute{
+        .{
+            .location = 0, // Corresponds to inPos in the vertex shader
+            .buffer_slot = 0, // Binding slot (single vertex buffer)
+            .format = sdl.SDL_GPU_VERTEXELEMENTFORMAT_FLOAT2, // [2]f32 for pos
+            .offset = @offsetOf(Vertex, "pos"),
+        },
+        .{
+            .location = 1, // Corresponds to inColor in the vertex shader
+            .buffer_slot = 0, // Same binding slot
+            .format = sdl.SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3, // [3]f32 for color
+            .offset = @offsetOf(Vertex, "color"),
+        },
+    };
+
+    const vertex_buffer_description = sdl.SDL_GPUVertexBufferDescription{
+        .slot = 0, // Matches buffer_slot in attributes
+        .pitch = @sizeOf(Vertex), // 20 bytes (8 for pos, 12 for color)
+        .input_rate = sdl.SDL_GPU_VERTEXINPUTRATE_VERTEX, // Per-vertex data
+        .instance_step_rate = 0, // Not instanced
+    };
+
+    var pipeline_info: sdl.SDL_GPUGraphicsPipelineCreateInfo = .{
+        .target_info = .{
+            .num_color_targets = 1,
+            .color_target_descriptions = &.{
+                .format = sdl.SDL_GetGPUSwapchainTextureFormat(device, window),
+            },
+        },
+        .primitive_type = sdl.SDL_GPU_PRIMITIVETYPE_TRIANGLELIST,
+        .vertex_shader = vert_shader,
+        .fragment_shader = frag_shader,
+        .vertex_input_state = .{
+            .num_vertex_buffers = 1,
+            .vertex_buffer_descriptions = &vertex_buffer_description,
+            .num_vertex_attributes = vertex_attributes.len,
+            .vertex_attributes = &vertex_attributes,
+        },
+        .rasterizer_state = .{
+            .fill_mode = sdl.SDL_GPU_FILLMODE_FILL,
+        },
+    };
+
+    const fill_pipeline = sdl.SDL_CreateGPUGraphicsPipeline(device, &pipeline_info) orelse unreachable;
+    defer sdl.SDL_ReleaseGPUGraphicsPipeline(device, fill_pipeline);
+
+    pipeline_info.rasterizer_state.fill_mode = sdl.SDL_GPU_FILLMODE_LINE;
+    const line_pipeline = sdl.SDL_CreateGPUGraphicsPipeline(device, &pipeline_info) orelse unreachable;
+    defer sdl.SDL_ReleaseGPUGraphicsPipeline(device, line_pipeline);
+
+    sdl.SDL_ReleaseGPUShader(device, vert_shader);
+    sdl.SDL_ReleaseGPUShader(device, frag_shader);
+
+    while (running) {
         // Process SDL events
         {
             var event: sdl.SDL_Event = undefined;
 
             while (sdl.SDL_PollEvent(&event)) {
                 switch (event.type) {
-                    .quit => break :main_loop,
+                    .quit => running = false,
                     .key_down => {
                         switch (event.key.scancode) {
-                            exit_key => break :main_loop,
+                            exit_key => running = false,
                             else => {},
                         }
                     },
@@ -114,7 +216,76 @@ pub fn main() !void {
                 }
             }
         }
+
+        // Draw
+        {
+            const cmdbuf = sdl.SDL_AcquireGPUCommandBuffer(device);
+
+            var swapchain_texture: ?*sdl.SDL_GPUTexture = null;
+
+            if (sdl.SDL_WaitAndAcquireGPUSwapchainTexture(cmdbuf, window, &swapchain_texture, null, null)) {
+                if (swapchain_texture) |swapchain_tex| {
+                    var col_targ_info: sdl.SDL_GPUColorTargetInfo = .{};
+                    col_targ_info.texture = swapchain_tex;
+                    col_targ_info.clear_color = .{
+                        .r = 0,
+                        .g = 0,
+                        .b = 0,
+                        .a = 1,
+                    };
+                    col_targ_info.load_op = sdl.SDL_GPU_LOADOP_CLEAR;
+                    col_targ_info.store_op = sdl.SDL_GPU_STOREOP_STORE;
+
+                    const renderpass = sdl.SDL_BeginGPURenderPass(cmdbuf, &col_targ_info, 1, null);
+                    sdl.SDL_BindGPUGraphicsPipeline(renderpass, fill_pipeline);
+                    sdl.SDL_BindGPUVertexBuffers(renderpass, 0, &.{ .buffer = vertex_buffer, .offset = 0 }, 1);
+                    sdl.SDL_DrawGPUPrimitives(renderpass, 3, 1, 0, 0);
+
+                    sdl.SDL_EndGPURenderPass(renderpass);
+                }
+
+                _ = sdl.SDL_SubmitGPUCommandBuffer(cmdbuf);
+            }
+        }
     }
+}
+
+fn load_shader(
+    arena: *Arena,
+    device: *sdl.SDL_GPUDevice,
+    filename: []const u8,
+    sampler_count: u32,
+    uniform_buffer_count: u32,
+    storage_buffer_count: u32,
+    storage_texture_count: u32,
+) !*sdl.SDL_GPUShader {
+    const tmp = arena.temp();
+    defer tmp.end();
+    const stage = if (std.mem.containsAtLeast(u8, filename, 1, "frag"))
+        sdl.SDL_GPU_SHADERSTAGE_FRAGMENT
+    else
+        sdl.SDL_GPU_SHADERSTAGE_VERTEX;
+
+    const formats = sdl.SDL_GetGPUShaderFormats(device);
+    _ = formats;
+    const format: sdl.SDL_GPUShaderFormat = sdl.SDL_GPU_SHADERFORMAT_SPIRV;
+
+    const fp = try std.mem.join(tmp.arena.allocator(), "", &.{ "build/shaders/", filename });
+    const file = try std.fs.cwd().openFile(fp, .{});
+    const code = try file.readToEndAlloc(tmp.arena.allocator(), std.math.maxInt(usize));
+    const shader_info: sdl.SDL_GPUShaderCreateInfo = .{
+        .code = @ptrCast(code),
+        .code_size = code.len,
+        .entrypoint = "main",
+        .format = format,
+        .stage = @intCast(stage),
+        .num_samplers = sampler_count,
+        .num_uniform_buffers = uniform_buffer_count,
+        .num_storage_buffers = storage_buffer_count,
+        .num_storage_textures = storage_texture_count,
+    };
+    const shader = sdl.SDL_CreateGPUShader(device, &shader_info) orelse return error.SdlFailedToCreateShader;
+    return shader;
 }
 
 const Color = struct {
@@ -129,6 +300,10 @@ const Color = struct {
     pub const green: Color = .{ .r = 10, .g = 200, .b = 10, .a = 255 };
     pub const red: Color = .{ .r = 255, .g = 80, .b = 80, .a = 255 };
     pub const purple: Color = .{ .r = 135, .g = 23, .b = 152, .a = 255 };
+};
+const Vertex = struct {
+    pos: [2]f32,
+    color: [3]f32,
 };
 
 fn fmtSdlDrivers(
