@@ -1,11 +1,18 @@
 #version 450
 
-layout(location = 0) in vec2 a_pos;
-layout(location = 1) in vec3 a_color;
-
-layout(location = 0) out vec3 v_color;
+layout(set=1, binding=0) uniform UBO {
+    mat4 mod_view_proj;
+};
 
 void main() {
-    gl_Position = vec4(a_pos, 0.0, 1.0);
-    v_color = a_color;
+    vec4 position;
+	if (gl_VertexIndex == 0) {
+		position = vec4(-0.5, -0.5, -5, 1);
+	} else  if (gl_VertexIndex == 1) {
+		position = vec4(0, 0.5, -5, 1);
+	} else if (gl_VertexIndex == 2) {
+		position = vec4(0.5, -0.5, -5, 1);
+	}
+
+    gl_Position = mod_view_proj * position;
 }

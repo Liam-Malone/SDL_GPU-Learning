@@ -1,21 +1,11 @@
 // Copyright (c) Liam Malone. All rights reserved.
 
 const std = @import("std");
-
-pub const Rng2f32 = rng_2_t(f32);
-pub const Rng2i32 = rng_2_t(i32);
-pub const Rng3f32 = rng_3_t(f32);
-pub const Rng3i32 = rng_3_t(i32);
-
-pub const Rectf32 = rect_t(f32);
-pub const Recti32 = rect_t(i32);
-
-pub const Vec2f32 = vec2_t(f32);
-pub const Vec2i32 = vec2_t(i32);
-pub const Vec3f32 = vec3_t(f32);
-pub const Vec3i32 = vec3_t(i32);
-pub const Vec4f32 = vec4_t(f32);
-pub const Vec4i32 = vec4_t(i32);
+const builtin = @import("builtin");
+const cpu_arch = builtin.cpu.arch;
+const has_avx = if (cpu_arch == .x86_64) std.Target.x86.featureSetHas(builtin.cpu.features, .avx) else false;
+const has_avx512f = if (cpu_arch == .x86_64) std.Target.x86.featureSetHas(builtin.cpu.features, .avx512f) else false;
+const has_fma = if (cpu_arch == .x86_64) std.Target.x86.featureSetHas(builtin.cpu.features, .fma) else false;
 
 pub const Units = struct {
     pub inline fn KB(val: anytype) @TypeOf(val) {
@@ -88,6 +78,193 @@ pub const Units = struct {
         }
 
         return val << 40;
+    }
+};
+
+pub const Matrix = struct {
+    data: [4]@Vector(4, f32),
+
+    pub fn out(mat: *const Matrix) [4][4]f32 {
+        return .{
+            mat.data[0],
+            mat.data[1],
+            mat.data[2],
+            mat.data[3],
+        };
+    }
+    pub fn identity() Matrix {
+        return .{
+            .data = .{
+                .{ 1.0, 0.0, 0.0, 0.0 },
+                .{ 0.0, 1.0, 0.0, 0.0 },
+                .{ 0.0, 0.0, 1.0, 0.0 },
+                .{ 0.0, 0.0, 0.0, 1.0 },
+            },
+        };
+    }
+
+    pub fn mul(noalias mat: *const Matrix, b: anytype) if (@TypeOf(b) == Vec4f32) Vec4f32 else Matrix {
+        const result = switch (@TypeOf(b)) {
+            Matrix => matmul: {
+                var tmp: Matrix = undefined;
+                comptime var row: u32 = 0;
+                inline while (row < 4) : (row += 1) {
+                    const vx = swizzle(mat.data[row], .x, .x, .x, .x);
+                    const vy = swizzle(mat.data[row], .y, .y, .y, .y);
+                    const vz = swizzle(mat.data[row], .z, .z, .z, .z);
+                    const vw = swizzle(mat.data[row], .w, .w, .w, .w);
+                    tmp.data[row] = mulAdd(vx, b.data[0], vz * b.data[2]) + mulAdd(vy, b.data[1], vw * b.data[3]);
+                }
+                break :matmul tmp;
+            },
+            f32 => scalarmul: {
+                var tmp: Matrix = mat.*;
+                const scalar_vec: @Vector(4, f32) = @splat(b);
+
+                comptime var row: u32 = 0;
+                inline while (row < 4) : (row += 1) {
+                    tmp[row] *= scalar_vec;
+                }
+
+                break :scalarmul tmp;
+            },
+            Vec4f32 => vecmul: {
+                break :vecmul .{
+                    dot4(b, mat.data[0]),
+                    dot4(b, mat.data[1]),
+                    dot4(b, mat.data[2]),
+                    dot4(b, mat.data[3]),
+                };
+            },
+            else => {
+                @compileError("Type " ++ @typeName(@TypeOf(b)) ++ " is not a valid multiplier type for type Matrix");
+            },
+        };
+
+        return result;
+    }
+
+    pub fn rotateX(angle_radians: f32) Matrix {
+        const c = math.cos(angle_radians);
+        const s = math.sin(angle_radians);
+        return .{
+            .data = .{
+                .{ 1.0, 0.0, 0.0, 0.0 }, // Column 0
+                .{ 0.0, c, -s, 0.0 }, // Column 1
+                .{ 0.0, s, c, 0.0 }, // Column 2
+                .{ 0.0, 0.0, 0.0, 1.0 }, // Column 3
+            },
+        };
+    }
+
+    pub fn rotateY(angle_radians: f32) Matrix {
+        const c = math.cos(angle_radians);
+        const s = math.sin(angle_radians);
+        return .{
+            .data = .{
+                .{ c, 0.0, s, 0.0 }, // Column 0
+                .{ 0.0, 1.0, 0.0, 0.0 }, // Column 1
+                .{ -s, 0.0, c, 0.0 }, // Column 2
+                .{ 0.0, 0.0, 0.0, 1.0 }, // Column 3
+            },
+        };
+    }
+
+    pub fn rotateZ(angle_radians: f32) Matrix {
+        const c = cos(angle_radians);
+        const s = sin(angle_radians);
+        return .{
+            .data = .{
+                .{ c, -s, 0.0, 0.0 }, // Column 0
+                .{ s, c, 0.0, 0.0 }, // Column 1
+                .{ 0.0, 0.0, 1.0, 0.0 }, // Column 2
+                .{ 0.0, 0.0, 0.0, 1.0 }, // Column 3
+            },
+        };
+    }
+
+    pub fn format(mat: *const Matrix, fmt: [:0]const u8, options: std.fmt.FormatOptions, writer: anytype) !void {
+        _ = fmt;
+        _ = options;
+        comptime var idx: u8 = 0;
+        try writer.print("\n(", .{});
+        inline while (idx < 4) : (idx += 1) {
+            if (idx != 0) {
+                try writer.print(" ", .{});
+            }
+            const x, const y, const z, const w = mat.data[idx];
+            try writer.print("{c}: [ {d:.2}, {d:.2}, {d:.2}, {d:.2} ]", .{
+                'a' + idx,
+                x,
+                y,
+                z,
+                w,
+            });
+            if (idx != 3) {
+                try writer.print("\n", .{});
+            }
+        }
+        try writer.print(")", .{});
+    }
+};
+
+pub inline fn mulAdd(v0: anytype, v1: anytype, v2: anytype) @TypeOf(v0, v1, v2) {
+    const T = @TypeOf(v0, v1, v2);
+    if (cpu_arch == .x86_64 and has_avx and has_fma) {
+        return @mulAdd(T, v0, v1, v2);
+    } else {
+        return v0 * v1 + v2;
+    }
+}
+
+pub inline fn dot4(v0: Vec4f32, v1: Vec4f32) Vec4f32 {
+    var xmm0 = v0 * v1; // | x0*x1 | y0*y1 | z0*z1 | w0*w1 |
+    var xmm1 = swizzle(xmm0, .y, .x, .w, .x); // | y0*y1 | -- | w0*w1 | -- |
+    xmm1 = xmm0 + xmm1; // | x0*x1 + y0*y1 | -- | z0*z1 + w0*w1 | -- |
+    xmm0 = swizzle(xmm1, .z, .x, .x, .x); // | z0*z1 + w0*w1 | -- | -- | -- |
+    xmm0 = .{
+        xmm0[0] + xmm1[0],
+        xmm0[1],
+        xmm0[2],
+        xmm0[2],
+    }; // addss
+    return swizzle(xmm0, .x, .x, .x, .x);
+}
+
+pub const Rng2f32 = rng_2_t(f32);
+pub const Rng2i32 = rng_2_t(i32);
+pub const Rng3f32 = rng_3_t(f32);
+pub const Rng3i32 = rng_3_t(i32);
+
+pub const Rectf32 = rect_t(f32);
+pub const Recti32 = rect_t(i32);
+
+pub const Vec2f32 = vec2_t(f32);
+pub const Vec2i32 = vec2_t(i32);
+pub const Vec3f32 = vec3_t(f32);
+pub const Vec3i32 = vec3_t(i32);
+
+pub const Vec4f32 = @Vector(4, f32);
+pub const Vec4i32 = @Vector(4, i32);
+
+pub inline fn swizzle(
+    v: Vec4f32,
+    comptime x: Vec4Component,
+    comptime y: Vec4Component,
+    comptime z: Vec4Component,
+    comptime w: Vec4Component,
+) Vec4f32 {
+    return @shuffle(f32, v, undefined, [4]i32{ @intFromEnum(x), @intFromEnum(y), @intFromEnum(z), @intFromEnum(w) });
+}
+
+pub const Vec4Component = enum(u8) {
+    x = 0,
+    y = 1,
+    z = 2,
+    w = 3,
+
+    pub fn toInt(component: Vec4Component) i32 {
+        return @intCast(@intFromEnum(component));
     }
 };
 
@@ -347,7 +524,10 @@ pub const pi = math.pi;
 // --- STD FN ALIASES ---
 pub const cos = math.cos;
 pub const sin = math.sin;
+pub const tan = math.tan;
 pub const maxInt = math.maxInt;
 pub const maxFloat = math.floatMax;
+pub const degToRad = math.degreesToRadians;
+pub const radToDeg = math.radiansToDegrees;
 
 const log = std.log.scoped(.MATH);

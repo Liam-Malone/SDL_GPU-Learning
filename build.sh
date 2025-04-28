@@ -51,7 +51,7 @@ root=$PWD
 libdir="$root/build/$opt/$target/lib"
 incdir="$root/build/$opt/$target/include"
 bindir="$root/build/$opt/$target/bin"
-spvdir="$root/build/$opt/$target/shaders"
+spvdir="$root/build/shaders"
 
 libs="$libs $libdir/libSDL3.a $(CLICOLOR_FORCE=1 pkg-config vulkan --cflags --libs)"
 
@@ -77,7 +77,7 @@ compile_frag="$shader_cmp_cmd/frag.spv $root/src/shaders/main.frag"
 compile_shaders () { $compile_vert && $compile_frag; }
 
 compile_sdl="zig build -Doptimize=$opt -Dtarget=$target -Dpreferred_link_mode=static --prefix $root/build/$opt/$target"
-compile_main="zig build-exe $flags $libs -O$opt -target $target -I $incdir -Mroot=$root/src/main.zig -lc --name $name"
+compile_main="zig build-exe $flags $libs -O$opt -I $incdir -Mroot=$root/src/main.zig -lc --name $name"
 
 if [ ! -f $libdir/$sdl_name ]; then
     cd $sdldir

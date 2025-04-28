@@ -61,8 +61,8 @@ pub fn main() !void {
     var running: bool = true;
 
     const scale = 80;
-    const window_w = 16 * scale;
-    const window_h = 10 * scale;
+    var window_w: c_int = 16 * scale;
+    var window_h: c_int = 10 * scale;
 
     const device = errify(sdl.SDL_CreateGPUDevice(
         sdl.SDL_GPU_SHADERFORMAT_SPIRV | sdl.SDL_GPU_SHADERFORMAT_DXIL | sdl.SDL_GPU_SHADERFORMAT_MSL,
@@ -83,122 +83,57 @@ pub fn main() !void {
     }
     defer sdl.SDL_ReleaseWindowFromGPUDevice(device, window);
 
-    const vert_shader = try load_shader(
-        arena,
-        device,
-        "vert.spv",
-        0,
-        0,
-        0,
-        0,
-    );
-    const frag_shader = try load_shader(
-        arena,
-        device,
-        "frag.spv",
-        0,
-        0,
-        0,
-        0,
-    );
+    const fill_pipeline, const line_pipeline = pipelines: {
+        const vert_shader = try load_shader(arena, device, "vert.spv", 0, 1, 0, 0);
+        const frag_shader = try load_shader(arena, device, "frag.spv", 0, 0, 0, 0);
 
-    const vertices = [_]Vertex{
-        .{ .pos = .{ -0.5, -0.5 }, .color = .{ 1, 0, 0 } },
-        .{ .pos = .{ 0.5, -0.5 }, .color = .{ 0, 1, 0 } },
-        .{ .pos = .{ 0.0, 0.5 }, .color = .{ 0, 0, 1 } },
-    };
+        defer sdl.SDL_ReleaseGPUShader(device, vert_shader);
+        defer sdl.SDL_ReleaseGPUShader(device, frag_shader);
 
-    // Create vertex buffer
-    const vertex_buffer = try errify(sdl.SDL_CreateGPUBuffer(device, &.{
-        .size = @sizeOf(@TypeOf(vertices)),
-        .usage = sdl.SDL_GPU_BUFFERUSAGE_VERTEX,
-    }));
-    defer sdl.SDL_ReleaseGPUBuffer(device, vertex_buffer);
-
-    {
-        // Create transfer buffer
-        const transfer_buffer = try errify(sdl.SDL_CreateGPUTransferBuffer(device, &.{
-            .size = @sizeOf(@TypeOf(vertices)),
-        }));
-        defer sdl.SDL_ReleaseGPUTransferBuffer(device, transfer_buffer);
-
-        // Map and upload to transfer buffer
-        const ptr = sdl.SDL_MapGPUTransferBuffer(device, transfer_buffer, false) orelse return error.SdlFailedToMapTransferBuffer;
-        @memcpy(@as([*]Vertex, @alignCast(@ptrCast(ptr))), &vertices);
-        sdl.SDL_UnmapGPUTransferBuffer(device, transfer_buffer);
-        // Copy from transfer buffer to vertex buffer
-        const cmdbuf = sdl.SDL_AcquireGPUCommandBuffer(device) orelse return error.SdlFailedToAcquireCommandBuffer;
-        const copy_pass = sdl.SDL_BeginGPUCopyPass(cmdbuf) orelse return error.SdlFailedToBeginCopyPass;
-
-        const source = sdl.SDL_GPUTransferBufferLocation{
-            .transfer_buffer = transfer_buffer,
-            .offset = 0,
-        };
-        const destination = sdl.SDL_GPUBufferRegion{ .buffer = vertex_buffer, .offset = 0, .size = @intCast(@sizeOf(@TypeOf(vertices))) };
-
-        sdl.SDL_UploadToGPUBuffer(copy_pass, &source, &destination, false);
-
-        sdl.SDL_EndGPUCopyPass(copy_pass);
-        if (!sdl.SDL_SubmitGPUCommandBuffer(cmdbuf)) {
-            log.err("SDL GPU Buffer Upload failed", .{});
-        }
-    }
-
-    // Define vertex attributes and binding
-    const vertex_attributes = [_]sdl.SDL_GPUVertexAttribute{
-        .{
-            .location = 0, // Corresponds to inPos in the vertex shader
-            .buffer_slot = 0, // Binding slot (single vertex buffer)
-            .format = sdl.SDL_GPU_VERTEXELEMENTFORMAT_FLOAT2, // [2]f32 for pos
-            .offset = @offsetOf(Vertex, "pos"),
-        },
-        .{
-            .location = 1, // Corresponds to inColor in the vertex shader
-            .buffer_slot = 0, // Same binding slot
-            .format = sdl.SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3, // [3]f32 for color
-            .offset = @offsetOf(Vertex, "color"),
-        },
-    };
-
-    const vertex_buffer_description = sdl.SDL_GPUVertexBufferDescription{
-        .slot = 0, // Matches buffer_slot in attributes
-        .pitch = @sizeOf(Vertex), // 20 bytes (8 for pos, 12 for color)
-        .input_rate = sdl.SDL_GPU_VERTEXINPUTRATE_VERTEX, // Per-vertex data
-        .instance_step_rate = 0, // Not instanced
-    };
-
-    var pipeline_info: sdl.SDL_GPUGraphicsPipelineCreateInfo = .{
-        .target_info = .{
-            .num_color_targets = 1,
-            .color_target_descriptions = &.{
-                .format = sdl.SDL_GetGPUSwapchainTextureFormat(device, window),
+        var pipeline_info: sdl.SDL_GPUGraphicsPipelineCreateInfo = .{
+            .target_info = .{
+                .num_color_targets = 1,
+                .color_target_descriptions = &.{
+                    .format = sdl.SDL_GetGPUSwapchainTextureFormat(device, window),
+                },
             },
-        },
-        .primitive_type = sdl.SDL_GPU_PRIMITIVETYPE_TRIANGLELIST,
-        .vertex_shader = vert_shader,
-        .fragment_shader = frag_shader,
-        .vertex_input_state = .{
-            .num_vertex_buffers = 1,
-            .vertex_buffer_descriptions = &vertex_buffer_description,
-            .num_vertex_attributes = vertex_attributes.len,
-            .vertex_attributes = &vertex_attributes,
-        },
-        .rasterizer_state = .{
-            .fill_mode = sdl.SDL_GPU_FILLMODE_FILL,
-        },
+            .primitive_type = sdl.SDL_GPU_PRIMITIVETYPE_TRIANGLELIST,
+            .vertex_shader = vert_shader,
+            .fragment_shader = frag_shader,
+            .rasterizer_state = .{
+                .fill_mode = sdl.SDL_GPU_FILLMODE_FILL,
+            },
+        };
+
+        const fill = sdl.SDL_CreateGPUGraphicsPipeline(device, &pipeline_info) orelse unreachable;
+
+        pipeline_info.rasterizer_state.fill_mode = sdl.SDL_GPU_FILLMODE_LINE;
+        const line = sdl.SDL_CreateGPUGraphicsPipeline(device, &pipeline_info) orelse unreachable;
+
+        break :pipelines .{ fill, line };
     };
-
-    const fill_pipeline = sdl.SDL_CreateGPUGraphicsPipeline(device, &pipeline_info) orelse unreachable;
     defer sdl.SDL_ReleaseGPUGraphicsPipeline(device, fill_pipeline);
-
-    pipeline_info.rasterizer_state.fill_mode = sdl.SDL_GPU_FILLMODE_LINE;
-    const line_pipeline = sdl.SDL_CreateGPUGraphicsPipeline(device, &pipeline_info) orelse unreachable;
     defer sdl.SDL_ReleaseGPUGraphicsPipeline(device, line_pipeline);
 
-    sdl.SDL_ReleaseGPUShader(device, vert_shader);
-    sdl.SDL_ReleaseGPUShader(device, frag_shader);
+    const far = 100;
+    const near = 0.1;
+    const proj_mat = perspective(
+        math.degToRad(70.0),
+        @floatFromInt(@divFloor(window_w, window_h)),
+        near,
+        far,
+    );
+
+    var rot: f32 = 1;
+    var rot_mat: Matrix = undefined;
+    var ubo: UBO = undefined;
 
     while (running) {
+        defer rot += 0.05;
+        rot_mat = .rotateX(math.sin(rot));
+        ubo = .{ .mod_view_proj = proj_mat.mul(rot_mat) };
+
+        _ = sdl.SDL_GetWindowSize(window, &window_w, &window_h);
         // Process SDL events
         {
             var event: sdl.SDL_Event = undefined;
@@ -225,20 +160,16 @@ pub fn main() !void {
 
             if (sdl.SDL_WaitAndAcquireGPUSwapchainTexture(cmdbuf, window, &swapchain_texture, null, null)) {
                 if (swapchain_texture) |swapchain_tex| {
-                    var col_targ_info: sdl.SDL_GPUColorTargetInfo = .{};
-                    col_targ_info.texture = swapchain_tex;
-                    col_targ_info.clear_color = .{
-                        .r = 0,
-                        .g = 0,
-                        .b = 0,
-                        .a = 1,
+                    var col_targ_info: sdl.SDL_GPUColorTargetInfo = .{
+                        .texture = swapchain_tex,
+                        .clear_color = .{ .r = 0.1, .g = 0.3, .b = 0.3, .a = 1 },
+                        .load_op = sdl.SDL_GPU_LOADOP_CLEAR,
+                        .store_op = sdl.SDL_GPU_STOREOP_STORE,
                     };
-                    col_targ_info.load_op = sdl.SDL_GPU_LOADOP_CLEAR;
-                    col_targ_info.store_op = sdl.SDL_GPU_STOREOP_STORE;
 
                     const renderpass = sdl.SDL_BeginGPURenderPass(cmdbuf, &col_targ_info, 1, null);
                     sdl.SDL_BindGPUGraphicsPipeline(renderpass, fill_pipeline);
-                    sdl.SDL_BindGPUVertexBuffers(renderpass, 0, &.{ .buffer = vertex_buffer, .offset = 0 }, 1);
+                    sdl.SDL_PushGPUVertexUniformData(cmdbuf, 0, &ubo, @sizeOf(UBO));
                     sdl.SDL_DrawGPUPrimitives(renderpass, 3, 1, 0, 0);
 
                     sdl.SDL_EndGPURenderPass(renderpass);
@@ -248,6 +179,20 @@ pub fn main() !void {
             }
         }
     }
+}
+
+fn perspective(fov: f32, aspect: f32, near: f32, far: f32) Matrix {
+    const tan_half_fov = std.math.tan(fov / 2.0);
+    const z_range = near - far;
+
+    return .{
+        .data = .{
+            .{ 1.0 / (aspect * tan_half_fov), 0.0, 0.0, 0.0 },
+            .{ 0.0, 1.0 / tan_half_fov, 0.0, 0.0 },
+            .{ 0.0, 0.0, (near + far) / z_range, -1.0 },
+            .{ 0.0, 0.0, (2.0 * near * far) / z_range, 0.0 },
+        },
+    };
 }
 
 fn load_shader(
@@ -301,9 +246,15 @@ const Color = struct {
     pub const red: Color = .{ .r = 255, .g = 80, .b = 80, .a = 255 };
     pub const purple: Color = .{ .r = 135, .g = 23, .b = 152, .a = 255 };
 };
+const Matrix = math.Matrix;
+
 const Vertex = struct {
     pos: [2]f32,
     color: [3]f32,
+};
+
+const UBO = struct {
+    mod_view_proj: Matrix,
 };
 
 fn fmtSdlDrivers(
