@@ -720,7 +720,18 @@ pub const SDL_PROPERTY_TYPE_STRING: c_int = 2;
 pub const SDL_PROPERTY_TYPE_NUMBER: c_int = 3;
 pub const SDL_PROPERTY_TYPE_FLOAT: c_int = 4;
 pub const SDL_PROPERTY_TYPE_BOOLEAN: c_int = 5;
-pub const enum_SDL_PropertyType = c_uint;
+
+// pub const enum_SDL_PropertyType = c_uint;
+// @edit enum_SDL_PropertyType -> Zig enum
+pub const enum_SDL_PropertyType = enum(c_uint) {
+    invalid = 0,
+    pointer = 1,
+    string = 2,
+    number = 3,
+    float = 4,
+    boolean = 5,
+};
+
 pub const SDL_PropertyType = enum_SDL_PropertyType;
 pub extern fn SDL_GetGlobalProperties() SDL_PropertiesID;
 pub extern fn SDL_CreateProperties() SDL_PropertiesID;
@@ -1179,24 +1190,6 @@ pub const enum_SDL_PixelFormat = enum(c_uint) {
     xbgr2101010 = SDL_PIXELFORMAT_XBGR2101010,
     argb2101010 = SDL_PIXELFORMAT_ARGB2101010,
     abgr2101010 = SDL_PIXELFORMAT_ABGR2101010,
-    // rgb48 = SDL_PIXELFORMAT_RGB48,
-    // bgr48 = SDL_PIXELFORMAT_BGR48,
-    // rgba64 = SDL_PIXELFORMAT_RGBA64,
-    // argb64 = SDL_PIXELFORMAT_ARGB64,
-    // bgra64 = SDL_PIXELFORMAT_BGRA64,
-    // abgr64 = SDL_PIXELFORMAT_ABGR64,
-    // rgb48_float = SDL_PIXELFORMAT_RGB48_FLOAT,
-    // bgr48_float = SDL_PIXELFORMAT_BGR48_FLOAT,
-    // rgba64_float = SDL_PIXELFORMAT_RGBA64_FLOAT,
-    // argb64_float = SDL_PIXELFORMAT_ARGB64_FLOAT,
-    // bgra64_float = SDL_PIXELFORMAT_BGRA64_FLOAT,
-    // abgr64_float = SDL_PIXELFORMAT_ABGR64_FLOAT,
-    // rgb96_float = SDL_PIXELFORMAT_RGB96_FLOAT,
-    // bgr96_float = SDL_PIXELFORMAT_BGR96_FLOAT,
-    // rgba128_float = SDL_PIXELFORMAT_RGBA128_FLOAT,
-    // argb128_float = SDL_PIXELFORMAT_ARGB128_FLOAT,
-    // bgra128_float = SDL_PIXELFORMAT_BGRA128_FLOAT,
-    // abgr128_float = SDL_PIXELFORMAT_ABGR128_FLOAT,
     yv12 = SDL_PIXELFORMAT_YV12,
     iyuv = SDL_PIXELFORMAT_IYUV,
     yuy2 = SDL_PIXELFORMAT_YUY2,
@@ -1206,14 +1199,33 @@ pub const enum_SDL_PixelFormat = enum(c_uint) {
     nv21 = SDL_PIXELFORMAT_NV21,
     p010 = SDL_PIXELFORMAT_P010,
     external_oes = SDL_PIXELFORMAT_EXTERNAL_OES,
-    // rgba32 = SDL_PIXELFORMAT_RGBA32,
-    // argb32 = SDL_PIXELFORMAT_ARGB32,
-    // bgra32 = SDL_PIXELFORMAT_BGRA32,
-    // abgr32 = SDL_PIXELFORMAT_ABGR32,
-    // rgbx32 = SDL_PIXELFORMAT_RGBX32,
-    // xrgb32 = SDL_PIXELFORMAT_XRGB32,
-    // bgrx32 = SDL_PIXELFORMAT_BGRX32,
-    // xbgr32 = SDL_PIXELFORMAT_XBGR32,
+
+    pub const rgb48 = SDL_PIXELFORMAT_RGB48;
+    pub const bgr48 = SDL_PIXELFORMAT_BGR48;
+    pub const rgba64 = SDL_PIXELFORMAT_RGBA64;
+    pub const argb64 = SDL_PIXELFORMAT_ARGB64;
+    pub const bgra64 = SDL_PIXELFORMAT_BGRA64;
+    pub const abgr64 = SDL_PIXELFORMAT_ABGR64;
+    pub const rgb48_float = SDL_PIXELFORMAT_RGB48_FLOAT;
+    pub const bgr48_float = SDL_PIXELFORMAT_BGR48_FLOAT;
+    pub const rgba64_float = SDL_PIXELFORMAT_RGBA64_FLOAT;
+    pub const argb64_float = SDL_PIXELFORMAT_ARGB64_FLOAT;
+    pub const bgra64_float = SDL_PIXELFORMAT_BGRA64_FLOAT;
+    pub const abgr64_float = SDL_PIXELFORMAT_ABGR64_FLOAT;
+    pub const rgb96_float = SDL_PIXELFORMAT_RGB96_FLOAT;
+    pub const bgr96_float = SDL_PIXELFORMAT_BGR96_FLOAT;
+    pub const rgba128_float = SDL_PIXELFORMAT_RGBA128_FLOAT;
+    pub const argb128_float = SDL_PIXELFORMAT_ARGB128_FLOAT;
+    pub const bgra128_float = SDL_PIXELFORMAT_BGRA128_FLOAT;
+    pub const abgr128_float = SDL_PIXELFORMAT_ABGR128_FLOAT;
+    pub const rgba32: c_uint = SDL_PIXELFORMAT_RGBA32;
+    pub const argb32: c_uint = SDL_PIXELFORMAT_ARGB32;
+    pub const bgra32: c_uint = SDL_PIXELFORMAT_BGRA32;
+    pub const abgr32: c_uint = SDL_PIXELFORMAT_ABGR32;
+    pub const rgbx32: c_uint = SDL_PIXELFORMAT_RGBX32;
+    pub const xrgb32: c_uint = SDL_PIXELFORMAT_XRGB32;
+    pub const bgrx32: c_uint = SDL_PIXELFORMAT_BGRX32;
+    pub const xbgr32: c_uint = SDL_PIXELFORMAT_XBGR32;
 };
 pub const SDL_PixelFormat = enum_SDL_PixelFormat;
 pub const SDL_COLOR_TYPE_UNKNOWN: c_int = 0;
@@ -3676,7 +3688,7 @@ pub const SDL_GPU_INDEXELEMENTSIZE_32BIT: c_int = 1;
 // @edit enum_SDL_GPUIndexElementSize -> Zig enum
 pub const enum_SDL_GPUIndexElementSize = enum(c_uint) {
     @"16bit" = 0,
-    @"32bit" = 0,
+    @"32bit" = 1,
 };
 
 pub const SDL_GPUIndexElementSize = enum_SDL_GPUIndexElementSize;
@@ -3918,10 +3930,36 @@ pub const SDL_GPU_CUBEMAPFACE_POSITIVEZ: c_int = 4;
 pub const SDL_GPU_CUBEMAPFACE_NEGATIVEZ: c_int = 5;
 pub const enum_SDL_GPUCubeMapFace = c_uint;
 pub const SDL_GPUCubeMapFace = enum_SDL_GPUCubeMapFace;
-pub const SDL_GPUBufferUsageFlags = Uint32;
+
+// pub const SDL_GPUBufferUsageFlags = Uint32;
+// @edit SDL_GPUBufferUsageFlags -> Zig packed struct
+pub const SDL_GPUBufferUsageFlags = packed struct(u32) {
+    vertex: bool = false,
+    index: bool = false,
+    indirect: bool = false,
+    graphics_storage_read: bool = false,
+    compute_storage_read: bool = false,
+    compute_storage_write: bool = false,
+    __padding__: u26 = 0,
+
+    pub fn toInt(flags: SDL_GPUBufferUsageFlags) u32 {
+        return @bitCast(flags);
+    }
+    pub fn fromInt(num: u32) SDL_GPUBufferUsageFlags {
+        return @bitCast(num);
+    }
+};
+
 pub const SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD: c_int = 0;
 pub const SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD: c_int = 1;
-pub const enum_SDL_GPUTransferBufferUsage = c_uint;
+
+// pub const enum_SDL_GPUTransferBufferUsage = c_uint;
+// @edit enum_SDL_GPUTransferBufferUsage -> Zig enum
+pub const enum_SDL_GPUTransferBufferUsage = enum(c_uint) {
+    upload = 0,
+    download = 1,
+};
+
 pub const SDL_GPUTransferBufferUsage = enum_SDL_GPUTransferBufferUsage;
 pub const SDL_GPU_SHADERSTAGE_VERTEX: c_int = 0;
 pub const SDL_GPU_SHADERSTAGE_FRAGMENT: c_int = 1;

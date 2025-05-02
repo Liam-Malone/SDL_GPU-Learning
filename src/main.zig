@@ -83,6 +83,68 @@ pub fn main() !void {
     }
     defer sdl.SDL_ReleaseWindowFromGPUDevice(device, window);
 
+    const vertices: [4]Vertex = .{
+        .{ .pos = .{ -0.5, 0.5, 0 }, .color = .{ 0, 1, 0, 1 } }, // Top left
+        .{ .pos = .{ 0.5, 0.5, 0 }, .color = .{ 0, 1, 1, 1 } }, // Top right
+        .{ .pos = .{ -0.5, -0.5, 0 }, .color = .{ 1, 0, 1, 1 } }, // Bottom left
+        .{ .pos = .{ 0.5, -0.5, 0 }, .color = .{ 0, 0, 1, 1 } }, // Bottom right
+    };
+    const vertex_bytes = std.mem.asBytes(&vertices);
+    const vertex_buffer = sdl.SDL_CreateGPUBuffer(device, &.{
+        .usage = .{ .vertex = true },
+        .size = @intCast(vertex_bytes.len),
+    });
+
+    const indices: [6]u16 = .{
+        0, 1, 2,
+        2, 1, 3,
+    };
+    const index_bytes = std.mem.asBytes(&indices);
+    const index_buffer = sdl.SDL_CreateGPUBuffer(device, &.{
+        .usage = .{ .index = true },
+        .size = @intCast(index_bytes.len),
+    });
+
+    // Vertex buffer upload
+    {
+        const transfer_buf = sdl.SDL_CreateGPUTransferBuffer(device, &.{
+            .usage = .upload,
+            .size = @intCast(vertex_bytes.len + index_bytes.len),
+        });
+        defer sdl.SDL_ReleaseGPUTransferBuffer(device, transfer_buf);
+
+        const transfer_mem = sdl.SDL_MapGPUTransferBuffer(device, transfer_buf, false).?;
+        @memcpy(
+            @as([*]u8, @ptrCast(transfer_mem))[0..vertex_bytes.len],
+            vertex_bytes,
+        );
+        @memcpy(
+            @as([*]u8, @ptrCast(transfer_mem))[vertex_bytes.len..],
+            index_bytes,
+        );
+
+        sdl.SDL_UnmapGPUTransferBuffer(device, transfer_buf);
+
+        const cpy_cmd_buf = sdl.SDL_AcquireGPUCommandBuffer(device);
+        defer if (!sdl.SDL_SubmitGPUCommandBuffer(cpy_cmd_buf))
+            log.warn("Failed to upload vertex data to GPU :: {s}", .{@as([*:0]const u8, @ptrCast(sdl.SDL_GetError()))});
+        const copy_pass = sdl.SDL_BeginGPUCopyPass(cpy_cmd_buf);
+        defer sdl.SDL_EndGPUCopyPass(copy_pass);
+
+        sdl.SDL_UploadToGPUBuffer(
+            copy_pass,
+            &.{ .transfer_buffer = transfer_buf },
+            &.{ .buffer = vertex_buffer, .size = @intCast(vertex_bytes.len) },
+            false,
+        );
+        sdl.SDL_UploadToGPUBuffer(
+            copy_pass,
+            &.{ .transfer_buffer = transfer_buf, .offset = @intCast(vertex_bytes.len) },
+            &.{ .buffer = index_buffer, .size = @intCast(index_bytes.len) },
+            false,
+        );
+    }
+
     const fill_pipeline, const line_pipeline = pipelines: {
         const vert_shader = try load_shader(arena, device, "vert.spv", 0, 1, 0, 0);
         const frag_shader = try load_shader(arena, device, "frag.spv", 0, 0, 0, 0);
@@ -90,12 +152,18 @@ pub fn main() !void {
         defer sdl.SDL_ReleaseGPUShader(device, vert_shader);
         defer sdl.SDL_ReleaseGPUShader(device, frag_shader);
 
-        // TODO:
-        // - describe vertex data, attributes, & buffers in pipeline
-        // - create vertex data
-        // - create vertex buffer
-        // - upload vertex data to vertex buffer
-        // - bind vertex buffer to draw call
+        const vertex_attrs = [_]sdl.SDL_GPUVertexAttribute{
+            .{
+                .location = 0,
+                .format = .float3,
+                .offset = @offsetOf(Vertex, "pos"),
+            },
+            .{
+                .location = 1,
+                .format = .float4,
+                .offset = @offsetOf(Vertex, "color"),
+            },
+        };
 
         var pipeline_info: sdl.SDL_GPUGraphicsPipelineCreateInfo = .{
             .target_info = .{
@@ -107,12 +175,15 @@ pub fn main() !void {
             .primitive_type = .trianglelist,
             .vertex_shader = vert_shader,
             .vertex_input_state = .{
-                .vertex_attributes = &.{
-                    .location = 0,
-                    .buffer_slot = 0,
-                    .format = .float3,
-                    .offset = 0,
+                .num_vertex_buffers = 1,
+                .vertex_buffer_descriptions = &.{
+                    .slot = 0,
+                    .pitch = @sizeOf(Vertex),
+                    .input_rate = .vertex,
+                    .instance_step_rate = 0,
                 },
+                .num_vertex_attributes = @intCast(vertex_attrs.len),
+                .vertex_attributes = &vertex_attrs,
             },
             .fragment_shader = frag_shader,
             .rasterizer_state = .{
@@ -189,8 +260,17 @@ pub fn main() !void {
 
                     const renderpass = sdl.SDL_BeginGPURenderPass(cmdbuf, &col_targ_info, 1, null);
                     sdl.SDL_BindGPUGraphicsPipeline(renderpass, fill_pipeline);
+
+                    sdl.SDL_BindGPUIndexBuffer(renderpass, &.{
+                        .buffer = index_buffer,
+                    }, .@"16bit");
+                    sdl.SDL_BindGPUVertexBuffers(renderpass, 0, &.{
+                        .buffer = vertex_buffer,
+                    }, 1);
+
                     sdl.SDL_PushGPUVertexUniformData(cmdbuf, 0, &ubo, @sizeOf(UBO));
-                    sdl.SDL_DrawGPUPrimitives(renderpass, 3, 1, 0, 0);
+                    // sdl.SDL_DrawGPUPrimitives(renderpass, @intCast(vertices.len), 1, 0, 0);
+                    sdl.SDL_DrawGPUIndexedPrimitives(renderpass, @intCast(indices.len), 1, 0, 0, 0);
 
                     sdl.SDL_EndGPURenderPass(renderpass);
                 }
@@ -252,16 +332,19 @@ const Color = struct {
     pub const red: Color = .{ .r = 255, .g = 80, .b = 80, .a = 255 };
     pub const purple: Color = .{ .r = 135, .g = 23, .b = 152, .a = 255 };
 };
-const Matrix = math.Matrix;
 
 const Vertex = struct {
-    pos: [2]f32,
-    color: [3]f32,
+    pos: Vec3f32,
+    color: Vec4f32,
 };
 
 const UBO = struct {
     mod_view_proj: Matrix,
 };
+
+const Matrix = math.Matrix;
+const Vec3f32 = math.Vec3f32;
+const Vec4f32 = math.Vec4f32;
 
 fn fmtSdlDrivers(
     current_driver: [*:0]const u8,

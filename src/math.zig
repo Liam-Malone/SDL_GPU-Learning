@@ -237,6 +237,18 @@ pub const Matrix = struct {
         return result;
     }
 
+    pub fn eql(noalias mat: *const Matrix, cmp: Matrix) bool {
+        const result = cmp: {
+            inline for (0..4) |idx| {
+                const res: bool = @reduce(.And, (mat.data[idx] == cmp.data[idx]));
+                if (!res) break :cmp false;
+            }
+            break :cmp true;
+        };
+
+        return result;
+    }
+
     pub fn format(mat: *const Matrix, fmt: [:0]const u8, options: std.fmt.FormatOptions, writer: anytype) !void {
         _ = fmt;
         _ = options;
@@ -272,11 +284,34 @@ pub const Recti32 = rect_t(i32);
 
 pub const Vec2f32 = vec2_t(f32);
 pub const Vec2i32 = vec2_t(i32);
-pub const Vec3f32 = vec3_t(f32);
-pub const Vec3i32 = vec3_t(i32);
 
+pub const Vec3f32 = @Vector(3, f32);
+pub const Vec3i32 = @Vector(3, i32);
 pub const Vec4f32 = @Vector(4, f32);
 pub const Vec4i32 = @Vector(4, i32);
+
+pub fn eql(a: anytype, b: anytype) bool {
+    const Type = @TypeOf(a);
+    const result: bool = if (@TypeOf(a) == @TypeOf(b)) cmp: {
+        switch (@typeInfo(Type)) {
+            .vector => {
+                break :cmp @reduce(.And, (a == b));
+            },
+            .@"struct" => {
+                if (!@hasDecl(Type, "eql")) {
+                    @compileError("No eql function provided in type: " ++ @typeName(Type));
+                } else {
+                    break :cmp a.eql(b);
+                }
+            },
+            else => {
+                @compileError("Invalid math comparison type: " ++ @typeName(Type));
+            },
+        }
+    } else false;
+
+    return result;
+}
 
 pub inline fn mulAdd(v0: anytype, v1: anytype, v2: anytype) @TypeOf(v0, v1, v2) {
     const T = @TypeOf(v0, v1, v2);
@@ -308,8 +343,27 @@ pub inline fn swizzle(
     comptime z: Vec4Component,
     comptime w: Vec4Component,
 ) Vec4f32 {
-    return @shuffle(f32, v, undefined, [4]i32{ @intFromEnum(x), @intFromEnum(y), @intFromEnum(z), @intFromEnum(w) });
+    return @shuffle(f32, v, undefined, [4]i32{ x.toInt(), y.toInt(), z.toInt(), w.toInt() });
 }
+
+pub const Vec2Component = enum(u8) {
+    x = 0,
+    y = 1,
+
+    pub fn toInt(component: Vec2Component) i32 {
+        return @intCast(@intFromEnum(component));
+    }
+};
+
+pub const Vec3Component = enum(u8) {
+    x = 0,
+    y = 1,
+    z = 2,
+
+    pub fn toInt(component: Vec3Component) i32 {
+        return @intCast(@intFromEnum(component));
+    }
+};
 
 pub const Vec4Component = enum(u8) {
     x = 0,
@@ -519,7 +573,7 @@ fn rng_2_t(comptime T: type) type {
                     point.y <= rng.data[3]));
         }
 
-        pub fn eql(rng: *const Rng2_T, cmp: *const Rng2_T) bool {
+        pub fn eql(rng: *const Rng2_T, cmp: Rng2_T) bool {
             return @reduce(.And, (rng.data == cmp.data));
         }
     };
