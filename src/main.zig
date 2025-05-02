@@ -3,7 +3,7 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-const sdl = @import("sdl.zig");
+const sdl = @import("external/sdl.zig");
 const math = @import("math.zig");
 const UI = @import("ui.zig");
 
@@ -65,7 +65,7 @@ pub fn main() !void {
     var window_h: c_int = 10 * scale;
 
     const device = errify(sdl.SDL_CreateGPUDevice(
-        sdl.SDL_GPU_SHADERFORMAT_SPIRV | sdl.SDL_GPU_SHADERFORMAT_DXIL | sdl.SDL_GPU_SHADERFORMAT_MSL,
+        .{ .spirv = true, .dxil = true, .msl = true },
         true,
         null,
     )) catch {
@@ -90,6 +90,13 @@ pub fn main() !void {
         defer sdl.SDL_ReleaseGPUShader(device, vert_shader);
         defer sdl.SDL_ReleaseGPUShader(device, frag_shader);
 
+        // TODO:
+        // - describe vertex data, attributes, & buffers in pipeline
+        // - create vertex data
+        // - create vertex buffer
+        // - upload vertex data to vertex buffer
+        // - bind vertex buffer to draw call
+
         var pipeline_info: sdl.SDL_GPUGraphicsPipelineCreateInfo = .{
             .target_info = .{
                 .num_color_targets = 1,
@@ -97,21 +104,30 @@ pub fn main() !void {
                     .format = sdl.SDL_GetGPUSwapchainTextureFormat(device, window),
                 },
             },
-            .primitive_type = sdl.SDL_GPU_PRIMITIVETYPE_TRIANGLELIST,
+            .primitive_type = .trianglelist,
             .vertex_shader = vert_shader,
+            .vertex_input_state = .{
+                .vertex_attributes = &.{
+                    .location = 0,
+                    .buffer_slot = 0,
+                    .format = .float3,
+                    .offset = 0,
+                },
+            },
             .fragment_shader = frag_shader,
             .rasterizer_state = .{
-                .fill_mode = sdl.SDL_GPU_FILLMODE_FILL,
+                .fill_mode = .fill,
             },
         };
 
         const fill = sdl.SDL_CreateGPUGraphicsPipeline(device, &pipeline_info) orelse unreachable;
 
-        pipeline_info.rasterizer_state.fill_mode = sdl.SDL_GPU_FILLMODE_LINE;
+        pipeline_info.rasterizer_state.fill_mode = .line;
         const line = sdl.SDL_CreateGPUGraphicsPipeline(device, &pipeline_info) orelse unreachable;
 
         break :pipelines .{ fill, line };
     };
+
     defer sdl.SDL_ReleaseGPUGraphicsPipeline(device, fill_pipeline);
     defer sdl.SDL_ReleaseGPUGraphicsPipeline(device, line_pipeline);
 
@@ -167,8 +183,8 @@ pub fn main() !void {
                     var col_targ_info: sdl.SDL_GPUColorTargetInfo = .{
                         .texture = swapchain_tex,
                         .clear_color = .{ .r = 0.1, .g = 0.3, .b = 0.3, .a = 1 },
-                        .load_op = sdl.SDL_GPU_LOADOP_CLEAR,
-                        .store_op = sdl.SDL_GPU_STOREOP_STORE,
+                        .load_op = .clear,
+                        .store_op = .store,
                     };
 
                     const renderpass = sdl.SDL_BeginGPURenderPass(cmdbuf, &col_targ_info, 1, null);
@@ -196,14 +212,14 @@ fn load_shader(
 ) !*sdl.SDL_GPUShader {
     const tmp = arena.temp();
     defer tmp.end();
-    const stage = if (std.mem.containsAtLeast(u8, filename, 1, "frag"))
-        sdl.SDL_GPU_SHADERSTAGE_FRAGMENT
+    const stage: sdl.SDL_GPUShaderStage = if (std.mem.containsAtLeast(u8, filename, 1, "frag"))
+        .fragment
     else
-        sdl.SDL_GPU_SHADERSTAGE_VERTEX;
+        .vertex;
 
     const formats = sdl.SDL_GetGPUShaderFormats(device);
     _ = formats;
-    const format: sdl.SDL_GPUShaderFormat = sdl.SDL_GPU_SHADERFORMAT_SPIRV;
+    const format: sdl.SDL_GPUShaderFormat = .{ .spirv = true };
 
     const fp = try std.mem.join(tmp.arena.allocator(), "", &.{ "build/shaders/", filename });
     const file = try std.fs.cwd().openFile(fp, .{});
@@ -213,7 +229,7 @@ fn load_shader(
         .code_size = code.len,
         .entrypoint = "main",
         .format = format,
-        .stage = @intCast(stage),
+        .stage = stage,
         .num_samplers = sampler_count,
         .num_uniform_buffers = uniform_buffer_count,
         .num_storage_buffers = storage_buffer_count,

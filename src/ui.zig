@@ -2,7 +2,7 @@
 
 const std = @import("std");
 const math = @import("math.zig");
-const sdl = @import("sdl.zig");
+const sdl = @import("external/sdl.zig");
 
 const Arena = @import("Arena.zig");
 
