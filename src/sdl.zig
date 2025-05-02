@@ -3634,22 +3634,51 @@ pub const SDL_GPU_PRIMITIVETYPE_TRIANGLESTRIP: c_int = 1;
 pub const SDL_GPU_PRIMITIVETYPE_LINELIST: c_int = 2;
 pub const SDL_GPU_PRIMITIVETYPE_LINESTRIP: c_int = 3;
 pub const SDL_GPU_PRIMITIVETYPE_POINTLIST: c_int = 4;
-pub const enum_SDL_GPUPrimitiveType = c_uint;
+// pub const enum_SDL_GPUPrimitiveType = c_uint;
+// @edit enum_SDL_GPUPrimitiveType -> Zig enum
+pub const enum_SDL_GPUPrimitiveType = enum(c_uint) {
+    trianglelist = 0,
+    trianglestrip = 1,
+    linelist = 2,
+    linestrip = 3,
+    pointlist = 4,
+};
 pub const SDL_GPUPrimitiveType = enum_SDL_GPUPrimitiveType;
 pub const SDL_GPU_LOADOP_LOAD: c_int = 0;
 pub const SDL_GPU_LOADOP_CLEAR: c_int = 1;
 pub const SDL_GPU_LOADOP_DONT_CARE: c_int = 2;
-pub const enum_SDL_GPULoadOp = c_uint;
+// pub const enum_SDL_GPULoadOp = c_uint;
+// @edit enum_SDL_GPULoadOp -> Zig enum
+pub const enum_SDL_GPULoadOp = enum(c_uint) {
+    load = 0,
+    clear = 1,
+    dont_care = 2,
+};
+
 pub const SDL_GPULoadOp = enum_SDL_GPULoadOp;
 pub const SDL_GPU_STOREOP_STORE: c_int = 0;
 pub const SDL_GPU_STOREOP_DONT_CARE: c_int = 1;
 pub const SDL_GPU_STOREOP_RESOLVE: c_int = 2;
 pub const SDL_GPU_STOREOP_RESOLVE_AND_STORE: c_int = 3;
-pub const enum_SDL_GPUStoreOp = c_uint;
+// pub const enum_SDL_GPUStoreOp = c_uint;
+// @edit enum_SDL_GPUStoreOp -> Zig enum
+pub const enum_SDL_GPUStoreOp = enum(c_uint) {
+    store = 0,
+    dont_care = 1,
+    resolve = 2,
+    resolve_and_store = 3,
+};
+
 pub const SDL_GPUStoreOp = enum_SDL_GPUStoreOp;
 pub const SDL_GPU_INDEXELEMENTSIZE_16BIT: c_int = 0;
 pub const SDL_GPU_INDEXELEMENTSIZE_32BIT: c_int = 1;
-pub const enum_SDL_GPUIndexElementSize = c_uint;
+// pub const enum_SDL_GPUIndexElementSize = c_uint;
+// @edit enum_SDL_GPUIndexElementSize -> Zig enum
+pub const enum_SDL_GPUIndexElementSize = enum(c_uint) {
+    @"16bit" = 0,
+    @"32bit" = 0,
+};
+
 pub const SDL_GPUIndexElementSize = enum_SDL_GPUIndexElementSize;
 pub const SDL_GPU_TEXTUREFORMAT_INVALID: c_int = 0;
 pub const SDL_GPU_TEXTUREFORMAT_A8_UNORM: c_int = 1;
@@ -3756,7 +3785,116 @@ pub const SDL_GPU_TEXTUREFORMAT_ASTC_10x8_FLOAT: c_int = 101;
 pub const SDL_GPU_TEXTUREFORMAT_ASTC_10x10_FLOAT: c_int = 102;
 pub const SDL_GPU_TEXTUREFORMAT_ASTC_12x10_FLOAT: c_int = 103;
 pub const SDL_GPU_TEXTUREFORMAT_ASTC_12x12_FLOAT: c_int = 104;
-pub const enum_SDL_GPUTextureFormat = c_uint;
+// pub const enum_SDL_GPUTextureFormat = c_uint;
+// @edit enum_SDL_GPUTextureFormat -> Zig enum
+pub const enum_SDL_GPUTextureFormat = enum(c_uint) {
+    invalid = 0,
+    a8_unorm = 1,
+    r8_unorm = 2,
+    r8g8_unorm = 3,
+    r8g8b8a8_unorm = 4,
+    r16_unorm = 5,
+    r16g16_unorm = 6,
+    r16g16b16a16_unorm = 7,
+    r10g10b10a2_unorm = 8,
+    b5g6r5_unorm = 9,
+    b5g5r5a1_unorm = 10,
+    b4g4r4a4_unorm = 11,
+    b8g8r8a8_unorm = 12,
+    bc1_rgba_unorm = 13,
+    bc2_rgba_unorm = 14,
+    bc3_rgba_unorm = 15,
+    bc4_r_unorm = 16,
+    bc5_rg_unorm = 17,
+    bc7_rgba_unorm = 18,
+    bc6h_rgb_float = 19,
+    bc6h_rgb_ufloat = 20,
+    r8_snorm = 21,
+    r8g8_snorm = 22,
+    r8g8b8a8_snorm = 23,
+    r16_snorm = 24,
+    r16g16_snorm = 25,
+    r16g16b16a16_snorm = 26,
+    r16_float = 27,
+    r16g16_float = 28,
+    r16g16b16a16_float = 29,
+    r32_float = 30,
+    r32g32_float = 31,
+    r32g32b32a32_float = 32,
+    r11g11b10_ufloat = 33,
+    r8_uint = 34,
+    r8g8_uint = 35,
+    r8g8b8a8_uint = 36,
+    r16_uint = 37,
+    r16g16_uint = 38,
+    r16g16b16a16_uint = 39,
+    r32_uint = 40,
+    r32g32_uint = 41,
+    r32g32b32a32_uint = 42,
+    r8_int = 43,
+    r8g8_int = 44,
+    r8g8b8a8_int = 45,
+    r16_int = 46,
+    r16g16_int = 47,
+    r16g16b16a16_int = 48,
+    r32_int = 49,
+    r32g32_int = 50,
+    r32g32b32a32_int = 51,
+    r8g8b8a8_unorm_srgb = 52,
+    b8g8r8a8_unorm_srgb = 53,
+    bc1_rgba_unorm_srgb = 54,
+    bc2_rgba_unorm_srgb = 55,
+    bc3_rgba_unorm_srgb = 56,
+    bc7_rgba_unorm_srgb = 57,
+    d16_unorm = 58,
+    d24_unorm = 59,
+    d32_float = 60,
+    d24_unorm_s8_uint = 61,
+    d32_float_s8_uint = 62,
+    astc_4x4_unorm = 63,
+    astc_5x4_unorm = 64,
+    astc_5x5_unorm = 65,
+    astc_6x5_unorm = 66,
+    astc_6x6_unorm = 67,
+    astc_8x5_unorm = 68,
+    astc_8x6_unorm = 69,
+    astc_8x8_unorm = 70,
+    astc_10x5_unorm = 71,
+    astc_10x6_unorm = 72,
+    astc_10x8_unorm = 73,
+    astc_10x10_unorm = 74,
+    astc_12x10_unorm = 75,
+    astc_12x12_unorm = 76,
+    astc_4x4_unorm_srgb = 77,
+    astc_5x4_unorm_srgb = 78,
+    astc_5x5_unorm_srgb = 79,
+    astc_6x5_unorm_srgb = 80,
+    astc_6x6_unorm_srgb = 81,
+    astc_8x5_unorm_srgb = 82,
+    astc_8x6_unorm_srgb = 83,
+    astc_8x8_unorm_srgb = 84,
+    astc_10x5_unorm_srgb = 85,
+    astc_10x6_unorm_srgb = 86,
+    astc_10x8_unorm_srgb = 87,
+    astc_10x10_unorm_srgb = 88,
+    astc_12x10_unorm_srgb = 89,
+    astc_12x12_unorm_srgb = 90,
+    astc_4x4_float = 91,
+    astc_5x4_float = 92,
+    astc_5x5_float = 93,
+    astc_6x5_float = 94,
+    astc_6x6_float = 95,
+    astc_8x5_float = 96,
+    astc_8x6_float = 97,
+    astc_8x8_float = 98,
+    astc_10x5_float = 99,
+    astc_10x6_float = 100,
+    astc_10x8_float = 101,
+    astc_10x10_float = 102,
+    astc_12x10_float = 103,
+    astc_12x12_float = 104,
+};
+
 pub const SDL_GPUTextureFormat = enum_SDL_GPUTextureFormat;
 pub const SDL_GPUTextureUsageFlags = Uint32;
 pub const SDL_GPU_TEXTURETYPE_2D: c_int = 0;
@@ -3787,9 +3925,34 @@ pub const enum_SDL_GPUTransferBufferUsage = c_uint;
 pub const SDL_GPUTransferBufferUsage = enum_SDL_GPUTransferBufferUsage;
 pub const SDL_GPU_SHADERSTAGE_VERTEX: c_int = 0;
 pub const SDL_GPU_SHADERSTAGE_FRAGMENT: c_int = 1;
-pub const enum_SDL_GPUShaderStage = c_uint;
+// pub const enum_SDL_GPUShaderStage = c_uint;
+// @edit enum_SDL_GPUShaderStage -> Zig enum
+pub const enum_SDL_GPUShaderStage = enum(c_uint) {
+    vertex = 0,
+    fragment = 1,
+};
+
 pub const SDL_GPUShaderStage = enum_SDL_GPUShaderStage;
-pub const SDL_GPUShaderFormat = Uint32;
+// pub const SDL_GPUShaderFormat = Uint32;
+// @edit SDL_GPUShaderFormat -> Zig packed struct
+pub const SDL_GPUShaderFormat = packed struct(u32) {
+    private: bool = false,
+    spirv: bool = false,
+    dxbc: bool = false,
+    dxil: bool = false,
+    msl: bool = false,
+    metallib: bool = false,
+    _padding: u26 = 0,
+
+    pub fn toInt(self: SDL_GPUShaderFormat) u32 {
+        return @bitCast(self);
+    }
+
+    pub fn fromInt(num: u32) SDL_GPUShaderFormat {
+        return @bitCast(num);
+    }
+};
+
 pub const SDL_GPU_VERTEXELEMENTFORMAT_INVALID: c_int = 0;
 pub const SDL_GPU_VERTEXELEMENTFORMAT_INT: c_int = 1;
 pub const SDL_GPU_VERTEXELEMENTFORMAT_INT2: c_int = 2;
@@ -3821,15 +3984,61 @@ pub const SDL_GPU_VERTEXELEMENTFORMAT_USHORT2_NORM: c_int = 27;
 pub const SDL_GPU_VERTEXELEMENTFORMAT_USHORT4_NORM: c_int = 28;
 pub const SDL_GPU_VERTEXELEMENTFORMAT_HALF2: c_int = 29;
 pub const SDL_GPU_VERTEXELEMENTFORMAT_HALF4: c_int = 30;
-pub const enum_SDL_GPUVertexElementFormat = c_uint;
+// pub const enum_SDL_GPUVertexElementFormat = c_uint;
+// @edit: SDL_GPUVertexElementFormat -> Zig enum
+pub const enum_SDL_GPUVertexElementFormat = enum(c_uint) {
+    invalid = 0,
+    int = 1,
+    int2 = 2,
+    int3 = 3,
+    int4 = 4,
+    uint = 5,
+    uint2 = 6,
+    uint3 = 7,
+    uint4 = 8,
+    float = 9,
+    float2 = 10,
+    float3 = 11,
+    float4 = 12,
+    byte2 = 13,
+    byte4 = 14,
+    ubyte2 = 15,
+    ubyte4 = 16,
+    byte2_norm = 17,
+    byte4_norm = 18,
+    ubyte2_norm = 19,
+    ubyte4_norm = 20,
+    short2 = 21,
+    short4 = 22,
+    ushort2 = 23,
+    ushort4 = 24,
+    short2_norm = 25,
+    short4_norm = 26,
+    ushort2_norm = 27,
+    ushort4_norm = 28,
+    half2 = 29,
+    half4 = 30,
+};
+
 pub const SDL_GPUVertexElementFormat = enum_SDL_GPUVertexElementFormat;
 pub const SDL_GPU_VERTEXINPUTRATE_VERTEX: c_int = 0;
 pub const SDL_GPU_VERTEXINPUTRATE_INSTANCE: c_int = 1;
-pub const enum_SDL_GPUVertexInputRate = c_uint;
+// pub const enum_SDL_GPUVertexInputRate = c_uint;
+// @edit enum_SDL_GPUVertexInputRate -> Zig enum
+pub const enum_SDL_GPUVertexInputRate = enum(c_uint) {
+    vertex = 0,
+    instance = 1,
+};
+
 pub const SDL_GPUVertexInputRate = enum_SDL_GPUVertexInputRate;
 pub const SDL_GPU_FILLMODE_FILL: c_int = 0;
 pub const SDL_GPU_FILLMODE_LINE: c_int = 1;
-pub const enum_SDL_GPUFillMode = c_uint;
+// pub const enum_SDL_GPUFillMode = c_uint;
+// @edit pub const enum_SDL_GPUFillMode -> Zig enum
+pub const enum_SDL_GPUFillMode = enum(c_uint) {
+    fill = 0,
+    line = 1,
+};
 pub const SDL_GPUFillMode = enum_SDL_GPUFillMode;
 pub const SDL_GPU_CULLMODE_NONE: c_int = 0;
 pub const SDL_GPU_CULLMODE_FRONT: c_int = 1;
