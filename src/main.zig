@@ -115,10 +115,10 @@ pub fn main() !void {
     defer sdl.SDL_ReleaseGPUGraphicsPipeline(device, fill_pipeline);
     defer sdl.SDL_ReleaseGPUGraphicsPipeline(device, line_pipeline);
 
-    const far = 100;
-    const near = 0.1;
-    const proj_mat = perspective(
-        math.degToRad(70.0),
+    const far = 1000;
+    const near = 0.0001;
+    const proj_mat: Matrix = .perspective(
+        math.degToRad(60),
         @floatFromInt(@divFloor(window_w, window_h)),
         near,
         far,
@@ -126,12 +126,16 @@ pub fn main() !void {
 
     var rot: f32 = 1;
     var rot_mat: Matrix = undefined;
+    var trans_mat: Matrix = undefined;
+    var model_mat: Matrix = undefined;
     var ubo: UBO = undefined;
 
     while (running) {
         defer rot += 0.05;
-        rot_mat = .rotateX(math.sin(rot));
-        ubo = .{ .mod_view_proj = proj_mat.mul(rot_mat) };
+        rot_mat = .rotateY(rot);
+        trans_mat = .translateZ(-5);
+        model_mat = trans_mat.mul(rot_mat);
+        ubo = .{ .mod_view_proj = proj_mat.mul(model_mat).col_maj() };
 
         _ = sdl.SDL_GetWindowSize(window, &window_w, &window_h);
         // Process SDL events
@@ -179,20 +183,6 @@ pub fn main() !void {
             }
         }
     }
-}
-
-fn perspective(fov: f32, aspect: f32, near: f32, far: f32) Matrix {
-    const tan_half_fov = std.math.tan(fov / 2.0);
-    const z_range = near - far;
-
-    return .{
-        .data = .{
-            .{ 1.0 / (aspect * tan_half_fov), 0.0, 0.0, 0.0 },
-            .{ 0.0, 1.0 / tan_half_fov, 0.0, 0.0 },
-            .{ 0.0, 0.0, (near + far) / z_range, -1.0 },
-            .{ 0.0, 0.0, (2.0 * near * far) / z_range, 0.0 },
-        },
-    };
 }
 
 fn load_shader(
