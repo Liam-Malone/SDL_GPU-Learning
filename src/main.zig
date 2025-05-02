@@ -4,15 +4,11 @@ const std = @import("std");
 const builtin = @import("builtin");
 
 const sdl = @import("external/sdl.zig");
+const stb = @import("external/stb.zig");
 const math = @import("math.zig");
 const UI = @import("ui.zig");
 
 const Arena = @import("Arena.zig");
-
-const ArrayList = std.ArrayList;
-const log = std.log.scoped(.app);
-
-const exit_key: sdl.SDL_Scancode = if (builtin.mode == .Debug) .q else .unknown;
 
 pub fn main() !void {
     const arena: *Arena = .init(.default);
@@ -84,10 +80,10 @@ pub fn main() !void {
     defer sdl.SDL_ReleaseWindowFromGPUDevice(device, window);
 
     const vertices: [4]VertexData = .{
-        .{ .pos = .{ -0.5, 0.5, 0 }, .color = .init(1, 1, 0, 1) }, // Top left
-        .{ .pos = .{ 0.5, 0.5, 0 }, .color = .init(0, 1, 1, 1) }, // Top right
-        .{ .pos = .{ -0.5, -0.5, 0 }, .color = .init(1, 0, 1, 1) }, // Bottom left
-        .{ .pos = .{ 0.5, -0.5, 0 }, .color = .init(0, 0, 1, 1) }, // Bottom right
+        .{ .pos = .{ -0.5, 0.5, 0 }, .color = .init(1, 1, 0, 1), .uv = .{ 0, 0 } }, // Top left
+        .{ .pos = .{ 0.5, 0.5, 0 }, .color = .init(0, 1, 1, 1), .uv = .{ 1, 0 } }, // Top right
+        .{ .pos = .{ -0.5, -0.5, 0 }, .color = .init(1, 0, 1, 1), .uv = .{ 0, 1 } }, // Bottom left
+        .{ .pos = .{ 0.5, -0.5, 0 }, .color = .init(0, 0, 1, 1), .uv = .{ 1, 1 } }, // Bottom right
     };
     const vertex_bytes = std.mem.asBytes(&vertices);
     const vertex_buffer = sdl.SDL_CreateGPUBuffer(device, &.{
@@ -105,8 +101,50 @@ pub fn main() !void {
         .size = @intCast(index_bytes.len),
     });
 
+    // TODO:
+    // - create a shader sampler
+    // - make shader sample colors from texture
+    var texture: ?*sdl.SDL_GPUTexture = undefined;
+
     // Vertex buffer upload
     {
+        const temp = arena.temp();
+        defer temp.end();
+
+        const file = try std.fs.cwd().openFile("assets/pattern.png", .{});
+        defer file.close();
+
+        const bytes = try file.readToEndAlloc(temp.arena.allocator(), math.maxInt(usize));
+        var image_dims: Vec2i32 = .zero;
+        var image_channels: c_int = undefined;
+        const image_bytes = stbi.stbi_load_from_memory(
+            @ptrCast(bytes),
+            @intCast(bytes.len),
+            &image_dims.x,
+            &image_dims.y,
+            &image_channels,
+            4,
+        );
+        defer stbi.stbi_image_free(image_bytes);
+        const image_bytes_len = image_dims.x * image_dims.y * 4;
+        texture = sdl.SDL_CreateGPUTexture(device, &.{
+            .format = .r8g8b8a8_unorm,
+            .usage = .{ .sampler = true },
+            .width = @intCast(image_dims.x),
+            .height = @intCast(image_dims.y),
+            .layer_count_or_depth = 1,
+            .num_levels = 1,
+        });
+
+        const tex_transfer_buf = sdl.SDL_CreateGPUTransferBuffer(device, &.{
+            .usage = .upload,
+            .size = @intCast(image_bytes_len),
+        });
+        defer sdl.SDL_ReleaseGPUTransferBuffer(device, tex_transfer_buf);
+        const tex_transfer_mem = sdl.SDL_MapGPUTransferBuffer(device, tex_transfer_buf, false);
+        @memcpy(@as([*]u8, @ptrCast(tex_transfer_mem)), image_bytes[0..@intCast(image_bytes_len)]);
+        sdl.SDL_UnmapGPUTransferBuffer(device, tex_transfer_buf);
+
         const transfer_buf = sdl.SDL_CreateGPUTransferBuffer(device, &.{
             .usage = .upload,
             .size = @intCast(vertex_bytes.len + index_bytes.len),
@@ -143,27 +181,39 @@ pub fn main() !void {
             &.{ .buffer = index_buffer, .size = @intCast(index_bytes.len) },
             false,
         );
+        sdl.SDL_UploadToGPUTexture(
+            copy_pass,
+            &.{ .transfer_buffer = tex_transfer_buf },
+            &.{ .texture = texture, .mip_level = 0, .layer = 0, .x = 0, .y = 0, .w = @intCast(image_dims.x), .h = @intCast(image_dims.y), .d = 1 },
+            false,
+        );
     }
+
+    const sampler = sdl.SDL_CreateGPUSampler(device, &.{
+        .address_mode_u = .repeat,
+        .address_mode_v = .repeat,
+    });
 
     const fill_pipeline, const line_pipeline = pipelines: {
         const vert_shader = try load_shader(arena, device, "vert.spv", 0, 1, 0, 0);
-        const frag_shader = try load_shader(arena, device, "frag.spv", 0, 0, 0, 0);
+        const frag_shader = try load_shader(arena, device, "frag.spv", 1, 0, 0, 0);
 
         defer sdl.SDL_ReleaseGPUShader(device, vert_shader);
         defer sdl.SDL_ReleaseGPUShader(device, frag_shader);
 
-        const vertex_attrs = [_]sdl.SDL_GPUVertexAttribute{
-            .{
-                .location = 0,
-                .format = .float3,
-                .offset = @offsetOf(VertexData, "pos"),
-            },
-            .{
-                .location = 1,
-                .format = .float4,
-                .offset = @offsetOf(VertexData, "color"),
-            },
-        };
+        const vertex_attrs = [_]sdl.SDL_GPUVertexAttribute{ .{
+            .location = 0,
+            .format = .float3,
+            .offset = @offsetOf(VertexData, "pos"),
+        }, .{
+            .location = 1,
+            .format = .float4,
+            .offset = @offsetOf(VertexData, "color"),
+        }, .{
+            .location = 2,
+            .format = .float2,
+            .offset = @offsetOf(VertexData, "uv"),
+        } };
 
         var pipeline_info: sdl.SDL_GPUGraphicsPipelineCreateInfo = .{
             .target_info = .{
@@ -274,6 +324,11 @@ pub fn main() !void {
                     }, 1);
 
                     sdl.SDL_PushGPUVertexUniformData(cmdbuf, 0, &ubo, @sizeOf(UBO));
+                    sdl.SDL_BindGPUFragmentSamplers(renderpass, 0, &.{
+                        .texture = texture,
+                        .sampler = sampler,
+                    }, 1);
+
                     sdl.SDL_DrawGPUIndexedPrimitives(renderpass, @intCast(indices.len), 1, 0, 0, 0);
 
                     sdl.SDL_EndGPURenderPass(renderpass);
@@ -359,6 +414,7 @@ const Color = struct {
 const VertexData = struct {
     pos: Vec3f32 align(16),
     color: Color align(16),
+    uv: [2]f32,
 };
 
 const UBO = struct {

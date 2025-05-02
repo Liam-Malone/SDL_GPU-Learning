@@ -3908,7 +3908,28 @@ pub const enum_SDL_GPUTextureFormat = enum(c_uint) {
 };
 
 pub const SDL_GPUTextureFormat = enum_SDL_GPUTextureFormat;
-pub const SDL_GPUTextureUsageFlags = Uint32;
+
+// pub const SDL_GPUTextureUsageFlags = Uint32;
+// @edit SDL_GPUTextureUsageFlags -> Zig packed struct
+pub const SDL_GPUTextureUsageFlags = packed struct(u32) {
+    sampler: bool = false,
+    color_target: bool = false,
+    depth_stencil_target: bool = false,
+    graphics_storage_read: bool = false,
+    compute_storage_read: bool = false,
+    compute_storage_write: bool = false,
+    compute_storage_simultaneous_read_write: bool = false,
+    __padding: u25 = 0,
+
+    pub fn toInt(self: SDL_GPUTextureUsageFlags) u32 {
+        return @bitCast(self);
+    }
+
+    pub fn fromInt(value: u32) SDL_GPUTextureUsageFlags {
+        return @bitCast(value);
+    }
+};
+
 pub const SDL_GPU_TEXTURETYPE_2D: c_int = 0;
 pub const SDL_GPU_TEXTURETYPE_2D_ARRAY: c_int = 1;
 pub const SDL_GPU_TEXTURETYPE_3D: c_int = 2;
@@ -4145,7 +4166,15 @@ pub const SDL_GPUSamplerMipmapMode = enum_SDL_GPUSamplerMipmapMode;
 pub const SDL_GPU_SAMPLERADDRESSMODE_REPEAT: c_int = 0;
 pub const SDL_GPU_SAMPLERADDRESSMODE_MIRRORED_REPEAT: c_int = 1;
 pub const SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE: c_int = 2;
-pub const enum_SDL_GPUSamplerAddressMode = c_uint;
+
+// pub const enum_SDL_GPUSamplerAddressMode = c_uint;
+// @edit: enum_SDL_GPUSamplerAddressMode -> Zig enum
+pub const enum_SDL_GPUSamplerAddressMode = enum(c_uint) {
+    repeat = 0,
+    mirrored_repeat = 1,
+    clamp_to_edge = 2,
+};
+
 pub const SDL_GPUSamplerAddressMode = enum_SDL_GPUSamplerAddressMode;
 pub const SDL_GPU_PRESENTMODE_VSYNC: c_int = 0;
 pub const SDL_GPU_PRESENTMODE_IMMEDIATE: c_int = 1;
