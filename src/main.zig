@@ -83,11 +83,11 @@ pub fn main() !void {
     }
     defer sdl.SDL_ReleaseWindowFromGPUDevice(device, window);
 
-    const vertices: [4]Vertex = .{
-        .{ .pos = .{ -0.5, 0.5, 0 }, .color = .{ 0, 1, 0, 1 } }, // Top left
-        .{ .pos = .{ 0.5, 0.5, 0 }, .color = .{ 0, 1, 1, 1 } }, // Top right
-        .{ .pos = .{ -0.5, -0.5, 0 }, .color = .{ 1, 0, 1, 1 } }, // Bottom left
-        .{ .pos = .{ 0.5, -0.5, 0 }, .color = .{ 0, 0, 1, 1 } }, // Bottom right
+    const vertices: [4]VertexData = .{
+        .{ .pos = .{ -0.5, 0.5, 0 }, .color = .init(1, 1, 0, 1) }, // Top left
+        .{ .pos = .{ 0.5, 0.5, 0 }, .color = .init(0, 1, 1, 1) }, // Top right
+        .{ .pos = .{ -0.5, -0.5, 0 }, .color = .init(1, 0, 1, 1) }, // Bottom left
+        .{ .pos = .{ 0.5, -0.5, 0 }, .color = .init(0, 0, 1, 1) }, // Bottom right
     };
     const vertex_bytes = std.mem.asBytes(&vertices);
     const vertex_buffer = sdl.SDL_CreateGPUBuffer(device, &.{
@@ -156,12 +156,12 @@ pub fn main() !void {
             .{
                 .location = 0,
                 .format = .float3,
-                .offset = @offsetOf(Vertex, "pos"),
+                .offset = @offsetOf(VertexData, "pos"),
             },
             .{
                 .location = 1,
                 .format = .float4,
-                .offset = @offsetOf(Vertex, "color"),
+                .offset = @offsetOf(VertexData, "color"),
             },
         };
 
@@ -178,7 +178,7 @@ pub fn main() !void {
                 .num_vertex_buffers = 1,
                 .vertex_buffer_descriptions = &.{
                     .slot = 0,
-                    .pitch = @sizeOf(Vertex),
+                    .pitch = @sizeOf(VertexData),
                     .input_rate = .vertex,
                     .instance_step_rate = 0,
                 },
@@ -212,6 +212,8 @@ pub fn main() !void {
     );
 
     var rot: f32 = 1;
+    var trans: f32 = 1;
+    var trans_step: f32 = 0.1;
     var rot_mat: Matrix = undefined;
     var trans_mat: Matrix = undefined;
     var model_mat: Matrix = undefined;
@@ -219,8 +221,11 @@ pub fn main() !void {
 
     while (running) {
         defer rot += 0.05;
+        defer trans += trans_step;
+        if (trans > 10 or trans < 1) trans_step = -trans_step;
+
         rot_mat = .rotateY(rot);
-        trans_mat = .translateZ(-5);
+        trans_mat = .translateZ(-trans);
         model_mat = trans_mat.mul(rot_mat);
         ubo = .{ .mod_view_proj = proj_mat.mul(model_mat).col_maj() };
 
@@ -253,7 +258,7 @@ pub fn main() !void {
                 if (swapchain_texture) |swapchain_tex| {
                     var col_targ_info: sdl.SDL_GPUColorTargetInfo = .{
                         .texture = swapchain_tex,
-                        .clear_color = .{ .r = 0.1, .g = 0.3, .b = 0.3, .a = 1 },
+                        .clear_color = .{ .r = 0, .g = 0, .b = 0, .a = 1 },
                         .load_op = .clear,
                         .store_op = .store,
                     };
@@ -269,7 +274,6 @@ pub fn main() !void {
                     }, 1);
 
                     sdl.SDL_PushGPUVertexUniformData(cmdbuf, 0, &ubo, @sizeOf(UBO));
-                    // sdl.SDL_DrawGPUPrimitives(renderpass, @intCast(vertices.len), 1, 0, 0);
                     sdl.SDL_DrawGPUIndexedPrimitives(renderpass, @intCast(indices.len), 1, 0, 0, 0);
 
                     sdl.SDL_EndGPURenderPass(renderpass);
@@ -320,32 +324,61 @@ fn load_shader(
 }
 
 const Color = struct {
-    r: u8,
-    g: u8,
-    b: u8,
-    a: u8,
+    data: Vec4f32,
 
-    pub const black: Color = .{ .r = 0, .g = 0, .b = 0, .a = 0 };
-    pub const white: Color = .{ .r = 255, .g = 255, .b = 255, .a = 255 };
-    pub const lm_green: Color = .{ .r = 25, .g = 80, .b = 80, .a = 255 };
-    pub const green: Color = .{ .r = 10, .g = 200, .b = 10, .a = 255 };
-    pub const red: Color = .{ .r = 255, .g = 80, .b = 80, .a = 255 };
-    pub const purple: Color = .{ .r = 135, .g = 23, .b = 152, .a = 255 };
+    pub fn init(r: f32, g: f32, b: f32, a: f32) Color {
+        return .{ .data = .{ r, g, b, a } };
+    }
+    pub fn init_rgba32(r: u8, g: u8, b: u8, a: u8) Color {
+        return .init(
+            (@as(f32, @floatFromInt(r)) / 255),
+            (@as(f32, @floatFromInt(g)) / 255),
+            (@as(f32, @floatFromInt(b)) / 255),
+            (@as(f32, @floatFromInt(a)) / 255),
+        );
+    }
+
+    pub const black: Color = .init_rgba32(0, 0, 0, 0);
+    pub const blue: Color = .init_rgba32(0, 0, 255, 255);
+    pub const blue_2: Color = .init_rgba32(80, 80, 255, 255);
+    pub const brown: Color = .init_rgba32(156, 105, 34, 255);
+    pub const gray: Color = .init_rgba32(150, 150, 150, 255);
+    pub const gray_2: Color = .init_rgba32(90, 90, 90, 255);
+    pub const green: Color = .init_rgba32(10, 200, 10, 255);
+    pub const lm_green: Color = .init_rgba32(25, 80, 80, 255);
+    pub const orange: Color = .init_rgba32(255, 165, 0, 255);
+    pub const peach: Color = .init_rgba32(255, 170, 128, 255);
+    pub const purple: Color = .init_rgba32(135, 23, 152, 255);
+    pub const red: Color = .init_rgba32(255, 80, 80, 255);
+    pub const sage: Color = .init_rgba32(13, 154, 84, 255);
+    pub const teal: Color = .init_rgba32(42, 74, 74, 255);
+    pub const white: Color = .init_rgba32(255, 255, 255, 255);
+    pub const yellow: Color = .init_rgba32(234, 234, 50, 255);
 };
 
-const Vertex = struct {
-    pos: Vec3f32,
-    color: Vec4f32,
+const VertexData = struct {
+    pos: Vec3f32 align(16),
+    color: Color align(16),
 };
 
 const UBO = struct {
     mod_view_proj: Matrix,
 };
 
+// Progam Constants
+const log = std.log.scoped(.app);
+const exit_key: sdl.SDL_Scancode = if (builtin.mode == .Debug) .q else .unknown;
+
+// external namespaces
+const stbi = stb.Image;
+
+// Codebase Types / Namespaces
 const Matrix = math.Matrix;
+const Vec2i32 = math.Vec2i32;
 const Vec3f32 = math.Vec3f32;
 const Vec4f32 = math.Vec4f32;
 
+// SDL Helpers
 fn fmtSdlDrivers(
     current_driver: [*:0]const u8,
     num_drivers: c_int,
@@ -358,7 +391,7 @@ fn fmtSdlDrivers(
     } };
 }
 
-fn formatSdlDrivers(
+inline fn formatSdlDrivers(
     context: struct {
         current_driver: [*:0]const u8,
         num_drivers: c_int,
