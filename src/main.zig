@@ -101,9 +101,6 @@ pub fn main() !void {
         .size = @intCast(index_bytes.len),
     });
 
-    // TODO:
-    // - create a shader sampler
-    // - make shader sample colors from texture
     var texture: ?*sdl.SDL_GPUTexture = undefined;
 
     // Vertex buffer upload
