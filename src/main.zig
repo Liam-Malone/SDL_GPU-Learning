@@ -82,34 +82,79 @@ pub fn main() !void {
         running = false;
     }
     defer sdl.SDL_ReleaseWindowFromGPUDevice(device, window);
+    sdl.SDL_SetLogPriorities(sdl.SDL_LOG_PRIORITY_VERBOSE);
 
-    log.debug("Loading obj model :: {s}", .{"assets/vehicle-monster-truck.obj"});
-    const model: Model = .from_file(arena, "assets/vehicle-monster-truck.obj");
-    log.debug("Model info :: vertex count={d}, material count={d}", .{
+    // const obj_file = "assets/vehicle-racer-low.obj";
+    // const obj_file = "assets/vehicle-monster-truck.obj";
+    const obj_file = "assets/sedan-sports.obj";
+
+    log.debug("Loading obj model :: {s}", .{obj_file});
+    const model: Model = .from_file(arena, obj_file);
+    log.debug("Model info :: vertex count={d}, face count={d}, material count={d}", .{
         model.vertices.len,
+        model.faces.len,
         model.materials.len,
     });
+
     log.debug("Model material info :: name={s}, texmap={s}", .{
         model.materials[0].name,
         if (model.materials[0].texture_map) |name| name else "NONE",
     });
 
-    const vertices: [4]VertexData = .{
+    const vertex_count = (model.faces.len * model.faces[0].vertices.len);
+    const model_vertices = arena.push(VertexData, vertex_count);
+    const model_indices = arena.push(u16, vertex_count);
+
+    var model_vertex_idx: usize = 0;
+    for (model.faces) |*face| {
+        inline for (0..3) |idx| {
+            const vert_idx = face.vertices[idx].vertex_idx;
+            const vert = model.vertices[vert_idx];
+            const uv_idx = face.vertices[idx].texcoord_idx;
+            const texcoord = model.tex_coords[uv_idx];
+
+            const color: Color = if (vert.color) |col|
+                .init(col.r, col.g, col.b, 1)
+            else
+                .white;
+
+            model_vertices[model_vertex_idx] = .{
+                .pos = vert.coords,
+                .uv = texcoord,
+                .color = color,
+            };
+            model_indices[model_vertex_idx] = @intCast(model_vertex_idx);
+            model_vertex_idx += 1;
+        }
+    }
+
+    const rect_vertices: [4]VertexData = .{
         .{ .pos = .{ -0.5, 0.5, 0 }, .color = .init(1, 1, 0, 1), .uv = .{ 0, 0 } }, // Top left
         .{ .pos = .{ 0.5, 0.5, 0 }, .color = .init(0, 1, 1, 1), .uv = .{ 1, 0 } }, // Top right
         .{ .pos = .{ -0.5, -0.5, 0 }, .color = .init(1, 0, 1, 1), .uv = .{ 0, 1 } }, // Bottom left
         .{ .pos = .{ 0.5, -0.5, 0 }, .color = .init(0, 0, 1, 1), .uv = .{ 1, 1 } }, // Bottom right
     };
+
+    const rect_indices: [6]u16 = .{
+        0, 1, 2,
+        2, 1, 3,
+    };
+
+    _ = &rect_vertices;
+    _ = &rect_indices;
+    _ = &model_vertices;
+    _ = &model_indices;
+
+    // const vertices = rect_vertices;
+    // const indices = rect_indices;
+    const vertices = model_vertices;
+    const indices = model_indices;
+
     const vertex_bytes = std.mem.asBytes(&vertices);
     const vertex_buffer = sdl.SDL_CreateGPUBuffer(device, &.{
         .usage = .{ .vertex = true },
         .size = @intCast(vertex_bytes.len),
     });
-
-    const indices: [6]u16 = .{
-        0, 1, 2,
-        2, 1, 3,
-    };
     const index_bytes = std.mem.asBytes(&indices);
     const index_buffer = sdl.SDL_CreateGPUBuffer(device, &.{
         .usage = .{ .index = true },
@@ -123,7 +168,8 @@ pub fn main() !void {
         const temp = arena.temp();
         defer temp.end();
 
-        const file = try std.fs.cwd().openFile("assets/pattern.png", .{});
+        const file = try std.fs.cwd().openFile("assets/colormap.png", .{});
+        // const file = try std.fs.cwd().openFile("assets/pattern.png", .{});
         defer file.close();
 
         const bytes = try file.readToEndAlloc(temp.arena.allocator(), math.maxInt(usize));
@@ -250,6 +296,7 @@ pub fn main() !void {
             .fragment_shader = frag_shader,
             .rasterizer_state = .{
                 .fill_mode = .fill,
+                .cull_mode = .none,
             },
         };
 
@@ -274,8 +321,9 @@ pub fn main() !void {
     );
 
     var rot: f32 = 1;
-    var trans: f32 = 1;
+    const trans: f32 = 1;
     var trans_step: f32 = 0.1;
+    _ = &trans_step;
     var rot_mat: Matrix = undefined;
     var trans_mat: Matrix = undefined;
     var model_mat: Matrix = undefined;
@@ -283,8 +331,8 @@ pub fn main() !void {
 
     while (running) {
         defer rot += 0.05;
-        defer trans += trans_step;
-        if (trans > 10 or trans < 1) trans_step = -trans_step;
+        // defer trans += trans_step;
+        // if (trans > 10 or trans < 1) trans_step = -trans_step;
 
         rot_mat = .rotateY(rot);
         trans_mat = .translateZ(-trans);
@@ -320,7 +368,7 @@ pub fn main() !void {
                 if (swapchain_texture) |swapchain_tex| {
                     var col_targ_info: sdl.SDL_GPUColorTargetInfo = .{
                         .texture = swapchain_tex,
-                        .clear_color = .{ .r = 0, .g = 0, .b = 0, .a = 1 },
+                        .clear_color = .{ .r = 0.1, .g = 0.3, .b = 0.3, .a = 1 },
                         .load_op = .clear,
                         .store_op = .store,
                     };
@@ -426,7 +474,7 @@ const Color = struct {
 const VertexData = struct {
     pos: Vec3f32 align(16),
     color: Color align(16),
-    uv: [2]f32,
+    uv: [2]f32 align(16),
 };
 
 const UBO = struct {

@@ -4102,7 +4102,13 @@ pub const SDL_GPUFillMode = enum_SDL_GPUFillMode;
 pub const SDL_GPU_CULLMODE_NONE: c_int = 0;
 pub const SDL_GPU_CULLMODE_FRONT: c_int = 1;
 pub const SDL_GPU_CULLMODE_BACK: c_int = 2;
-pub const enum_SDL_GPUCullMode = c_uint;
+// pub const enum_SDL_GPUCullMode = c_uint;
+// @edit enum_SDL_GPUCullMode -> Zig enum
+pub const enum_SDL_GPUCullMode = enum(c_uint) {
+    none = 0,
+    front = 1,
+    back = 2,
+};
 pub const SDL_GPUCullMode = enum_SDL_GPUCullMode;
 pub const SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE: c_int = 0;
 pub const SDL_GPU_FRONTFACE_CLOCKWISE: c_int = 1;

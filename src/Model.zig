@@ -146,9 +146,7 @@ pub fn from_mem(arena: *Arena, data: []const u8) Model {
                         std.fmt.parseFloat(f32, b) catch unreachable,
                     };
                 };
-                const tex_coord: TextureCoord = .{
-                    .coord = .{ .x = x, .y = y },
-                };
+                const tex_coord: TextureCoord = .{ x, y };
 
                 const tex_coord_node = scratch.arena.create(TexCoordQueue.Node);
                 tex_coord_node.* = .{
@@ -282,7 +280,7 @@ pub fn from_file(arena: *Arena, filename: []const u8) Model {
             break :blk .nil;
         };
         defer file.close();
-        const file_data = file.readToEndAlloc(scratch.allocator(), math.maxInt(usize)) catch |err| {
+        const file_data = file.readToEndAlloc(scratch.allocator(), math.maxInt(u32)) catch |err| {
             log.err("Failed to load object file '{s}' with err :: {s}", .{ filename, @errorName(err) });
             break :blk .nil;
         };
@@ -362,7 +360,7 @@ pub const Material = struct {
                 break :blk .nil;
             };
             defer file.close();
-            const file_data = file.readToEndAlloc(scratch.allocator(), math.maxInt(usize)) catch |err| {
+            const file_data = file.readToEndAlloc(scratch.allocator(), math.maxInt(u32)) catch |err| {
                 log.err("Failed to load object file '{s}' with err :: {s}", .{ filename, @errorName(err) });
                 break :blk .nil;
             };
@@ -380,9 +378,7 @@ pub const Vertex = struct {
     color: ?Color,
 };
 
-pub const TextureCoord = struct {
-    coord: Vec2f32,
-};
+pub const TextureCoord = [2]f32;
 
 pub const Normal = struct {
     coords: Vec3f32,
@@ -392,7 +388,7 @@ pub const Face = struct {
     vertices: []Face.Vertex,
     material_idx: u32,
 
-    const Vertex = struct {
+    pub const Vertex = struct {
         vertex_idx: u32,
         texcoord_idx: u32,
         normal_idx: u32,
