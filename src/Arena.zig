@@ -92,10 +92,10 @@ pub fn init(params: InitParams) *Arena {
         if (ptr) |p| {
             if (flags.large_pages) {
                 if (!mem_commit_large(p[0..commit_size]))
-                    std.debug.print("Failed Large ({d} Bytes) Page Commit\n", .{commit_size});
+                    log.debug("Failed Large ({d} Bytes) Page Commit\n", .{commit_size});
             } else {
                 if (!mem_commit(p[0..commit_size]))
-                    std.debug.print("Failed {d}KB Page(s) Commit\n", .{std.heap.page_size_min});
+                    log.debug("Failed {d}KB Page(s) Commit\n", .{std.heap.page_size_min});
             }
         }
 
@@ -104,7 +104,7 @@ pub fn init(params: InitParams) *Arena {
         const ptr = mem_reserve(reserve_size);
         if (ptr) |p|
             if (!mem_commit(p[0..commit_size]))
-                std.debug.print("Failed {d}KB Page(s) Commit\n", .{std.heap.page_size_min});
+                log.debug("Failed {d}KB Page(s) Commit\n", .{std.heap.page_size_min});
 
         break :base ptr;
     };
@@ -244,13 +244,13 @@ pub fn _push_impl(arena: *Arena, size: usize, @"align": usize) []u8 {
         const cmt_range = ptr[cur.cmt .. cur.cmt + cmt_size];
         if (cur.flags.large_pages) {
             if (!mem_commit_large(@alignCast(cmt_range)))
-                std.debug.print("Failed to commit large page of mem: [{d}..{d}]\n", .{
+                log.debug("Failed to commit large page of mem: [{d}..{d}]\n", .{
                     cur.cmt,
                     cur.cmt + cmt_size,
                 });
         } else {
             if (!mem_commit(@alignCast(cmt_range)))
-                std.debug.print("Failed to commit page of mem: [{d}..{d}]\n", .{
+                log.debug("Failed to commit page of mem: [{d}..{d}]\n", .{
                     cur.cmt,
                     cur.cmt + cmt_size,
                 });
@@ -452,6 +452,9 @@ pub const Temp = packed struct {
     arena: *Arena,
     pos: usize,
 
+    pub fn allocator(tmp: *const Temp) std.mem.Allocator {
+        return tmp.arena.allocator();
+    }
     pub fn end(tmp: *const Temp) void {
         tmp.arena.pop_to(tmp.pos);
     }

@@ -6,11 +6,15 @@ const builtin = @import("builtin");
 const sdl = @import("external/sdl.zig");
 const stb = @import("external/stb.zig");
 const math = @import("math.zig");
-const UI = @import("ui.zig");
+const base = @import("base.zig");
 
 const Arena = @import("Arena.zig");
+const Model = @import("Model.zig");
+const UI = @import("ui.zig");
 
 pub fn main() !void {
+    Thread.init_ctx();
+
     const arena: *Arena = .init(.default);
     defer arena.release();
 
@@ -78,6 +82,17 @@ pub fn main() !void {
         running = false;
     }
     defer sdl.SDL_ReleaseWindowFromGPUDevice(device, window);
+
+    log.debug("Loading obj model :: {s}", .{"assets/vehicle-monster-truck.obj"});
+    const model: Model = .from_file(arena, "assets/vehicle-monster-truck.obj");
+    log.debug("Model info :: vertex count={d}, material count={d}", .{
+        model.vertices.len,
+        model.materials.len,
+    });
+    log.debug("Model material info :: name={s}, texmap={s}", .{
+        model.materials[0].name,
+        if (model.materials[0].texture_map) |name| name else "NONE",
+    });
 
     const vertices: [4]VertexData = .{
         .{ .pos = .{ -0.5, 0.5, 0 }, .color = .init(1, 1, 0, 1), .uv = .{ 0, 0 } }, // Top left
@@ -430,6 +445,9 @@ const Matrix = math.Matrix;
 const Vec2i32 = math.Vec2i32;
 const Vec3f32 = math.Vec3f32;
 const Vec4f32 = math.Vec4f32;
+
+const Thread = base.Thread;
+const Context = base.Context;
 
 // SDL Helpers
 fn fmtSdlDrivers(
