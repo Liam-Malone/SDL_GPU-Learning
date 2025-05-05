@@ -4123,7 +4123,21 @@ pub const SDL_GPU_COMPAREOP_GREATER: c_int = 5;
 pub const SDL_GPU_COMPAREOP_NOT_EQUAL: c_int = 6;
 pub const SDL_GPU_COMPAREOP_GREATER_OR_EQUAL: c_int = 7;
 pub const SDL_GPU_COMPAREOP_ALWAYS: c_int = 8;
-pub const enum_SDL_GPUCompareOp = c_uint;
+
+// pub const enum_SDL_GPUCompareOp = c_uint;
+// @edit enum_SDL_GPUCompareOp -> Zig enum
+pub const enum_SDL_GPUCompareOp = enum(c_uint) {
+    invalid = 0,
+    never = 1,
+    less = 2,
+    equal = 3,
+    less_or_equal = 4,
+    greater = 5,
+    not_equal = 6,
+    greater_or_equal = 7,
+    always = 8,
+};
+
 pub const SDL_GPUCompareOp = enum_SDL_GPUCompareOp;
 pub const SDL_GPU_STENCILOP_INVALID: c_int = 0;
 pub const SDL_GPU_STENCILOP_KEEP: c_int = 1;

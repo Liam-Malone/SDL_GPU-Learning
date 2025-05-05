@@ -107,7 +107,7 @@ pub fn main() !void {
 
             vertices[vertex_idx] = .{
                 .pos = vert.coords,
-                .uv = texcoord,
+                .uv = .{ texcoord[0], -texcoord[1] },
                 .color = color,
             };
             indices[vertex_idx] = @intCast(vertex_idx);
@@ -126,7 +126,7 @@ pub fn main() !void {
         .size = @intCast(index_bytes.len),
     });
 
-    var texture: ?*sdl.SDL_GPUTexture = undefined;
+    var texture: ?*sdl.SDL_GPUTexture = null;
 
     // Vertex buffer upload
     {
@@ -213,6 +213,16 @@ pub fn main() !void {
         );
     }
 
+    const depth_texture_fmt: sdl.SDL_GPUTextureFormat = .d24_unorm;
+    const depth_texture = sdl.SDL_CreateGPUTexture(device, &.{
+        .format = depth_texture_fmt,
+        .usage = .{ .depth_stencil_target = true },
+        .width = @intCast(window_w),
+        .height = @intCast(window_h),
+        .layer_count_or_depth = 1,
+        .num_levels = 1,
+    });
+
     const sampler = sdl.SDL_CreateGPUSampler(device, &.{
         .address_mode_u = .repeat,
         .address_mode_v = .repeat,
@@ -244,13 +254,6 @@ pub fn main() !void {
             .fragment_shader = frag_shader,
             .primitive_type = .trianglelist,
 
-            .target_info = .{
-                .num_color_targets = 1,
-                .color_target_descriptions = &.{
-                    .format = sdl.SDL_GetGPUSwapchainTextureFormat(device, window),
-                },
-            },
-
             .vertex_input_state = .{
                 .num_vertex_buffers = 1,
                 .vertex_buffer_descriptions = &.{
@@ -263,9 +266,24 @@ pub fn main() !void {
                 .vertex_attributes = &vertex_attrs,
             },
 
+            .depth_stencil_state = .{
+                .compare_op = .less,
+                .enable_depth_test = true,
+                .enable_depth_write = true,
+            },
+
             .rasterizer_state = .{
                 .fill_mode = .fill,
                 .cull_mode = .none,
+            },
+
+            .target_info = .{
+                .num_color_targets = 1,
+                .color_target_descriptions = &.{
+                    .format = sdl.SDL_GetGPUSwapchainTextureFormat(device, window),
+                },
+                .has_depth_stencil_target = true,
+                .depth_stencil_format = depth_texture_fmt,
             },
         };
 
@@ -290,22 +308,20 @@ pub fn main() !void {
     );
 
     var rot: f32 = 1;
-    const trans: f32 = 2;
-    var trans_step: f32 = 0.1;
-    _ = &trans_step;
+    const trans_z: f32 = 2;
+    const trans_y: f32 = 0.5;
     var rot_mat: Matrix = undefined;
     var trans_mat: Matrix = undefined;
     var model_mat: Matrix = undefined;
     var ubo: UBO = undefined;
 
+    const trans_y_mat: Matrix = .translateY(-trans_y);
     while (running) {
         defer rot += 0.05;
-        // defer trans += trans_step;
-        // if (trans > 10 or trans < 1) trans_step = -trans_step;
 
         rot_mat = .rotateY(rot);
-        trans_mat = .translateZ(-trans);
-        model_mat = trans_mat.mul(rot_mat);
+        trans_mat = .translateZ(-trans_z);
+        model_mat = trans_mat.mul(trans_y_mat.mul(rot_mat));
         ubo = .{ .mod_view_proj = proj_mat.mul(model_mat).col_maj() };
 
         _ = sdl.SDL_GetWindowSize(window, &window_w, &window_h);
@@ -341,8 +357,15 @@ pub fn main() !void {
                         .load_op = .clear,
                         .store_op = .store,
                     };
+                    var depth_texture_targ_info: sdl.SDL_GPUDepthStencilTargetInfo = .{
+                        .texture = depth_texture,
+                        .clear_depth = 1,
+                        .load_op = .clear,
+                        .store_op = .dont_care,
+                        .cycle = false,
+                    };
 
-                    const renderpass = sdl.SDL_BeginGPURenderPass(cmdbuf, &col_targ_info, 1, null);
+                    const renderpass = sdl.SDL_BeginGPURenderPass(cmdbuf, &col_targ_info, 1, &depth_texture_targ_info);
                     sdl.SDL_BindGPUGraphicsPipeline(renderpass, fill_pipeline);
                     sdl.SDL_BindGPUVertexBuffers(renderpass, 0, &.{
                         .buffer = vertex_buffer,
