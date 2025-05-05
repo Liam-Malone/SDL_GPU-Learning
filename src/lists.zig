@@ -1,5 +1,3 @@
-// Copyright (c) Liam Malone. All rights reserved.
-
 const std = @import("std");
 
 /// Given child type `T`, asserts child type contains required linking pointers

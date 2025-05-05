@@ -1,5 +1,3 @@
-// Copyright (c) Liam Malone. All rights reserved.
-
 const std = @import("std");
 
 const math = @import("math.zig");
@@ -137,7 +135,7 @@ pub fn from_mem(arena: *Arena, data: []const u8) Model {
                 };
                 face_queue.push(face_node);
             } else if (std.mem.eql(u8, tok, "vt")) {
-                const x, const y = xy: {
+                const u, const v = xy: {
                     const a = tok_iter.next().?;
                     const b = tok_iter.next().?;
 
@@ -146,7 +144,7 @@ pub fn from_mem(arena: *Arena, data: []const u8) Model {
                         std.fmt.parseFloat(f32, b) catch unreachable,
                     };
                 };
-                const tex_coord: TextureCoord = .{ x, y };
+                const tex_coord: TextureCoord = .{ u, v };
 
                 const tex_coord_node = scratch.arena.create(TexCoordQueue.Node);
                 tex_coord_node.* = .{
@@ -280,7 +278,7 @@ pub fn from_file(arena: *Arena, filename: []const u8) Model {
             break :blk .nil;
         };
         defer file.close();
-        const file_data = file.readToEndAlloc(scratch.allocator(), math.maxInt(u32)) catch |err| {
+        const file_data = file.readToEndAlloc(scratch.allocator(), math.maxInt(usize)) catch |err| {
             log.err("Failed to load object file '{s}' with err :: {s}", .{ filename, @errorName(err) });
             break :blk .nil;
         };
@@ -360,7 +358,7 @@ pub const Material = struct {
                 break :blk .nil;
             };
             defer file.close();
-            const file_data = file.readToEndAlloc(scratch.allocator(), math.maxInt(u32)) catch |err| {
+            const file_data = file.readToEndAlloc(scratch.allocator(), math.maxInt(usize)) catch |err| {
                 log.err("Failed to load object file '{s}' with err :: {s}", .{ filename, @errorName(err) });
                 break :blk .nil;
             };
@@ -374,8 +372,7 @@ pub const Material = struct {
 
 pub const Vertex = struct {
     coords: Vec3f32,
-    /// RGB color values, normalized in [0,1]
-    color: ?Color,
+    color: Color,
 };
 
 pub const TextureCoord = [2]f32;

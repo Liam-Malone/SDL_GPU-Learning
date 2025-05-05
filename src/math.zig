@@ -1,5 +1,3 @@
-// Copyright (c) Liam Malone. All rights reserved.
-
 const std = @import("std");
 const builtin = @import("builtin");
 const cpu_arch = builtin.cpu.arch;

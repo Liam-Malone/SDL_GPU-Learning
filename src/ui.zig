@@ -1,5 +1,3 @@
-// Copyright (c) Liam Malone. All rights reserved.
-
 const std = @import("std");
 const math = @import("math.zig");
 const sdl = @import("external/sdl.zig");

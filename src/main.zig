@@ -1,5 +1,3 @@
-// Copyright (c) Liam Malone. All rights reserved.
-
 const std = @import("std");
 const builtin = @import("builtin");
 
@@ -84,28 +82,15 @@ pub fn main() !void {
     defer sdl.SDL_ReleaseWindowFromGPUDevice(device, window);
     sdl.SDL_SetLogPriorities(sdl.SDL_LOG_PRIORITY_VERBOSE);
 
-    // const obj_file = "assets/vehicle-racer-low.obj";
-    // const obj_file = "assets/vehicle-monster-truck.obj";
-    const obj_file = "assets/sedan-sports.obj";
+    const obj_file = "assets/vehicle-racer-low.obj";
 
-    log.debug("Loading obj model :: {s}", .{obj_file});
     const model: Model = .from_file(arena, obj_file);
-    log.debug("Model info :: vertex count={d}, face count={d}, material count={d}", .{
-        model.vertices.len,
-        model.faces.len,
-        model.materials.len,
-    });
-
-    log.debug("Model material info :: name={s}, texmap={s}", .{
-        model.materials[0].name,
-        if (model.materials[0].texture_map) |name| name else "NONE",
-    });
 
     const vertex_count = (model.faces.len * model.faces[0].vertices.len);
-    const model_vertices = arena.push(VertexData, vertex_count);
-    const model_indices = arena.push(u16, vertex_count);
+    const vertices = arena.push(VertexData, vertex_count);
+    const indices = arena.push(u16, vertex_count);
 
-    var model_vertex_idx: usize = 0;
+    var vertex_idx: usize = 0;
     for (model.faces) |*face| {
         inline for (0..3) |idx| {
             const vert_idx = face.vertices[idx].vertex_idx;
@@ -113,49 +98,29 @@ pub fn main() !void {
             const uv_idx = face.vertices[idx].texcoord_idx;
             const texcoord = model.tex_coords[uv_idx];
 
-            const color: Color = if (vert.color) |col|
-                .init(col.r, col.g, col.b, 1)
-            else
-                .white;
+            const color: Color = .init(
+                vert.color.r,
+                vert.color.g,
+                vert.color.b,
+                1,
+            );
 
-            model_vertices[model_vertex_idx] = .{
+            vertices[vertex_idx] = .{
                 .pos = vert.coords,
                 .uv = texcoord,
                 .color = color,
             };
-            model_indices[model_vertex_idx] = @intCast(model_vertex_idx);
-            model_vertex_idx += 1;
+            indices[vertex_idx] = @intCast(vertex_idx);
+            vertex_idx += 1;
         }
     }
 
-    const rect_vertices: [4]VertexData = .{
-        .{ .pos = .{ -0.5, 0.5, 0 }, .color = .init(1, 1, 0, 1), .uv = .{ 0, 0 } }, // Top left
-        .{ .pos = .{ 0.5, 0.5, 0 }, .color = .init(0, 1, 1, 1), .uv = .{ 1, 0 } }, // Top right
-        .{ .pos = .{ -0.5, -0.5, 0 }, .color = .init(1, 0, 1, 1), .uv = .{ 0, 1 } }, // Bottom left
-        .{ .pos = .{ 0.5, -0.5, 0 }, .color = .init(0, 0, 1, 1), .uv = .{ 1, 1 } }, // Bottom right
-    };
-
-    const rect_indices: [6]u16 = .{
-        0, 1, 2,
-        2, 1, 3,
-    };
-
-    _ = &rect_vertices;
-    _ = &rect_indices;
-    _ = &model_vertices;
-    _ = &model_indices;
-
-    // const vertices = rect_vertices;
-    // const indices = rect_indices;
-    const vertices = model_vertices;
-    const indices = model_indices;
-
-    const vertex_bytes = std.mem.asBytes(&vertices);
+    const vertex_bytes = std.mem.sliceAsBytes(vertices);
     const vertex_buffer = sdl.SDL_CreateGPUBuffer(device, &.{
         .usage = .{ .vertex = true },
         .size = @intCast(vertex_bytes.len),
     });
-    const index_bytes = std.mem.asBytes(&indices);
+    const index_bytes = std.mem.sliceAsBytes(indices);
     const index_buffer = sdl.SDL_CreateGPUBuffer(device, &.{
         .usage = .{ .index = true },
         .size = @intCast(index_bytes.len),
@@ -169,7 +134,6 @@ pub fn main() !void {
         defer temp.end();
 
         const file = try std.fs.cwd().openFile("assets/colormap.png", .{});
-        // const file = try std.fs.cwd().openFile("assets/pattern.png", .{});
         defer file.close();
 
         const bytes = try file.readToEndAlloc(temp.arena.allocator(), math.maxInt(usize));
@@ -184,6 +148,7 @@ pub fn main() !void {
             4,
         );
         defer stbi.stbi_image_free(image_bytes);
+
         const image_bytes_len = image_dims.x * image_dims.y * 4;
         texture = sdl.SDL_CreateGPUTexture(device, &.{
             .format = .r8g8b8a8_unorm,
@@ -199,6 +164,7 @@ pub fn main() !void {
             .size = @intCast(image_bytes_len),
         });
         defer sdl.SDL_ReleaseGPUTransferBuffer(device, tex_transfer_buf);
+
         const tex_transfer_mem = sdl.SDL_MapGPUTransferBuffer(device, tex_transfer_buf, false);
         @memcpy(@as([*]u8, @ptrCast(tex_transfer_mem)), image_bytes[0..@intCast(image_bytes_len)]);
         sdl.SDL_UnmapGPUTransferBuffer(device, tex_transfer_buf);
@@ -274,14 +240,17 @@ pub fn main() !void {
         } };
 
         var pipeline_info: sdl.SDL_GPUGraphicsPipelineCreateInfo = .{
+            .vertex_shader = vert_shader,
+            .fragment_shader = frag_shader,
+            .primitive_type = .trianglelist,
+
             .target_info = .{
                 .num_color_targets = 1,
                 .color_target_descriptions = &.{
                     .format = sdl.SDL_GetGPUSwapchainTextureFormat(device, window),
                 },
             },
-            .primitive_type = .trianglelist,
-            .vertex_shader = vert_shader,
+
             .vertex_input_state = .{
                 .num_vertex_buffers = 1,
                 .vertex_buffer_descriptions = &.{
@@ -293,7 +262,7 @@ pub fn main() !void {
                 .num_vertex_attributes = @intCast(vertex_attrs.len),
                 .vertex_attributes = &vertex_attrs,
             },
-            .fragment_shader = frag_shader,
+
             .rasterizer_state = .{
                 .fill_mode = .fill,
                 .cull_mode = .none,
@@ -321,7 +290,7 @@ pub fn main() !void {
     );
 
     var rot: f32 = 1;
-    const trans: f32 = 1;
+    const trans: f32 = 2;
     var trans_step: f32 = 0.1;
     _ = &trans_step;
     var rot_mat: Matrix = undefined;
@@ -375,14 +344,12 @@ pub fn main() !void {
 
                     const renderpass = sdl.SDL_BeginGPURenderPass(cmdbuf, &col_targ_info, 1, null);
                     sdl.SDL_BindGPUGraphicsPipeline(renderpass, fill_pipeline);
-
-                    sdl.SDL_BindGPUIndexBuffer(renderpass, &.{
-                        .buffer = index_buffer,
-                    }, .@"16bit");
                     sdl.SDL_BindGPUVertexBuffers(renderpass, 0, &.{
                         .buffer = vertex_buffer,
                     }, 1);
-
+                    sdl.SDL_BindGPUIndexBuffer(renderpass, &.{
+                        .buffer = index_buffer,
+                    }, .@"16bit");
                     sdl.SDL_PushGPUVertexUniformData(cmdbuf, 0, &ubo, @sizeOf(UBO));
                     sdl.SDL_BindGPUFragmentSamplers(renderpass, 0, &.{
                         .texture = texture,
