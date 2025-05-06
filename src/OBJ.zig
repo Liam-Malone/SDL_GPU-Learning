@@ -13,9 +13,9 @@ faces: []Face,
 materials: []Material,
 groups: []Group,
 
-const Model = @This();
+const OBJ = @This();
 
-const nil: Model = .{
+const nil: OBJ = .{
     .vertices = &.{},
     .tex_coords = &.{},
     .normals = &.{},
@@ -24,7 +24,7 @@ const nil: Model = .{
     .groups = &.{},
 };
 
-pub fn from_mem(arena: *Arena, data: []const u8) Model {
+pub fn from_mem(arena: *Arena, data: []const u8) OBJ {
     const scratch = Thread.scratch_begin(1, .{arena}).?;
     defer scratch.end();
 
@@ -268,11 +268,11 @@ pub fn from_mem(arena: *Arena, data: []const u8) Model {
     };
 }
 
-pub fn from_file(arena: *Arena, filename: []const u8) Model {
+pub fn from_file(arena: *Arena, filename: []const u8) OBJ {
     const scratch = Thread.scratch_begin(1, .{arena}).?;
     defer scratch.end();
 
-    const result: Model = blk: {
+    const result: OBJ = blk: {
         const file = std.fs.cwd().openFile(filename, .{}) catch |err| {
             log.err("Failed to open object file '{s}' with err :: {s}", .{ filename, @errorName(err) });
             break :blk .nil;
@@ -406,7 +406,8 @@ const FaceQueue = NodeQueue(Face);
 const MaterialQueue = NodeQueue(Material);
 const GroupQueue = NodeQueue(Group);
 
-const log = std.log.scoped(.model);
+const log = std.log.scoped(.obj);
+
 // General Codebase Types
 const Vec2f32 = math.Vec2f32;
 const Vec3f32 = math.Vec3f32;
