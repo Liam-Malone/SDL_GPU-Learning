@@ -98,6 +98,6 @@ fi
 # Build section
 cd $bindir
 $compile_main &&
-    rm ./*.o &>/dev/null ; if [ -v run ]; then
+    rm ./*.o &>/dev/null && if [ -v run ]; then
         cd $root && $bindir/$name $program_args;
     fi

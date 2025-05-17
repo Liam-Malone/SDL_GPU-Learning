@@ -1,6 +1,31 @@
 const std = @import("std");
+const sdl = @import("external/sdl.zig");
+
+const math = @import("math.zig");
 
 const Arena = @import("Arena.zig");
+
+pub fn window_irect(noalias window: *Window) Rectf32 {
+    var irect: Recti32 = .zero;
+    _ = sdl.SDL_GetWindowPosition(window, &irect.x, &irect.y);
+    _ = sdl.SDL_GetWindowSize(window, &irect.w, &irect.h);
+
+    return irect;
+}
+pub fn window_frect(noalias window: *Window) Rectf32 {
+    var irect: Recti32 = .zero;
+    _ = sdl.SDL_GetWindowPosition(window, &irect.x, &irect.y);
+    _ = sdl.SDL_GetWindowSize(window, &irect.w, &irect.h);
+
+    return irect.toRectf32();
+}
+
+pub fn mouse_position(noalias window: *const Window) Vec2f32 {
+    _ = window;
+    var mpos_vec: Vec2f32 = @splat(0);
+    _ = sdl.SDL_GetMouseState(&mpos_vec[0], &mpos_vec[1]);
+    return mpos_vec;
+}
 
 pub const Thread = struct {
     threadlocal var scratch_arenas: [2]*Arena = undefined;
@@ -69,3 +94,27 @@ pub const Thread = struct {
     const Handle = std.Thread.Handle;
     const SpawnConfig = std.Thread.SpawnConfig;
 };
+
+pub const Input = struct {
+    // --- SDL FN ALIASES ---
+    pub fn poll_event(noalias event: *Event) bool {
+        return sdl.SDL_PollEvent(event);
+    }
+    
+    // --- SDL TYPE ALIASES ---
+    pub const Key = sdl.SDL_Scancode;
+    pub const MouseButton = sdl.MouseButton;
+    pub const Modifier = sdl.SDL_Keymod;
+    pub const Event = sdl.SDL_Event;
+};
+
+// General Codebase Types
+const Rectf32 = math.Rectf32;
+const Recti32 = math.Recti32;
+const Vec2f32 = math.Vec2f32;
+const Vec2i32 = math.Vec2i32;
+
+// --- SDL TYPE ALIASES ---
+pub const Window = sdl.SDL_Window;
+pub const WindowFlags = sdl.SDL_WindowFlags;
+

@@ -1,15 +1,29 @@
+// std imports
 const std = @import("std");
 const builtin = @import("builtin");
 
+// 3rd-party imports
 const sdl = @import("external/sdl.zig");
 const stb = @import("external/stb.zig");
+
+// codebase imports
 const math = @import("math.zig");
 const base = @import("base.zig");
+const gfx = @import("gfx.zig");
 
 const Arena = @import("Arena.zig");
 const OBJ = @import("OBJ.zig");
 const UI = @import("ui.zig");
 
+const EyeHeight = 1;
+
+var left_is_down: bool = false;
+var right_is_down: bool = false;
+var up_is_down: bool = false;
+var down_is_down: bool = false;
+
+var app_state: *State = undefined;
+var proj_mat: Matrix = undefined;
 pub fn main() !void {
     Thread.init_ctx();
 
@@ -18,72 +32,83 @@ pub fn main() !void {
 
     errdefer |err| if (err == error.SdlError) std.log.err("SDL error: {s}", .{sdl.GetError()});
     const state_opt: ?*State = .init(arena, "GPU", .verbose);
-    const state = state_opt orelse std.process.exit(1);
+    app_state = state_opt orelse std.process.exit(1);
     var running = true;
 
     const obj_file = "assets/vehicle-racer-low.obj";
-    const model: Model = .load(state, arena, obj_file, "assets/colormap.png");
+    const model: Model = .load(app_state, arena, obj_file, "assets/colormap.png");
 
     const depth_texture_fmt: sdl.GPUTextureFormat = .d24_unorm;
-    state.depth_texture = sdl.CreateGPUTexture(state.device, &.{
+    app_state.depth_texture = sdl.CreateGPUTexture(app_state.device, &.{
         .format = depth_texture_fmt,
         .usage = .{ .depth_stencil_target = true },
-        .width = @intCast(state.window_w),
-        .height = @intCast(state.window_h),
+        .width = @intCast(app_state.window_w),
+        .height = @intCast(app_state.window_h),
         .layer_count_or_depth = 1,
         .num_levels = 1,
     }) orelse unreachable;
 
-    const sampler = sdl.CreateGPUSampler(state.device, &.{
+    const sampler = sdl.CreateGPUSampler(app_state.device, &.{
         .address_mode_u = .repeat,
         .address_mode_v = .repeat,
     });
 
-    state.fill_pipeline, state.line_pipeline = pipelines: {
-        const vert_shader = try load_shader(arena, state.device, "vert.spv", 0, 1, 0, 0);
-        const frag_shader = try load_shader(arena, state.device, "frag.spv", 1, 0, 0, 0);
+    app_state.fill_pipeline, app_state.line_pipeline = pipelines: {
+        const vert_shader = try load_shader(arena, app_state.device, "vert.spv", 0, 1, 0, 0);
+        const frag_shader = try load_shader(arena, app_state.device, "frag.spv", 1, 0, 0, 0);
 
-        defer sdl.ReleaseGPUShader(state.device, vert_shader);
-        defer sdl.ReleaseGPUShader(state.device, frag_shader);
+        defer sdl.ReleaseGPUShader(app_state.device, vert_shader);
+        defer sdl.ReleaseGPUShader(app_state.device, frag_shader);
 
         break :pipelines .{
-            pipeline_create(state, vert_shader, frag_shader, .fill),
-            pipeline_create(state, vert_shader, frag_shader, .line),
+            pipeline_create(app_state, vert_shader, frag_shader, .fill),
+            pipeline_create(app_state, vert_shader, frag_shader, .line),
         };
     };
 
-    defer sdl.ReleaseGPUGraphicsPipeline(state.device, state.fill_pipeline);
-    defer sdl.ReleaseGPUGraphicsPipeline(state.device, state.line_pipeline);
-
     const far = 1000;
     const near = 0.0001;
-    const proj_mat: Matrix = .perspective(
+
+    proj_mat = .perspective(
         math.degToRad(60),
-        @floatFromInt(@divFloor(state.window_w, state.window_h)),
+        @floatFromInt(@divFloor(app_state.window_w, app_state.window_h)),
         near,
         far,
     );
 
+    const rect: Rectf32 = .{
+        .x = 10,
+        .y = 10,
+        .w = 200,
+        .h = 200,
+    };
+    const rect_draw_data = draw_rect(arena, app_state, &rect);
+    _ = &rect_draw_data;
+
     var rot: f32 = 1;
-    const trans_z: f32 = 2;
-    const trans_y: f32 = 0.5;
+    const trans_z: f32 = 0;
+    const trans_y: f32 = 0;
     var rot_mat: Matrix = undefined;
     var trans_mat: Matrix = undefined;
     var model_mat: Matrix = undefined;
+    var view_mat: Matrix = undefined;
     var ubo: UBO = undefined;
 
-    var cur_pipeline: *sdl.GPUGraphicsPipeline = state.fill_pipeline;
+    var cur_pipeline: *sdl.GPUGraphicsPipeline = app_state.line_pipeline;
 
     const trans_y_mat: Matrix = .translateY(-trans_y);
     while (running) {
         defer rot += 0.005;
-
+        // view_mat = .identity();
+        view_mat = .look_at(app_state.camera.position, app_state.camera.target, .{ 0, 1, 0 }, true);
         rot_mat = .rotateY(rot);
         trans_mat = .translateZ(-trans_z);
         model_mat = trans_mat.mul(trans_y_mat.mul(rot_mat));
-        ubo = .{ .mod_view_proj = proj_mat.mul(model_mat).col_maj() };
 
-        _ = sdl.GetWindowSize(state.window, &state.window_w, &state.window_h);
+        const mod_view_proj_mat = proj_mat.mul((view_mat.mul(model_mat)));
+        ubo = .{ .mod_view_proj = mod_view_proj_mat.col_maj() };
+
+        _ = sdl.GetWindowSize(app_state.window, &app_state.window_w, &app_state.window_h);
         // Process SDL events
         {
             var event: sdl.Event = undefined;
@@ -91,27 +116,39 @@ pub fn main() !void {
             while (sdl.PollEvent(&event)) {
                 switch (event.type) {
                     .quit => running = false,
-                    .key_down => {
-                        switch (event.key.scancode) {
-                            exit_key => running = false,
-                            .f5 => {
-                                cur_pipeline = if (cur_pipeline == state.fill_pipeline) state.line_pipeline else state.fill_pipeline;
-                            },
-                            else => {},
-                        }
+                    .key_down => switch (event.key.scancode) {
+                        exit_key => running = false,
+                        .f5 => {
+                            cur_pipeline = if (cur_pipeline == app_state.fill_pipeline) app_state.line_pipeline else app_state.fill_pipeline;
+                        },
+                        .w => up_is_down = true,
+                        .a => left_is_down = true,
+                        .s => down_is_down = true,
+                        .d => right_is_down = true,
+                        else => {},
+                    },
+                    .key_up => switch (event.key.scancode) {
+                        .w => up_is_down = false,
+                        .a => left_is_down = false,
+                        .s => down_is_down = false,
+                        .d => right_is_down = false,
+                        else => {},
                     },
                     else => {},
                 }
             }
         }
 
+        // TODO: Camera movement
+        update_cam(&app_state.camera);
+
         // Draw
         {
-            const cmdbuf = sdl.AcquireGPUCommandBuffer(state.device);
+            const cmdbuf = sdl.AcquireGPUCommandBuffer(app_state.device);
 
             var swapchain_texture: ?*sdl.GPUTexture = null;
 
-            if (sdl.WaitAndAcquireGPUSwapchainTexture(cmdbuf, state.window, &swapchain_texture, null, null)) {
+            if (sdl.WaitAndAcquireGPUSwapchainTexture(cmdbuf, app_state.window, &swapchain_texture, null, null)) {
                 if (swapchain_texture) |swapchain_tex| {
                     var col_targ_info: sdl.GPUColorTargetInfo = .{
                         .texture = swapchain_tex,
@@ -120,7 +157,7 @@ pub fn main() !void {
                         .store_op = .store,
                     };
                     var depth_texture_targ_info: sdl.GPUDepthStencilTargetInfo = .{
-                        .texture = state.depth_texture,
+                        .texture = app_state.depth_texture,
                         .clear_depth = 1,
                         .load_op = .clear,
                         .store_op = .dont_care,
@@ -129,19 +166,34 @@ pub fn main() !void {
 
                     const renderpass = sdl.BeginGPURenderPass(cmdbuf, &col_targ_info, 1, &depth_texture_targ_info);
                     sdl.BindGPUGraphicsPipeline(renderpass, cur_pipeline);
-                    sdl.BindGPUVertexBuffers(renderpass, 0, &.{
-                        .buffer = model.vertex_buf,
-                    }, 1);
-                    sdl.BindGPUIndexBuffer(renderpass, &.{
-                        .buffer = model.index_buf,
-                    }, .@"16bit");
-                    sdl.PushGPUVertexUniformData(cmdbuf, 0, &ubo, @sizeOf(UBO));
-                    sdl.BindGPUFragmentSamplers(renderpass, 0, &.{
-                        .texture = model.texture,
-                        .sampler = sampler,
-                    }, 1);
 
-                    sdl.DrawGPUIndexedPrimitives(renderpass, model.index_count, 1, 0, 0, 0);
+                    // Model draw
+                    {
+                        sdl.BindGPUVertexBuffers(renderpass, 0, &.{
+                            .buffer = model.vertex_buf,
+                        }, 1);
+                        sdl.BindGPUIndexBuffer(renderpass, &.{
+                            .buffer = model.index_buf,
+                        }, .@"16bit");
+                        sdl.PushGPUVertexUniformData(cmdbuf, 0, &ubo, @sizeOf(UBO));
+                        sdl.BindGPUFragmentSamplers(renderpass, 0, &.{
+                            .texture = model.texture,
+                            .sampler = sampler,
+                        }, 1);
+                        sdl.DrawGPUIndexedPrimitives(renderpass, model.index_count, 1, 0, 0, 0);
+                    }
+
+                    // Rectangle draw
+                    {
+                        sdl.BindGPUVertexBuffers(renderpass, 0, &.{
+                            .buffer = rect_draw_data.vert_buf,
+                        }, 1);
+                        sdl.BindGPUIndexBuffer(renderpass, &.{
+                            .buffer = rect_draw_data.idx_buf,
+                        }, .@"16bit");
+
+                        sdl.DrawGPUIndexedPrimitives(renderpass, rect_draw_data.idx_count, 1, 0, 0, 0);
+                    }
 
                     sdl.EndGPURenderPass(renderpass);
                 }
@@ -150,6 +202,139 @@ pub fn main() !void {
             }
         }
     }
+}
+
+const DrawData = struct {
+    vert_buf: *sdl.GPUBuffer,
+    idx_buf: *sdl.GPUBuffer,
+    idx_count: u32,
+};
+
+fn draw_rect(noalias arena: *Arena, noalias state: *State, noalias rect: *const Rectf32) DrawData {
+    const screen_size: Vec2i32 = .{ app_state.window_w, app_state.window_h };
+
+    const verts = arena.push(VertexData, 4);
+    const indices = arena.push(u16, 6);
+
+    const v0 = screen_to_world(.{ rect.x, rect.y }, screen_size);
+    const v1 = screen_to_world(.{ rect.x + rect.w, rect.y }, screen_size);
+    const v2 = screen_to_world(.{ rect.x, rect.y + rect.h }, screen_size);
+    const v3 = screen_to_world(.{ rect.x + rect.w, rect.y + rect.h }, screen_size);
+
+    verts[0] = .{
+        .position = v0,
+        .color = .white,
+        .uv = .{0,0},
+    };
+    verts[1] = .{
+        .position = v1,
+        .color = .white,
+        .uv = .{0,0},
+    };
+    verts[2] = .{
+        .position = v2,
+        .color = .white,
+        .uv = .{0,0},
+    };
+    verts[3] = .{
+        .position = v3,
+        .color = .white,
+        .uv = .{0,0},
+    };
+
+    indices[0] = 0;
+    indices[1] = 1;
+    indices[2] = 2;
+
+    indices[3] = 1;
+    indices[4] = 2;
+    indices[5] = 3;
+
+    const vertex_bytes = std.mem.sliceAsBytes(verts);
+    const index_bytes = std.mem.sliceAsBytes(verts);
+
+    const vertex_buffer = sdl.CreateGPUBuffer(state.device, &.{
+        .usage = .{ .vertex = true },
+        .size = @intCast(vertex_bytes.len),
+    }).?;
+    const index_buffer = sdl.CreateGPUBuffer(state.device, &.{
+        .usage = .{ .index = true },
+        .size = @intCast(index_bytes.len),
+    }).?;
+    // upload buffers
+    {
+        const transfer_buf = sdl.CreateGPUTransferBuffer(state.device, &.{
+            .usage = .upload,
+            .size = @intCast(vertex_bytes.len + index_bytes.len),
+        });
+        defer sdl.ReleaseGPUTransferBuffer(state.device, transfer_buf);
+
+        const transfer_mem = sdl.MapGPUTransferBuffer(state.device, transfer_buf, false).?;
+        @memcpy(
+            @as([*]u8, @ptrCast(transfer_mem))[0..vertex_bytes.len],
+            vertex_bytes,
+        );
+        @memcpy(
+            @as([*]u8, @ptrCast(transfer_mem))[vertex_bytes.len..],
+            index_bytes,
+        );
+
+        sdl.UnmapGPUTransferBuffer(state.device, transfer_buf);
+
+        const cpy_cmd_buf = sdl.AcquireGPUCommandBuffer(state.device);
+        defer if (!sdl.SubmitGPUCommandBuffer(cpy_cmd_buf))
+            log.warn("Failed to upload vertex data to GPU :: {s}", .{@as([*:0]const u8, @ptrCast(sdl.GetError()))});
+        const copy_pass = sdl.BeginGPUCopyPass(cpy_cmd_buf);
+        defer sdl.EndGPUCopyPass(copy_pass);
+
+        sdl.UploadToGPUBuffer(
+            copy_pass,
+            &.{ .transfer_buffer = transfer_buf },
+            &.{ .buffer = vertex_buffer, .size = @intCast(vertex_bytes.len) },
+            false,
+        );
+        sdl.UploadToGPUBuffer(
+            copy_pass,
+            &.{ .transfer_buffer = transfer_buf, .offset = @intCast(vertex_bytes.len) },
+            &.{ .buffer = index_buffer, .size = @intCast(index_bytes.len) },
+            false,
+        );
+    }
+    return .{
+        .vert_buf = vertex_buffer,
+        .idx_buf = index_buffer,
+        .idx_count = @intCast(indices.len),
+    };
+}
+
+inline fn screen_to_world(screen_pos: Vec2f32, screen_dims: Vec2i32) Vec3f32 {
+    const pos: Vec3f32 = .{
+        ((screen_pos[0] * 2) / @as(f32, @floatFromInt(screen_dims[0] - 1))),
+        (-((screen_pos[1] * 2) / @as(f32, @floatFromInt(screen_dims[1]))) + 1),
+        -2,
+    };
+
+    const pos4: Vec4f32 = .{
+        pos[0],
+        pos[1],
+        pos[2],
+        1,
+    };
+    const world_pos = proj_mat.mul(pos4);
+
+    log.debug("pos in: [ {d:.2}, {d:.2} ]\tpos out: [ {d:.2}, {d:.2}, {d:.2}, {d:.2} ]", .{
+        screen_pos[0],
+        screen_pos[1],
+        world_pos[0],
+        world_pos[1],
+        -world_pos[2],
+        world_pos[3],
+    });
+    return .{
+        world_pos[0],
+        world_pos[1],
+        -world_pos[2],
+};
 }
 
 fn pipeline_create(
@@ -161,7 +346,7 @@ fn pipeline_create(
     const vertex_attrs = [_]sdl.GPUVertexAttribute{ .{
         .location = 0,
         .format = .float3,
-        .offset = @offsetOf(VertexData, "pos"),
+        .offset = @offsetOf(VertexData, "position"),
     }, .{
         .location = 1,
         .format = .float4,
@@ -254,6 +439,7 @@ fn load_shader(
 const State = struct {
     window_w: i32,
     window_h: i32,
+    camera: Camera,
     window: *sdl.Window,
     device: *sdl.GPUDevice,
     depth_texture: *sdl.GPUTexture = undefined,
@@ -325,6 +511,10 @@ const State = struct {
                     .window = window,
                     .window_w = window_w,
                     .window_h = window_h,
+                    .camera = .{
+                        .position = .{ 0, EyeHeight, 5 },
+                        .target = .{ 0, EyeHeight, 0 },
+                    },
                 };
 
                 break :state program_state;
@@ -333,12 +523,15 @@ const State = struct {
         return result;
     }
 
-    pub fn deinit(_state: *const State) void {
+    pub fn deinit(state: *const State) void {
         defer sdl.Quit();
 
-        sdl.ReleaseWindowFromGPUDevice(_state.device, _state.window);
-        sdl.DestroyWindow(_state.window);
-        sdl.DestroyGPUDevice(_state.device);
+        sdl.ReleaseGPUGraphicsPipeline(state.device, state.fill_pipeline);
+        sdl.ReleaseGPUGraphicsPipeline(state.device, state.line_pipeline);
+
+        sdl.ReleaseWindowFromGPUDevice(state.device, state.window);
+        sdl.DestroyWindow(state.window);
+        sdl.DestroyGPUDevice(state.device);
     }
 };
 
@@ -373,7 +566,7 @@ const Model = struct {
                 );
 
                 vertices[vertex_idx] = .{
-                    .pos = vert.coords,
+                    .position = vert.coords,
                     .uv = .{ texcoord[0], -texcoord[1] },
                     .color = color,
                 };
@@ -411,24 +604,24 @@ const Model = struct {
             defer file.close();
 
             const bytes = file.readToEndAlloc(temp.arena.allocator(), math.maxInt(usize)) catch unreachable;
-            var image_dims: Vec2i32 = .zero;
+            var image_dims: Vec2i32 = @splat(0);
             var image_channels: c_int = undefined;
             const image_bytes = stbi.stbi_load_from_memory(
                 @ptrCast(bytes),
                 @intCast(bytes.len),
-                &image_dims.x,
-                &image_dims.y,
+                &image_dims[0],
+                &image_dims[1],
                 &image_channels,
                 4,
             );
             defer stbi.stbi_image_free(image_bytes);
 
-            const image_bytes_len = image_dims.x * image_dims.y * 4;
+            const image_bytes_len = image_dims[0] * image_dims[1] * 4;
             texture = sdl.CreateGPUTexture(state.device, &.{
                 .format = .r8g8b8a8_unorm,
                 .usage = .{ .sampler = true },
-                .width = @intCast(image_dims.x),
-                .height = @intCast(image_dims.y),
+                .width = @intCast(image_dims[0]),
+                .height = @intCast(image_dims[1]),
                 .layer_count_or_depth = 1,
                 .num_levels = 1,
             });
@@ -482,7 +675,7 @@ const Model = struct {
             sdl.UploadToGPUTexture(
                 copy_pass,
                 &.{ .transfer_buffer = tex_transfer_buf },
-                &.{ .texture = texture, .mip_level = 0, .layer = 0, .x = 0, .y = 0, .w = @intCast(image_dims.x), .h = @intCast(image_dims.y), .d = 1 },
+                &.{ .texture = texture, .mip_level = 0, .layer = 0, .x = 0, .y = 0, .w = @intCast(image_dims[0]), .h = @intCast(image_dims[1]), .d = 1 },
                 false,
             );
         }
@@ -496,41 +689,14 @@ const Model = struct {
     }
 };
 
-const Color = struct {
-    data: Vec4f32,
-
-    pub fn init(r: f32, g: f32, b: f32, a: f32) Color {
-        return .{ .data = .{ r, g, b, a } };
-    }
-    pub fn init_rgba32(r: u8, g: u8, b: u8, a: u8) Color {
-        return .init(
-            (@as(f32, @floatFromInt(r)) / 255),
-            (@as(f32, @floatFromInt(g)) / 255),
-            (@as(f32, @floatFromInt(b)) / 255),
-            (@as(f32, @floatFromInt(a)) / 255),
-        );
-    }
-
-    pub const black: Color = .init_rgba32(0, 0, 0, 0);
-    pub const blue: Color = .init_rgba32(0, 0, 255, 255);
-    pub const blue_2: Color = .init_rgba32(80, 80, 255, 255);
-    pub const brown: Color = .init_rgba32(156, 105, 34, 255);
-    pub const gray: Color = .init_rgba32(150, 150, 150, 255);
-    pub const gray_2: Color = .init_rgba32(90, 90, 90, 255);
-    pub const green: Color = .init_rgba32(10, 200, 10, 255);
-    pub const lm_green: Color = .init_rgba32(25, 80, 80, 255);
-    pub const orange: Color = .init_rgba32(255, 165, 0, 255);
-    pub const peach: Color = .init_rgba32(255, 170, 128, 255);
-    pub const purple: Color = .init_rgba32(135, 23, 152, 255);
-    pub const red: Color = .init_rgba32(255, 80, 80, 255);
-    pub const sage: Color = .init_rgba32(13, 154, 84, 255);
-    pub const teal: Color = .init_rgba32(42, 74, 74, 255);
-    pub const white: Color = .init_rgba32(255, 255, 255, 255);
-    pub const yellow: Color = .init_rgba32(234, 234, 50, 255);
+const Camera = struct {
+    position: Vec3f32,
+    target: Vec3f32,
 };
 
+
 const VertexData = struct {
-    pos: Vec3f32 align(16),
+    position: Vec3f32 align(16),
     color: Color align(16),
     uv: [2]f32 align(16),
 };
@@ -549,11 +715,15 @@ const stbi = stb.Image;
 // Codebase Types / Namespaces
 const Matrix = math.Matrix;
 const Vec2i32 = math.Vec2i32;
+const Vec2f32 = math.Vec2f32;
 const Vec3f32 = math.Vec3f32;
 const Vec4f32 = math.Vec4f32;
+const Rectf32 = math.Rectf32;
 
 const Thread = base.Thread;
 const Context = base.Context;
+
+const Color = gfx.Color;
 
 // SDL Helpers
 fn fmtSdlDrivers(

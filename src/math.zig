@@ -296,8 +296,8 @@ pub const Rng3i32 = rng_3_t(i32);
 pub const Rectf32 = rect_t(f32);
 pub const Recti32 = rect_t(i32);
 
-pub const Vec2f32 = vec2_t(f32);
-pub const Vec2i32 = vec2_t(i32);
+pub const Vec2f32 = @Vector(2, f32);
+pub const Vec2i32 = @Vector(2, i32);
 
 pub const Vec3f32 = @Vector(3, f32);
 pub const Vec3i32 = @Vector(3, i32);
@@ -431,10 +431,11 @@ pub const Vec2Component = enum(u8) {
 };
 
 fn rect_t(comptime T: type) type {
-    switch (@typeInfo(T)) {
-        .int, .float => {},
+    const Vec2_T = switch (@typeInfo(T)) {
+        .int => Vec2i32,
+        .float => Vec2f32,
         else => @compileError(@typeName(T) ++ " is not a valid Rect child type"),
-    }
+    };
 
     return struct {
         x: T,
@@ -450,9 +451,9 @@ fn rect_t(comptime T: type) type {
             return .{ .x = x, .y = y, .w = w, .h = h };
         }
 
-        pub fn contains_point(rect: *const Rect_T, point: vec2_t(T)) bool {
-            return ((rect.x <= point.x and rect.x + rect.w >= point.x) and
-                (rect.y <= point.y and rect.y + rect.h >= point.y));
+        pub fn contains_point(rect: *const Rect_T, point: Vec2_T) bool {
+            return ((rect.x <= point[0] and rect.x + rect.w >= point[0]) and
+                (rect.y <= point[1] and rect.y + rect.h >= point[1]));
         }
 
         pub fn toRectf32(rect: *const Rect_T) rect_t(f32) {
@@ -493,73 +494,18 @@ fn rect_t(comptime T: type) type {
     };
 }
 
-fn vec2_t(comptime T: type) type {
-    switch (@typeInfo(T)) {
-        .int, .float => {},
-        else => @compileError(@typeName(T) ++ " is not a valid Vector2 child type"),
-    }
-    return struct {
-        x: T,
-        y: T,
 
-        const Vec2_T = @This();
-        pub const zero: Vec2_T = .{ .x = 0, .y = 0 };
-
-        pub fn eql(a: *const Vec2_T, b: Vec2_T) bool {
-            return (a.x == b.x and a.y == b.y);
-        }
-    };
-}
-
-fn vec3_t(comptime T: type) type {
-    switch (@typeInfo(T)) {
-        .int, .float => {},
-        else => @compileError(@typeName(T) ++ " is not a valid Vector2 child type"),
-    }
-    return struct {
-        x: T,
-        y: T,
-        z: T,
-
-        const Vec3_T = @This();
-        pub const zero: Vec3_T = .{ .x = 0, .y = 0, .z = 0 };
-
-        pub fn eql(a: *const Vec3_T, b: Vec3_T) bool {
-            return (a.x == b.x and a.y == b.y and a.z == b.z);
-        }
-    };
-}
-
-fn vec4_t(comptime T: type) type {
-    switch (@typeInfo(T)) {
-        .int, .float => {},
-        else => @compileError(@typeName(T) ++ " is not a valid Vector2 child type"),
-    }
-    return struct {
-        x: T,
-        y: T,
-        z: T,
-        w: T,
-
-        const Vec4_T = @This();
-        pub const zero: Vec4_T = .{ .x = 0, .y = 0, .z = 0, .w = 0 };
-
-        pub fn eql(a: *const Vec4_T, b: Vec4_T) bool {
-            return (a.x == b.x and a.y == b.y and a.z == b.z and a.w == b.w);
-        }
-    };
-}
 
 fn rng_2_t(comptime T: type) type {
-    switch (@typeInfo(T)) {
-        .int, .float => {},
+    const Vec2_T = switch (@typeInfo(T)) {
+        .int => Vec2i32,
+        .float => Vec2f32,
         else => @compileError(@typeName(T) ++ " is not a valid Rng2 child type"),
-    }
+    };
     return struct {
         data: @Vector(4, T),
 
         const Rng2_T = @This();
-        const Vec2_T = vec2_t(T);
         const Rect_T = rect_t(T);
 
         pub const zero: Rng2_T = .{ .data = .{ 0, 0, 0, 0 } };
@@ -621,10 +567,10 @@ fn rng_2_t(comptime T: type) type {
         }
 
         pub fn contains(rng: *const Rng2_T, point: Vec2_T) bool {
-            return ((point.x >= rng.data[0] and
-                point.x <= rng.data[2]) and
-                (point.y >= rng.data[1] and
-                    point.y <= rng.data[3]));
+            return ((point[0] >= rng.data[0] and
+                point[0] <= rng.data[2]) and
+                (point[1] >= rng.data[1] and
+                    point[1] <= rng.data[3]));
         }
 
         pub fn eql(rng: *const Rng2_T, cmp: Rng2_T) bool {
@@ -634,17 +580,18 @@ fn rng_2_t(comptime T: type) type {
 }
 
 fn rng_3_t(comptime T: type) type {
-    switch (@typeInfo(T)) {
-        .int, .float => {},
+    const Vec3_T = switch (@typeInfo(T)) {
+        .int => Vec3i32,
+        .float => Vec3f32,
         else => @compileError(@typeName(T) ++ " is not a valid Rng2 child type"),
-    }
+    };
+
     return struct {
         data: Vec_T,
 
         const Vec_T = @Vector(6, T);
 
         const Rng3_T = @This();
-        const Vec3_T = vec3_t(T);
 
         pub const zero: Rng3_T = .{ .data = @splat(0) };
 
