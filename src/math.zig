@@ -96,6 +96,21 @@ pub const Matrix = struct {
         };
     }
 
+    pub fn look_at(eye: Vec3f32, target: Vec3f32, up: Vec3f32, flip_axis: bool) Matrix {
+        const forward = normalize(target - eye);
+        const right = normalize(cross3(forward, up));
+        const up_true = cross3(right, forward);
+
+        return .{
+            .data = .{
+                .{ right[0], right[1], right[2], -dot(right, eye) },
+                .{ up_true[0], up_true[1], up_true[2], -dot(up_true, eye) },
+                .{ -forward[0], -forward[1], -forward[2], if (flip_axis) dot(forward, eye) else -dot(forward, eye) },
+                .{ 0, 0, 0, 1 },
+            },
+        };
+    }
+
     pub fn col_maj(noalias mat: *const Matrix) Matrix {
         return .{
             .data = .{
@@ -125,10 +140,10 @@ pub const Matrix = struct {
         const s = math.sin(angle_radians);
         return .{
             .data = .{
-                .{ 1.0, 0.0, 0.0, 0.0 }, // Column 0
-                .{ 0.0, c, -s, 0.0 }, // Column 1
-                .{ 0.0, s, c, 0.0 }, // Column 2
-                .{ 0.0, 0.0, 0.0, 1.0 }, // Column 3
+                .{ 1.0, 0.0, 0.0, 0.0 }, // Row 0
+                .{ 0.0, c, s, 0.0 }, // Row 1
+                .{ 0.0, -s, c, 0.0 }, // Row 2
+                .{ 0.0, 0.0, 0.0, 1.0 }, // Row 3
             },
         };
     }
@@ -138,10 +153,10 @@ pub const Matrix = struct {
         const s = math.sin(angle_radians);
         return .{
             .data = .{
-                .{ c, 0.0, s, 0.0 }, // Column 0
-                .{ 0.0, 1.0, 0.0, 0.0 }, // Column 1
-                .{ -s, 0.0, c, 0.0 }, // Column 2
-                .{ 0.0, 0.0, 0.0, 1.0 }, // Column 3
+                .{ c, 0.0, -s, 0.0 }, // Row 0
+                .{ 0.0, 1.0, 0.0, 0.0 }, // Row 1
+                .{ s, 0.0, c, 0.0 }, // Row 2
+                .{ 0.0, 0.0, 0.0, 1.0 }, // Row 3
             },
         };
     }
@@ -151,10 +166,10 @@ pub const Matrix = struct {
         const s = sin(angle_radians);
         return .{
             .data = .{
-                .{ c, -s, 0.0, 0.0 }, // Column 0
-                .{ s, c, 0.0, 0.0 }, // Column 1
-                .{ 0.0, 0.0, 1.0, 0.0 }, // Column 2
-                .{ 0.0, 0.0, 0.0, 1.0 }, // Column 3
+                .{ c, s, 0.0, 0.0 }, // Row 0
+                .{ -s, c, 0.0, 0.0 }, // Row 1
+                .{ 0.0, 0.0, 1.0, 0.0 }, // Row 2
+                .{ 0.0, 0.0, 0.0, 1.0 }, // Row 3
             },
         };
     }
@@ -195,15 +210,16 @@ pub const Matrix = struct {
     }
 
     pub fn mul(noalias mat: *const Matrix, b: anytype) if (@TypeOf(b) == Vec4f32) Vec4f32 else Matrix {
-        const result = switch (@TypeOf(b)) {
+        const return_t = if (@TypeOf(b) == Vec4f32) Vec4f32 else Matrix ;
+        const result: return_t = switch (@TypeOf(b)) {
             Matrix => matmul: {
-                var tmp: Matrix = undefined;
+                var tmp: Matrix = .{ .data = @splat(@as(@Vector(4, f32), @splat(0))) };
                 comptime var row: u32 = 0;
                 inline while (row < 4) : (row += 1) {
-                    const vx = swizzle(mat.data[row], .x, .x, .x, .x);
-                    const vy = swizzle(mat.data[row], .y, .y, .y, .y);
-                    const vz = swizzle(mat.data[row], .z, .z, .z, .z);
-                    const vw = swizzle(mat.data[row], .w, .w, .w, .w);
+                    const vx = swizzle4(mat.data[row], .x, .x, .x, .x);
+                    const vy = swizzle4(mat.data[row], .y, .y, .y, .y);
+                    const vz = swizzle4(mat.data[row], .z, .z, .z, .z);
+                    const vw = swizzle4(mat.data[row], .w, .w, .w, .w);
                     tmp.data[row] = mulAdd(vx, b.data[0], vz * b.data[2]) + mulAdd(vy, b.data[1], vw * b.data[3]);
                 }
                 break :matmul tmp;
@@ -220,12 +236,12 @@ pub const Matrix = struct {
                 break :scalarmul tmp;
             },
             Vec4f32 => vecmul: {
-                break :vecmul .{
-                    dot4(b, mat.data[0]),
-                    dot4(b, mat.data[1]),
-                    dot4(b, mat.data[2]),
-                    dot4(b, mat.data[3]),
-                };
+                break :vecmul @as(Vec4f32, .{
+                    dot4(b, mat.data[0])[0],
+                    dot4(b, mat.data[1])[0],
+                    dot4(b, mat.data[2])[0],
+                    dot4(b, mat.data[3])[0],
+                });
             },
             else => {
                 @compileError("Type " ++ @typeName(@TypeOf(b)) ++ " is not a valid multiplier type for type Matrix");
@@ -322,19 +338,19 @@ pub inline fn mulAdd(v0: anytype, v1: anytype, v2: anytype) @TypeOf(v0, v1, v2) 
 
 pub inline fn dot4(v0: Vec4f32, v1: Vec4f32) Vec4f32 {
     var xmm0 = v0 * v1; // | x0*x1 | y0*y1 | z0*z1 | w0*w1 |
-    var xmm1 = swizzle(xmm0, .y, .x, .w, .x); // | y0*y1 | -- | w0*w1 | -- |
+    var xmm1 = swizzle4(xmm0, .y, .x, .w, .x); // | y0*y1 | -- | w0*w1 | -- |
     xmm1 = xmm0 + xmm1; // | x0*x1 + y0*y1 | -- | z0*z1 + w0*w1 | -- |
-    xmm0 = swizzle(xmm1, .z, .x, .x, .x); // | z0*z1 + w0*w1 | -- | -- | -- |
+    xmm0 = swizzle4(xmm1, .z, .x, .x, .x); // | z0*z1 + w0*w1 | -- | -- | -- |
     xmm0 = .{
         xmm0[0] + xmm1[0],
         xmm0[1],
         xmm0[2],
         xmm0[2],
     }; // addss
-    return swizzle(xmm0, .x, .x, .x, .x);
+    return swizzle4(xmm0, .x, .x, .x, .x);
 }
 
-pub inline fn swizzle(
+pub inline fn swizzle4(
     v: Vec4f32,
     comptime x: Vec4Component,
     comptime y: Vec4Component,
@@ -344,11 +360,53 @@ pub inline fn swizzle(
     return @shuffle(f32, v, undefined, [4]i32{ x.toInt(), y.toInt(), z.toInt(), w.toInt() });
 }
 
-pub const Vec2Component = enum(u8) {
+pub inline fn swizzle3(
+    v: Vec3f32,
+    comptime x: Vec3Component,
+    comptime y: Vec3Component,
+    comptime z: Vec3Component,
+) Vec3f32 {
+    return @shuffle(f32, v, undefined, [3]i32{ x.toInt(), y.toInt(), z.toInt() });
+}
+
+pub inline fn cross3(v0: Vec3f32, v1: Vec3f32) Vec3f32 {
+    const a_yzx = swizzle3(v0, .y, .z, .x);
+    const b_zxy = swizzle3(v1, .z, .x, .y);
+    const a_zxy = swizzle3(v0, .z, .x, .y);
+    const b_yzx = swizzle3(v1, .y, .z, .x);
+
+    return ((a_yzx * b_zxy) - (a_zxy * b_yzx));
+}
+
+pub inline fn dot(v0: anytype, v1: @TypeOf(v0)) f32 {
+    if (@typeInfo(@TypeOf(v0)) != .vector) @compileError("Cannot perform dot operation on non-vector type");
+
+    return @reduce(.Add, v0 * v1);
+}
+
+pub inline fn mag(vec: anytype) f32 {
+    return @sqrt(@reduce(.Add, (vec * vec)));
+}
+
+pub inline fn normalize(vec: anytype) @TypeOf(vec) {
+    if (@typeInfo(@TypeOf(vec)) != .vector) @compileError("Cannot normalize non-vector type");
+
+    const magnitude = mag(vec);
+
+    if (builtin.mode != .ReleaseFast) if (magnitude == 0) @panic("Cannot normalize Zero vector");
+
+    const mag_vec: @TypeOf(vec) = @splat((1 / magnitude));
+
+    return vec * mag_vec;
+}
+
+pub const Vec4Component = enum(u8) {
     x = 0,
     y = 1,
+    z = 2,
+    w = 3,
 
-    pub fn toInt(component: Vec2Component) i32 {
+    pub fn toInt(component: Vec4Component) i32 {
         return @intCast(@intFromEnum(component));
     }
 };
@@ -363,13 +421,11 @@ pub const Vec3Component = enum(u8) {
     }
 };
 
-pub const Vec4Component = enum(u8) {
+pub const Vec2Component = enum(u8) {
     x = 0,
     y = 1,
-    z = 2,
-    w = 3,
 
-    pub fn toInt(component: Vec4Component) i32 {
+    pub fn toInt(component: Vec2Component) i32 {
         return @intCast(@intFromEnum(component));
     }
 };
