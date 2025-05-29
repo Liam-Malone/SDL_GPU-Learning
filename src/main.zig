@@ -322,14 +322,6 @@ inline fn screen_to_world(screen_pos: Vec2f32, screen_dims: Vec2i32) Vec3f32 {
     };
     const world_pos = proj_mat.mul(pos4);
 
-    log.debug("pos in: [ {d:.2}, {d:.2} ]\tpos out: [ {d:.2}, {d:.2}, {d:.2}, {d:.2} ]", .{
-        screen_pos[0],
-        screen_pos[1],
-        world_pos[0],
-        world_pos[1],
-        -world_pos[2],
-        world_pos[3],
-    });
     return .{
         world_pos[0],
         world_pos[1],
@@ -711,6 +703,7 @@ const exit_key: sdl.Scancode = if (builtin.mode == .Debug) .q else .unknown;
 
 // external namespaces
 const stbi = stb.Image;
+const Input = base.Input;
 
 // Codebase Types / Namespaces
 const Matrix = math.Matrix;

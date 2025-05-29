@@ -392,11 +392,9 @@ pub inline fn normalize(vec: anytype) @TypeOf(vec) {
     if (@typeInfo(@TypeOf(vec)) != .vector) @compileError("Cannot normalize non-vector type");
 
     const magnitude = mag(vec);
-
     if (builtin.mode != .ReleaseFast) if (magnitude == 0) @panic("Cannot normalize Zero vector");
 
     const mag_vec: @TypeOf(vec) = @splat((1 / magnitude));
-
     return vec * mag_vec;
 }
 
